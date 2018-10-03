@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Starcraft 2 Unit Collider</string>
+    <string name="unitVUnitTitle">Unit Vs Unit</string>
+    <string name="unitInfoDatabase">Unit Database</string>
+    <string name="createAStatistic">Create A Statistic</string>
+    <string name="allInteractions">All Interactions</string>
+    <!--<string name="unit">Unit</string>-->
+    <!--<string name="unit">Unit</string>-->
+    <!--<string name="unit">Unit</string>-->
+    <string name="descriptionText">The Starcraft 2 Unit Collider is an independent application developed for Android OS 8.0 and up, by Hans Foster in 2018.  Each mode offers different ways to compare units.
+    \n \n Because the app is in development, Unit vs Unit is the only mode currently working.  This mode allows the user to \"collide\" units which mimics an actual battle within Starcraft 2, with some amount
+    of accuracy.  \n \n  There are many features still left to add to this mode, including but not limited to abilites and upgrades such as adrenal glands, stim, combat shield, caustic spray, prismatic alignment, infernal pre-igniter,
+        resonating glaves, building armor, baneling HP, and chitinous plating to be selectable mods to the units eventually.  Also in the works are > 1 unit quantity and auto-casted abilites. \n\n
+        Currently each battle functions as if the two units would be standing next to one another save for the siege tank in sieged mode, which wouldn\'t be able to attack if that were the case,
+        so range is not a factor here in these mock battles.  \n\n
+
+        The other modes will offer different features, and will hopefully be available soon(™).  Enjoy!</string>
+
+</resources>
