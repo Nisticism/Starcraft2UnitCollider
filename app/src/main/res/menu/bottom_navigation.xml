@@ -11,16 +11,16 @@
     <item
         android:id="@+id/navigation_unit_database"
         android:icon="@drawable/unit_information_database"
-        android:title="@string/unitInfoDatabase" />
+        android:title="@string/unitInfoDatabaseShort" />
 
 
     <item
         android:id="@+id/navigation_create_a_stat"
         android:icon="@drawable/create_a_stat"
-        android:title="@string/createAStatistic" />
+        android:title="@string/createAStatisticShort" />
 
     <item
         android:id="@+id/navigation_all_interactions"
         android:icon="@drawable/all_interactions"
-        android:title="@string/allInteractions" />
+        android:title="@string/allInteractionsShort" />
 </menu>

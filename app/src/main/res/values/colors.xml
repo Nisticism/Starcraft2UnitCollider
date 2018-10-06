@@ -17,5 +17,7 @@
     <color name ="gray">#bababa</color>
     <color name ="lightTealGray">#d4ebf7</color>
     <color name ="lightBlue3">#a9d6e5</color>
+    <color name ="grayGreen">#255630</color>
+    <color name ="deepPurple">#240371</color>
 
 </resources>

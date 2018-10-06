@@ -11,5 +11,6 @@ public class UnitDatabase extends MainActivity{
         setContentView(R.layout.unit_information_database);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(1).setChecked(true);
     }
 }

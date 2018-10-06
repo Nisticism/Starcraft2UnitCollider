@@ -1,16 +1,19 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ public class UnitVUnit extends MainActivity{
 
     Button calculate;
     Button clear;
+    Button home;
     TextView results;
     TextView instructions;
     TextView instructions2;
@@ -39,15 +43,17 @@ public class UnitVUnit extends MainActivity{
     Spinner unit1Name;
     Spinner unit1AttackUps;
     Spinner unit1ArmorUps;
+    Spinner unit1SpecialMod;
 
     Spinner unit2Name;
     Spinner unit2AttackUps;
     Spinner unit2ArmorUps;
     Spinner unit2Quantity;
+    Spinner unit2SpecialMod;
 
     String[] unitNameArray;
 
-    String[] unit2NameArray;
+    //String[] unit2NameArray;
 
     String[] terranUnitArrray;
 
@@ -58,6 +64,26 @@ public class UnitVUnit extends MainActivity{
     String[] unitUpgrades;
 
     String[] unitQuantity;
+
+    String[] specialMod;
+
+    String[] adeptArray;
+
+    String[] marineArray;
+
+    String[] marauderArray;
+
+    String[] banelingArray;
+
+    String[] zerglingArray;
+
+    String[] ultraliskArray;
+
+    String[] hellionHellbatArray;
+
+    String[] terranBuildingArray;
+
+    String [] noneArray;
 
     String result;
 
@@ -76,6 +102,7 @@ public class UnitVUnit extends MainActivity{
     Boolean unit1IsGround;
     Double unit1LifeSpan;
     Integer unit1TotalHP;
+    String unit1RaceTag;
 
     Integer unit1AirBonusVsA;
     Integer unit1AirBonusVsP;
@@ -108,6 +135,7 @@ public class UnitVUnit extends MainActivity{
     Boolean unit2IsGround;
     Double unit2LifeSpan;
     Integer unit2TotalHP;
+    String unit2RaceTag;
 
     Integer unit2AirBonusVsA;
     Integer unit2AirBonusVsP;
@@ -124,7 +152,299 @@ public class UnitVUnit extends MainActivity{
     Integer unit2GBonusVsM;
     Integer unit2GBonusVsS;
 
-    private Boolean toggle = false;
+    //private Boolean toggle = false;
+
+    public void specialModifier(Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+            }
+            if (mod == 2) {
+                unit1HP += 10;
+                unit1AttSpeed = unit1AttSpeed / 1.5;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 3) {
+                unit1AttSpeed = unit1AttSpeed / 1.5;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 4) {
+                unit1HP += 10;
+            }
+            if (mod == 5) {
+                if (unit2Attributes.contains("L")) {
+                    unit1AttVsGround += 5;
+                    if (unit1.equals("Hellbat")) {
+                        unit1AttVsGround += 12;
+                    }
+                }
+            }
+            if (mod == 6) {
+                unit1Arm += 2;
+            }
+            if (mod == 7) {
+                unit1HP += 5;
+            }
+            if (mod == 8) {
+                unit1AttSpeed -= 0.143;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir -= 1.43;
+                }
+            }
+            if (mod == 9) {
+                unit1Arm += 2;
+            }
+            if (mod == 10) {
+                unit1AttSpeed = unit1AttSpeed / 1.45;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.45;
+                }
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+            }
+            if (mod == 2) {
+                unit2HP += 10;
+                unit2AttSpeed = unit2AttSpeed / 1.5;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 3) {
+                unit2AttSpeed = unit2AttSpeed / 1.5;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 4) {
+                unit2HP += 10;
+            }
+            if (mod == 5) {
+                if (unit1Attributes.contains("L")) {
+                    unit2AttVsGround += 5;
+                    if (unit2.equals("Hellbat")) {
+                        unit2AttVsGround += 12;
+                    }
+                }
+            }
+            if (mod == 6) {
+                unit2Arm += 2;
+            }
+            if (mod == 7) {
+                unit2HP += 5;
+            }
+            if (mod == 8) {
+                unit2AttSpeed -= 0.143;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir -= 1.43;
+                }
+            }
+            if (mod == 9) {
+                unit2Arm += 2;
+            }
+            if (mod == 10) {
+                unit2AttSpeed = unit2AttSpeed / 1.45;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.45;
+                }
+            }
+        }
+    }
+
+    public void marineModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1AttSpeed = unit1AttSpeed / 1.5;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 2) {
+                unit1HP -= 10;
+                unit1AttSpeed = unit1AttSpeed / 1.5;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 3) {
+                unit1HP += 10;
+            }
+            if (mod == 4) {
+                unit1HP += 10;
+                unit1AttSpeed = unit1AttSpeed / 1.5;
+                if (unit1AttSpeedVsAir != null && unit1AttSpeedVsAir != 0.0) {
+                    unit1AttSpeedVsAir = unit1AttSpeedVsAir / 1.5;
+                }
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit2AttSpeed = unit2AttSpeed / 1.5;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 2) {
+                unit2HP -= 10;
+                unit2AttSpeed = unit2AttSpeed / 1.5;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.5;
+                }
+            }
+            if (mod == 3) {
+                unit2HP += 10;
+            }
+            if (mod == 4) {
+                unit2HP += 10;
+                unit2AttSpeed = unit2AttSpeed / 1.5;
+                if (unit2AttSpeedVsAir != null && unit2AttSpeedVsAir != 0.0) {
+                    unit2AttSpeedVsAir = unit2AttSpeedVsAir / 1.5;
+                }
+            }
+        }
+    }
+    public void adeptModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1AttSpeed = unit1AttSpeed / 1.45;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit2AttSpeed = unit2AttSpeed / 1.45;
+            }
+        }
+    }
+    public void marauderModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1AttSpeed /= 1.5;
+            }
+            if (mod == 2) {
+                unit1HP -= 20;
+                unit1AttSpeed /= 1.5;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit2AttSpeed /= 1.5;
+            }
+            if (mod == 2) {
+                unit2HP -= 20;
+                unit2AttSpeed /= 1.5;
+            }
+        }
+    }
+    public void ultraliskModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1Arm += 2;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit2Arm += 2;
+            }
+        }
+    }
+    public void banelingModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1HP += 5;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit2HP += 5;
+            }
+        }
+    }
+    public void zerglingModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1AttSpeed -= 0.143;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1AttSpeed -= 0.143;
+            }
+        }
+    }
+    public void terranBuildingModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1Arm += 2;
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                unit1Arm += 2;
+            }
+        }
+    }
+    public void hellionHellbatModifier (Integer mod, Integer unitNum) {
+        if (unitNum == 1) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                if (unit2Attributes.contains("L")) {
+                    unit1AttVsGround += 5;
+                    if (unit1.equals("Hellbat")) {
+                        unit1AttVsGround += 12;
+                    }
+                }
+            }
+        }
+        if (unitNum == 2) {
+            if (mod == 0) {
+            }
+            if (mod == 1) {
+                if (unit1Attributes.contains("L")) {
+                    unit2AttVsGround += 5;
+                    if (unit2.equals("Hellbat")) {
+                        unit2AttVsGround += 12;
+                    }
+                }
+            }
+        }
+    }
 
     public void terranSetter(Integer unitNum) {
         if (unitNum == 1) {
@@ -133,12 +453,13 @@ public class UnitVUnit extends MainActivity{
                 unit1AttVsAir = 18;
                 unit1AttSpeed = 0.57;
                 unit1AttSpeedVsAir = 0.57;
-                unit1Arm = 1 + 2 * unit1ArmUps;
+                unit1Arm = 1;
                 unit1HP = 150;
                 unit1Attributes = "AMS";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 10.0;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Banshee")) {
                 unit1AttVsGround = (12+unit1AttUps)*2;
@@ -149,6 +470,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Battlecruiser")) {
                 unit1AttVsGround = 8 + unit1AttUps;
@@ -160,6 +482,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMX";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Cyclone")) {
                 unit1AttVsGround = 3 + unit1AttUps;
@@ -172,6 +495,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 2 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Ghost")) {
                 unit1AttVsGround = 10 + unit1AttUps;
@@ -185,6 +509,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsL = 10 + unit1AttUps;
                 unit1AirBonusVsL = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Hellbat")) {
                 unit1AttVsGround = 18 + 2 * unit1AttUps;
@@ -196,6 +521,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Hellion")) {
                 unit1AttVsGround = 8 + unit1AttUps;
@@ -207,6 +533,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 6 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Liberator (defender mode)")) {
                 unit1AttVsGround = 75 + 5*unit1AttUps;
@@ -218,6 +545,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Liberator (fighter mode)")) {
                 unit1AttVsGround = 0;
@@ -229,6 +557,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Marauder")) {
                 unit1AttVsGround = (5+unit1AttUps)*2;
@@ -241,6 +570,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 5;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Marine")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -253,6 +583,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Medivac")) {
                 unit1AttVsGround = 0;
@@ -262,6 +593,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 150;
                 unit1Attributes = "AM";
                 unit1IsGround = false;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Missile Turret")) {
                 unit1AttVsGround = 0;
@@ -277,6 +609,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMS";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("MULE")) {
                 unit1AttVsGround = 0;
@@ -287,6 +620,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1LifeSpan = 64.0;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Planetary Fortress")) {
                 unit1AttVsGround = 40;
@@ -300,6 +634,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMS";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Raven")) {
                 unit1AttVsGround = 0;
@@ -309,6 +644,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 140;
                 unit1Attributes = "LM";
                 unit1IsGround = false;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Reaper")) {
                 unit1AttVsGround = (4+unit1AttUps)*2;
@@ -319,6 +655,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("SCV")) {
                 unit1AttVsGround = 5;
@@ -329,6 +666,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Siege Tank (sieged)")) {
                 unit1AttVsGround = 40 + 3*unit1AttUps;
@@ -340,6 +678,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 30 + 2 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Siege Tank (tank mode)")) {
                 unit1AttVsGround = 15 + 2*unit1AttUps;
@@ -351,6 +690,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Thor (explosive)")) {
                 unit1AttVsGround = (30 + 3*unit1AttUps)*2;
@@ -363,6 +703,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AirBonusVsL = 6 + unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Thor (high impact)")) {
                 unit1AttVsGround = (30 + 3*unit1AttUps)*2;
@@ -375,6 +716,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AirBonusVsA = 15 + 2 * unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Viking (assault mode)")) {
                 unit1AttVsGround = 12 + unit1AttUps;
@@ -386,6 +728,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsM = 8;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Viking (fighter mode)")) {
                 unit1AttVsGround = 0;
@@ -398,6 +741,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsA = 4;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Widow Mine")) {
                 unit1AttVsGround = 125;
@@ -409,6 +753,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
         }
         else if (unitNum == 2) {
@@ -417,12 +762,13 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsAir = 18;
                 unit2AttSpeed = 0.57;
                 unit2AttSpeedVsAir = 0.57;
-                unit2Arm = 1 + 2 * unit2ArmUps;
+                unit2Arm = 1;
                 unit2HP = 150;
                 unit2Attributes = "AMS";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 10.0;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Banshee")) {
                 unit2AttVsGround = (12+unit2AttUps)*2;
@@ -433,6 +779,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Battlecruiser")) {
                 unit2AttVsGround = 8 + unit2AttUps;
@@ -444,6 +791,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMX";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Cyclone")) {
                 unit2AttVsGround = 3 + unit2AttUps;
@@ -456,6 +804,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 2 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Ghost")) {
                 unit2AttVsGround = 10 + unit2AttUps;
@@ -468,6 +817,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Hellbat")) {
                 unit2AttVsGround = 18 + 2 * unit2AttUps;
@@ -479,6 +829,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Hellion")) {
                 unit2AttVsGround = 8 + unit2AttUps;
@@ -490,6 +841,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 6 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Liberator (defender mode)")) {
                 unit2AttVsGround = 75 + 5*unit2AttUps;
@@ -500,6 +852,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Liberator (fighter mode)")) {
                 unit2AttVsGround = 0;
@@ -511,6 +864,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Marauder")) {
                 unit2AttVsGround = (5+unit2AttUps)*2;
@@ -523,6 +877,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 5;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Marine")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -535,6 +890,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Medivac")) {
                 unit2AttVsGround = 0;
@@ -544,6 +900,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 150;
                 unit2Attributes = "AM";
                 unit2IsGround = false;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Missile Turret")) {
                 unit2AttVsGround = 0;
@@ -559,6 +916,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMS";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("MULE")) {
                 unit2AttVsGround = 0;
@@ -569,6 +927,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2LifeSpan = 64.0;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Planetary Fortress")) {
                 unit2AttVsGround = 40;
@@ -582,6 +941,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMS";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Raven")) {
                 unit2AttVsGround = 0;
@@ -591,6 +951,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 140;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Reaper")) {
                 unit2AttVsGround = (4+unit2AttUps)*2;
@@ -601,6 +962,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("SCV")) {
                 unit2AttVsGround = 5;
@@ -611,6 +973,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Siege Tank (sieged)")) {
                 unit2AttVsGround = 40 + 3*unit2AttUps;
@@ -622,6 +985,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 30 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Siege Tank (tank mode)")) {
                 unit2AttVsGround = 15 + 2*unit2AttUps;
@@ -633,6 +997,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Thor (explosive)")) {
                 unit2AttVsGround = (30 + 3*unit2AttUps)*2;
@@ -645,6 +1010,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AirBonusVsL = 6 + unit2AttUps;
                 unit2AttackCount = 4;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Thor (high impact)")) {
                 unit2AttVsGround = (30 + 3*unit2AttUps)*2;
@@ -657,6 +1023,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AirBonusVsA = 15 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Viking (assault mode)")) {
                 unit2AttVsGround = 12 + unit2AttUps;
@@ -668,6 +1035,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsM = 8;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Viking (fighter mode)")) {
                 unit2AttVsGround = 0;
@@ -680,6 +1048,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsA = 4;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Widow Mine")) {
                 unit2AttVsGround = 125;
@@ -691,6 +1060,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
         }
     }
@@ -709,6 +1079,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 12;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Archon")) {
                 unit1AttVsGround = 25 + 3*unit1AttUps;
@@ -723,6 +1094,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsB = 10 + unit1AttUps;
                 unit1AirBonusVsB = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Carrier")) {
                 unit1AttVsGround = (5 + unit1AttUps) * 2;
@@ -735,6 +1107,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMX";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Colossus")) {
                 unit1AttVsGround = (10 + unit1AttUps) * 2;
@@ -747,6 +1120,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 5 + unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Dark Templar")) {
                 unit1AttVsGround = 45 + 5 * unit1AttUps;
@@ -758,6 +1132,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Disruptor")) {
                 unit1AttVsGround = 145;
@@ -769,6 +1144,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("High Templar")) {
                 unit1AttVsGround = 4+unit1AttUps;
@@ -780,6 +1156,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Immortal")) {
                 unit1AttVsGround = 20 + 2*unit1AttUps;
@@ -792,6 +1169,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 30 + 3 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Interceptor")) {
                 unit1AttVsGround = (5+unit1AttUps) * 2;
@@ -804,6 +1182,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Mothership")) {
                 unit1AttVsGround = (6+unit1AttUps)*6;
@@ -816,6 +1195,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMPX";
                 unit1IsGround = false;
                 unit1AttackCount = 6;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Observer")) {
                 unit1AttVsGround = 0;
@@ -826,6 +1206,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Shields = 20;
                 unit1Attributes = "LM";
                 unit1IsGround = false;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Oracle")) {
                 unit1AttVsGround = 15;
@@ -838,6 +1219,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1GBonusVsL = 7;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Phoenix")) {
                 unit1AttVsGround = 0;
@@ -851,6 +1233,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsL = 5;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Photon Cannon")) {
                 unit1AttVsGround = 20;
@@ -863,6 +1246,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AS";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
                 if (unit1.equals("Probe")) {
                 unit1AttVsGround = 5;
@@ -874,6 +1258,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Sentry")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -886,6 +1271,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LMP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Stalker")) {
                 unit1AttVsGround = 13+unit1AttUps;
@@ -900,6 +1286,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsA = 5 + unit1AttUps;
                 unit1AirBonusVsA = 5 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Tempest")) {
                 unit1AttVsGround = 40+4*unit1AttUps;
@@ -913,6 +1300,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsX = 22 + 2 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Void Ray")) {
                 unit1AttVsGround = 6+unit1AttUps;
@@ -927,6 +1315,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsA = 4;
                 unit1AirBonusVsA = 4;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Warp Prism")) {
                 unit1AttVsGround = 0;
@@ -937,6 +1326,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Shields = 100;
                 unit1Attributes = "AMP";
                 unit1IsGround = false;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Zealot")) {
                 unit1AttVsGround = (8+unit1AttUps)*2;
@@ -948,6 +1338,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
         }
         else if (unitNum == 2) {
@@ -963,6 +1354,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 12;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Archon")) {
                 unit2AttVsGround = 25 + 3*unit2AttUps;
@@ -977,6 +1369,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsB = 10 + unit2AttUps;
                 unit2AirBonusVsB = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Carrier")) {
                 unit2AttVsGround = (5 + unit2AttUps) * 2;
@@ -989,6 +1382,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMX";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Colossus")) {
                 unit2AttVsGround = (10 + unit2AttUps) * 2;
@@ -1001,6 +1395,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 5 + unit2AttUps;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Dark Templar")) {
                 unit2AttVsGround = 45 + 5 * unit2AttUps;
@@ -1012,6 +1407,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Disruptor")) {
                 unit2AttVsGround = 145;
@@ -1023,6 +1419,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("High Templar")) {
                 unit2AttVsGround = 4+unit2AttUps;
@@ -1034,6 +1431,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Immortal")) {
                 unit2AttVsGround = 20 + 2*unit2AttUps;
@@ -1046,6 +1444,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 30 + 3 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Interceptor")) {
                 unit2AttVsGround = (5+unit2AttUps) * 2;
@@ -1058,6 +1457,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Mothership")) {
                 unit2AttVsGround = (6+unit2AttUps)*6;
@@ -1070,6 +1470,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMPX";
                 unit2IsGround = false;
                 unit2AttackCount = 6;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Observer")) {
                 unit2AttVsGround = 0;
@@ -1080,6 +1481,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 20;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Oracle")) {
                 unit2AttVsGround = 15;
@@ -1092,6 +1494,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2GBonusVsL = 7;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Phoenix")) {
                 unit2AttVsGround = 0;
@@ -1105,6 +1508,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit1AirBonusVsL = 5;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Photon Cannon")) {
                 unit2AttVsGround = 20;
@@ -1117,6 +1521,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AS";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Probe")) {
                 unit2AttVsGround = 5;
@@ -1128,6 +1533,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Sentry")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -1140,6 +1546,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LMP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Stalker")) {
                 unit2AttVsGround = 13+unit2AttUps;
@@ -1154,6 +1561,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsA = 5 + unit2AttUps;
                 unit2AirBonusVsA = 5 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Tempest")) {
                 unit2AttVsGround = 40+4*unit2AttUps;
@@ -1167,6 +1575,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsX = 22 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Void Ray")) {
                 unit2AttVsGround = 6+unit2AttUps;
@@ -1181,6 +1590,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsA = 4;
                 unit2AirBonusVsA = 4;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Warp Prism")) {
                 unit2AttVsGround = 0;
@@ -1191,6 +1601,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 100;
                 unit2Attributes = "AMP";
                 unit2IsGround = false;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Zealot")) {
                 unit2AttVsGround = (8+unit2AttUps)*2;
@@ -1202,6 +1613,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
         }
     }
@@ -1218,6 +1630,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsS = 60 + 3 * unit1AttUps;
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Brood Lord")) {
                 unit1AttVsGround = 20 + 2*unit1AttUps;
@@ -1229,6 +1642,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "ABX";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Broodling")) {
                 unit1AttVsGround = 4 + unit1AttUps;
@@ -1240,6 +1654,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 8.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Changeling")) {
                 unit1AttVsGround = 0;
@@ -1250,6 +1665,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1LifeSpan = 150.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Corruptor")) {
                 unit1AttVsGround = 0;
@@ -1262,6 +1678,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsM = 6 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Drone")) {
                 unit1AttVsGround = 5;
@@ -1272,6 +1689,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Hydralisk")) {
                 unit1AttVsGround = 12 + unit1AttUps;
@@ -1283,6 +1701,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Infested Terran")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -1295,6 +1714,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 21.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Infestor")) {
                 unit1AttVsGround = 0;
@@ -1304,6 +1724,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 90;
                 unit1Attributes = "ABP";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Larva")) {
                 unit1AttVsGround = 0;
@@ -1313,6 +1734,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 25;
                 unit1Attributes = "LB";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Locust")) {
                 unit1AttVsGround = 10 + unit1AttUps;
@@ -1324,6 +1746,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 18.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Lurker")) {
                 unit1AttVsGround = 20 + 2 * unit1AttUps;
@@ -1335,6 +1758,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Mutalisk")) {
                 unit1AttVsGround = 9 + unit1AttUps;
@@ -1346,6 +1770,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Nydus Worm")) {
                 unit1AttVsGround = 0;
@@ -1355,6 +1780,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "ABS";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Overlord")) {
                 unit1AttVsGround = 0;
@@ -1364,6 +1790,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "AB";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Overseer")) {
                 unit1AttVsGround = 0;
@@ -1373,6 +1800,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "AB";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Queen")) {
                 unit1AttVsGround = (4+ unit1AttUps)*2;
@@ -1384,6 +1812,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "BP";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Ravager")) {
                 unit1AttVsGround = 16 + 2*unit1AttUps;
@@ -1394,6 +1823,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "B";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Roach")) {
                 unit1AttVsGround = 16 + 2 * unit1AttUps;
@@ -1404,6 +1834,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Spine Crawler")) {
                 unit1AttVsGround = 25;
@@ -1415,6 +1846,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 5;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Spore Crawler")) {
                 unit1AttVsGround = 15;
@@ -1427,6 +1859,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsB = 15;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Swarm Host")) {
                 unit1AttVsGround = 0;
@@ -1436,6 +1869,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 160;
                 unit1Attributes = "AB";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Ultralisk")) {
                 unit1AttVsGround = 35 + 3 * unit1AttUps;
@@ -1446,6 +1880,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "ABX";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Viper")) {
                 unit1AttVsGround = 0;
@@ -1455,6 +1890,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 150;
                 unit1Attributes = "ABP";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Zergling")) {
                 unit1AttVsGround = 5 + unit1AttUps;
@@ -1466,6 +1902,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
         }
         else if (unitNum == 2) {
@@ -1479,6 +1916,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsS = 60 + 3 * unit2AttUps;
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Brood Lord")) {
                 unit2AttVsGround = 20 + 2*unit2AttUps;
@@ -1490,6 +1928,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "ABX";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Broodling")) {
                 unit2AttVsGround = 4 + unit2AttUps;
@@ -1501,6 +1940,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 8.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Changeling")) {
                 unit2AttVsGround = 0;
@@ -1511,6 +1951,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2LifeSpan = 150.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Corruptor")) {
                 unit2AttVsGround = 0;
@@ -1523,6 +1964,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsM = 6 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Drone")) {
                 unit2AttVsGround = 5;
@@ -1533,6 +1975,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Hydralisk")) {
                 unit2AttVsGround = 12 + unit2AttUps;
@@ -1544,6 +1987,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Infested Terran")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -1556,6 +2000,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 21.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Infestor")) {
                 unit2AttVsGround = 0;
@@ -1565,6 +2010,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 90;
                 unit2Attributes = "ABP";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Larva")) {
                 unit2AttVsGround = 0;
@@ -1574,6 +2020,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 25;
                 unit2Attributes = "LB";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Locust")) {
                 unit2AttVsGround = 10 + unit2AttUps;
@@ -1585,6 +2032,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 18.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Lurker")) {
                 unit2AttVsGround = 20 + 2 * unit2AttUps;
@@ -1596,6 +2044,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Mutalisk")) {
                 unit2AttVsGround = 9 + unit2AttUps;
@@ -1607,6 +2056,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Nydus Worm")) {
                 unit2AttVsGround = 0;
@@ -1616,6 +2066,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "ABS";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Overlord")) {
                 unit2AttVsGround = 0;
@@ -1625,6 +2076,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "AB";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Overseer")) {
                 unit2AttVsGround = 0;
@@ -1634,6 +2086,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "AB";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Queen")) {
                 unit2AttVsGround = (4+ unit2AttUps)*2;
@@ -1645,6 +2098,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "BP";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Ravager")) {
                 unit2AttVsGround = 16 + 2*unit2AttUps;
@@ -1655,6 +2109,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "B";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Roach")) {
                 unit2AttVsGround = 16 + 2 * unit2AttUps;
@@ -1665,6 +2120,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Spine Crawler")) {
                 unit2AttVsGround = 25;
@@ -1676,6 +2132,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 5;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Spore Crawler")) {
                 unit2AttVsGround = 15;
@@ -1688,6 +2145,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsB = 15;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Swarm Host")) {
                 unit2AttVsGround = 0;
@@ -1697,6 +2155,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 160;
                 unit2Attributes = "AB";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Ultralisk")) {
                 unit2AttVsGround = 35 + 3 * unit2AttUps;
@@ -1707,6 +2166,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "ABX";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Viper")) {
                 unit2AttVsGround = 0;
@@ -1716,6 +2176,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 150;
                 unit2Attributes = "ABP";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Zergling")) {
                 unit2AttVsGround = 5 + unit2AttUps;
@@ -1727,6 +2188,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
         }
     }
@@ -1743,6 +2205,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsS = 60 + 3 * unit1AttUps;
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Brood Lord")) {
                 unit1AttVsGround = 20 + 2*unit1AttUps;
@@ -1754,6 +2217,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "ABX";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Broodling")) {
                 unit1AttVsGround = 4 + unit1AttUps;
@@ -1765,6 +2229,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 8.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Changeling")) {
                 unit1AttVsGround = 0;
@@ -1775,6 +2240,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1LifeSpan = 150.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Corruptor")) {
                 unit1AttVsGround = 0;
@@ -1787,6 +2253,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsM = 6 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Drone")) {
                 unit1AttVsGround = 5;
@@ -1797,6 +2264,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Hydralisk")) {
                 unit1AttVsGround = 12 + unit1AttUps;
@@ -1808,6 +2276,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Infested Terran")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -1820,6 +2289,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 21.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Infestor")) {
                 unit1AttVsGround = 0;
@@ -1829,6 +2299,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 90;
                 unit1Attributes = "ABP";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Larva")) {
                 unit1AttVsGround = 0;
@@ -1838,6 +2309,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 25;
                 unit1Attributes = "LB";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Locust")) {
                 unit1AttVsGround = 10 + unit1AttUps;
@@ -1849,6 +2321,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 18.0;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Lurker")) {
                 unit1AttVsGround = 20 + 2 * unit1AttUps;
@@ -1860,6 +2333,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Mutalisk")) {
                 unit1AttVsGround = 9 + unit1AttUps;
@@ -1871,6 +2345,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Nydus Worm")) {
                 unit1AttVsGround = 0;
@@ -1880,6 +2355,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "ABS";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Overlord")) {
                 unit1AttVsGround = 0;
@@ -1889,6 +2365,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "AB";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Overseer")) {
                 unit1AttVsGround = 0;
@@ -1898,6 +2375,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 200;
                 unit1Attributes = "AB";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Queen")) {
                 unit1AttVsGround = (4+ unit1AttUps)*2;
@@ -1909,6 +2387,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "BP";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Ravager")) {
                 unit1AttVsGround = 16 + 2*unit1AttUps;
@@ -1919,6 +2398,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "B";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Roach")) {
                 unit1AttVsGround = 16 + 2 * unit1AttUps;
@@ -1929,6 +2409,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Spine Crawler")) {
                 unit1AttVsGround = 25;
@@ -1940,6 +2421,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 5;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Spore Crawler")) {
                 unit1AttVsGround = 15;
@@ -1952,6 +2434,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsB = 15;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Swarm Host")) {
                 unit1AttVsGround = 0;
@@ -1961,6 +2444,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 160;
                 unit1Attributes = "AB";
                 unit1IsGround = true;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Ultralisk")) {
                 unit1AttVsGround = 35 + 3 * unit1AttUps;
@@ -1971,6 +2455,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "ABX";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Viper")) {
                 unit1AttVsGround = 0;
@@ -1980,6 +2465,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 150;
                 unit1Attributes = "ABP";
                 unit1IsGround = false;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Zergling")) {
                 unit1AttVsGround = 5 + unit1AttUps;
@@ -1991,6 +2477,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "z";
             }
             if (unit1.equals("Adept")) {
                 unit1AttVsGround = 10 + unit2AttUps;
@@ -2004,6 +2491,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 12;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Archon")) {
                 unit1AttVsGround = 25 + 3*unit1AttUps;
@@ -2018,6 +2506,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsB = 10 + unit1AttUps;
                 unit1AirBonusVsB = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Carrier")) {
                 unit1AttVsGround = (5 + unit1AttUps) * 2;
@@ -2030,6 +2519,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMX";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Colossus")) {
                 unit1AttVsGround = (10 + unit1AttUps) * 2;
@@ -2042,6 +2532,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 5 + unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Dark Templar")) {
                 unit1AttVsGround = 45 + 5 * unit1AttUps;
@@ -2053,6 +2544,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Disruptor")) {
                 unit1AttVsGround = 145;
@@ -2064,6 +2556,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("High Templar")) {
                 unit1AttVsGround = 4+unit1AttUps;
@@ -2075,6 +2568,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Immortal")) {
                 unit1AttVsGround = 20 + 2*unit1AttUps;
@@ -2087,6 +2581,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 30 + 3 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Interceptor")) {
                 unit1AttVsGround = (5+unit1AttUps) * 2;
@@ -2099,6 +2594,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Mothership")) {
                 unit1AttVsGround = (6+unit1AttUps)*6;
@@ -2111,6 +2607,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMPX";
                 unit1IsGround = false;
                 unit1AttackCount = 6;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Observer")) {
                 unit1AttVsGround = 0;
@@ -2121,6 +2618,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Shields = 20;
                 unit1Attributes = "LM";
                 unit1IsGround = false;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Oracle")) {
                 unit1AttVsGround = 15;
@@ -2133,6 +2631,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1GBonusVsL = 7;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Phoenix")) {
                 unit1AttVsGround = 0;
@@ -2146,6 +2645,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsL = 5;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Photon Cannon")) {
                 unit1AttVsGround = 20;
@@ -2158,6 +2658,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AS";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Probe")) {
                 unit1AttVsGround = 5;
@@ -2169,6 +2670,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Sentry")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -2181,6 +2683,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LMP";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Stalker")) {
                 unit1AttVsGround = 13+unit1AttUps;
@@ -2195,6 +2698,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsA = 5 + unit1AttUps;
                 unit1AirBonusVsA = 5 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Tempest")) {
                 unit1AttVsGround = 40+4*unit1AttUps;
@@ -2208,6 +2712,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsX = 22 + 2 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Void Ray")) {
                 unit1AttVsGround = 6+unit1AttUps;
@@ -2222,6 +2727,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsA = 4;
                 unit1AirBonusVsA = 4;
                 unit1AttackCount = 1;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Warp Prism")) {
                 unit1AttVsGround = 0;
@@ -2232,6 +2738,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Shields = 100;
                 unit1Attributes = "AMP";
                 unit1IsGround = false;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Zealot")) {
                 unit1AttVsGround = (8+unit1AttUps)*2;
@@ -2243,6 +2750,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "p";
             }
             if (unit1.equals("Auto-Turret")) {
                 unit1AttVsGround = 18;
@@ -2255,6 +2763,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AttackCount = 1;
                 unit1LifeSpan = 10.0;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Banshee")) {
                 unit1AttVsGround = (12+unit1AttUps)*2;
@@ -2265,6 +2774,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Battlecruiser")) {
                 unit1AttVsGround = 8 + unit1AttUps;
@@ -2276,6 +2786,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMX";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Cyclone")) {
                 unit1AttVsGround = 3 + unit1AttUps;
@@ -2288,6 +2799,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 2 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Ghost")) {
                 unit1AttVsGround = 10 + unit1AttUps;
@@ -2301,6 +2813,7 @@ public class UnitVUnit extends MainActivity{
                 unit1GBonusVsL = 10 + unit1AttUps;
                 unit1AirBonusVsL = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Hellbat")) {
                 unit1AttVsGround = 18 + 2 * unit1AttUps;
@@ -2312,6 +2825,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Hellion")) {
                 unit1AttVsGround = 8 + unit1AttUps;
@@ -2323,6 +2837,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsL = 6 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Liberator (defender mode)")) {
                 unit1AttVsGround = 75 + 5*unit1AttUps;
@@ -2334,6 +2849,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = false;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Liberator (fighter mode)")) {
                 unit1AttVsGround = 0;
@@ -2345,6 +2861,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AM";
                 unit1IsGround = false;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Marauder")) {
                 unit1AttVsGround = (5+unit1AttUps)*2;
@@ -2357,6 +2874,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 5;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Marine")) {
                 unit1AttVsGround = 6 + unit1AttUps;
@@ -2369,6 +2887,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Medivac")) {
                 unit1AttVsGround = 0;
@@ -2378,6 +2897,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 150;
                 unit1Attributes = "AM";
                 unit1IsGround = false;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Missile Turret")) {
                 unit1AttVsGround = 0;
@@ -2393,6 +2913,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMS";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("MULE")) {
                 unit1AttVsGround = 0;
@@ -2403,6 +2924,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1LifeSpan = 64.0;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Planetary Fortress")) {
                 unit1AttVsGround = 40;
@@ -2416,6 +2938,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "AMS";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Raven")) {
                 unit1AttVsGround = 0;
@@ -2425,6 +2948,7 @@ public class UnitVUnit extends MainActivity{
                 unit1HP = 140;
                 unit1Attributes = "LM";
                 unit1IsGround = false;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Reaper")) {
                 unit1AttVsGround = (4+unit1AttUps)*2;
@@ -2435,6 +2959,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LB";
                 unit1IsGround = true;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("SCV")) {
                 unit1AttVsGround = 5;
@@ -2445,6 +2970,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LBM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Siege Tank (sieged)")) {
                 unit1AttVsGround = 40 + 3*unit1AttUps;
@@ -2456,6 +2982,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 30 + 2 * unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Siege Tank (tank mode)")) {
                 unit1AttVsGround = 15 + 2*unit1AttUps;
@@ -2467,6 +2994,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsA = 10 + unit1AttUps;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Thor (explosive)")) {
                 unit1AttVsGround = (30 + 3*unit1AttUps)*2;
@@ -2479,6 +3007,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AirBonusVsL = 6 + unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Thor (high impact)")) {
                 unit1AttVsGround = (30 + 3*unit1AttUps)*2;
@@ -2491,6 +3020,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1AirBonusVsA = 15 + 2 * unit1AttUps;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Viking (assault mode)")) {
                 unit1AttVsGround = 12 + unit1AttUps;
@@ -2502,6 +3032,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = true;
                 unit1GBonusVsM = 8;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Viking (fighter mode)")) {
                 unit1AttVsGround = 0;
@@ -2514,6 +3045,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = false;
                 unit1AirBonusVsA = 4;
                 unit1AttackCount = 2;
+                unit1RaceTag = "t";
             }
             if (unit1.equals("Widow Mine")) {
                 unit1AttVsGround = 125;
@@ -2525,6 +3057,7 @@ public class UnitVUnit extends MainActivity{
                 unit1Attributes = "LM";
                 unit1IsGround = true;
                 unit1AttackCount = 1;
+                unit1RaceTag = "t";
             }
         }
         else if (unitNum == 2) {
@@ -2538,6 +3071,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsS = 60 + 3 * unit2AttUps;
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Brood Lord")) {
                 unit2AttVsGround = 20 + 2*unit2AttUps;
@@ -2549,6 +3083,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "ABX";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Broodling")) {
                 unit2AttVsGround = 4 + unit2AttUps;
@@ -2560,6 +3095,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 8.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Changeling")) {
                 unit2AttVsGround = 0;
@@ -2570,6 +3106,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2LifeSpan = 150.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Corruptor")) {
                 unit2AttVsGround = 0;
@@ -2582,6 +3119,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsM = 6 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Drone")) {
                 unit2AttVsGround = 5;
@@ -2592,6 +3130,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Hydralisk")) {
                 unit2AttVsGround = 12 + unit2AttUps;
@@ -2603,6 +3142,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Infested Terran")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -2615,6 +3155,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 21.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Infestor")) {
                 unit2AttVsGround = 0;
@@ -2624,6 +3165,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 90;
                 unit2Attributes = "ABP";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Larva")) {
                 unit2AttVsGround = 0;
@@ -2633,6 +3175,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 25;
                 unit2Attributes = "LB";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Locust")) {
                 unit2AttVsGround = 10 + unit2AttUps;
@@ -2644,6 +3187,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 18.0;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Lurker")) {
                 unit2AttVsGround = 20 + 2 * unit2AttUps;
@@ -2655,6 +3199,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Mutalisk")) {
                 unit2AttVsGround = 9 + unit2AttUps;
@@ -2666,6 +3211,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Nydus Worm")) {
                 unit2AttVsGround = 0;
@@ -2675,6 +3221,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "ABS";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Overlord")) {
                 unit2AttVsGround = 0;
@@ -2684,6 +3231,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "AB";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Overseer")) {
                 unit2AttVsGround = 0;
@@ -2693,6 +3241,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 200;
                 unit2Attributes = "AB";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Queen")) {
                 unit2AttVsGround = (4+ unit2AttUps)*2;
@@ -2704,6 +3253,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "BP";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Ravager")) {
                 unit2AttVsGround = 16 + 2*unit2AttUps;
@@ -2714,6 +3264,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "B";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Roach")) {
                 unit2AttVsGround = 16 + 2 * unit2AttUps;
@@ -2724,6 +3275,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Spine Crawler")) {
                 unit2AttVsGround = 25;
@@ -2735,6 +3287,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 5;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Spore Crawler")) {
                 unit2AttVsGround = 15;
@@ -2747,6 +3300,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsB = 15;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Swarm Host")) {
                 unit2AttVsGround = 0;
@@ -2756,6 +3310,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 160;
                 unit2Attributes = "AB";
                 unit2IsGround = true;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Ultralisk")) {
                 unit2AttVsGround = 35 + 3 * unit2AttUps;
@@ -2766,6 +3321,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "ABX";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Viper")) {
                 unit2AttVsGround = 0;
@@ -2775,6 +3331,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 150;
                 unit2Attributes = "ABP";
                 unit2IsGround = false;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Zergling")) {
                 unit2AttVsGround = 5 + unit2AttUps;
@@ -2786,6 +3343,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "z";
             }
             if (unit2.equals("Adept")) {
                 unit2AttVsGround = 10 + unit2AttUps;
@@ -2799,6 +3357,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 12;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Archon")) {
                 unit2AttVsGround = 25 + 3*unit2AttUps;
@@ -2813,6 +3372,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsB = 10 + unit2AttUps;
                 unit2AirBonusVsB = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Carrier")) {
                 unit2AttVsGround = (5 + unit2AttUps) * 2;
@@ -2825,6 +3385,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMX";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Colossus")) {
                 unit2AttVsGround = (10 + unit2AttUps) * 2;
@@ -2837,6 +3398,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 5 + unit2AttUps;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Dark Templar")) {
                 unit2AttVsGround = 45 + 5 * unit2AttUps;
@@ -2848,6 +3410,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Disruptor")) {
                 unit2AttVsGround = 145;
@@ -2859,6 +3422,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("High Templar")) {
                 unit2AttVsGround = 4+unit2AttUps;
@@ -2870,6 +3434,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Immortal")) {
                 unit2AttVsGround = 20 + 2*unit2AttUps;
@@ -2882,6 +3447,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 30 + 3 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Interceptor")) {
                 unit2AttVsGround = (5+unit2AttUps) * 2;
@@ -2894,6 +3460,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Mothership")) {
                 unit2AttVsGround = (6+unit2AttUps)*6;
@@ -2906,6 +3473,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMPX";
                 unit2IsGround = false;
                 unit2AttackCount = 6;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Observer")) {
                 unit2AttVsGround = 0;
@@ -2916,6 +3484,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 20;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Oracle")) {
                 unit2AttVsGround = 15;
@@ -2928,6 +3497,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2GBonusVsL = 7;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Phoenix")) {
                 unit2AttVsGround = 0;
@@ -2941,6 +3511,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit1AirBonusVsL = 5;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Photon Cannon")) {
                 unit2AttVsGround = 20;
@@ -2953,6 +3524,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AS";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Probe")) {
                 unit2AttVsGround = 5;
@@ -2964,6 +3536,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Sentry")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -2976,6 +3549,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LMP";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Stalker")) {
                 unit2AttVsGround = 13+unit2AttUps;
@@ -2990,6 +3564,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsA = 5 + unit2AttUps;
                 unit2AirBonusVsA = 5 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Tempest")) {
                 unit2AttVsGround = 40+4*unit2AttUps;
@@ -3003,6 +3578,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsX = 22 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Void Ray")) {
                 unit2AttVsGround = 6+unit2AttUps;
@@ -3017,6 +3593,7 @@ public class UnitVUnit extends MainActivity{
                 unit2GBonusVsA = 4;
                 unit2AirBonusVsA = 4;
                 unit2AttackCount = 1;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Warp Prism")) {
                 unit2AttVsGround = 0;
@@ -3027,6 +3604,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 100;
                 unit2Attributes = "AMP";
                 unit2IsGround = false;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Zealot")) {
                 unit2AttVsGround = (8+unit2AttUps)*2;
@@ -3038,6 +3616,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "p";
             }
             if (unit2.equals("Auto-Turret")) {
                 unit2AttVsGround = 18;
@@ -3050,6 +3629,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AttackCount = 1;
                 unit2LifeSpan = 10.0;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Banshee")) {
                 unit2AttVsGround = (12+unit2AttUps)*2;
@@ -3060,6 +3640,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Battlecruiser")) {
                 unit2AttVsGround = 8 + unit2AttUps;
@@ -3071,6 +3652,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMX";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Cyclone")) {
                 unit2AttVsGround = 3 + unit2AttUps;
@@ -3083,6 +3665,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 2 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Ghost")) {
                 unit2AttVsGround = 10 + unit2AttUps;
@@ -3095,6 +3678,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Hellbat")) {
                 unit2AttVsGround = 18 + 2 * unit2AttUps;
@@ -3106,6 +3690,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Hellion")) {
                 unit2AttVsGround = 8 + unit2AttUps;
@@ -3117,6 +3702,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsL = 6 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Liberator (defender mode)")) {
                 unit2AttVsGround = 75 + 5*unit2AttUps;
@@ -3127,6 +3713,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = false;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Liberator (fighter mode)")) {
                 unit2AttVsGround = 0;
@@ -3138,6 +3725,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AM";
                 unit2IsGround = false;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Marauder")) {
                 unit2AttVsGround = (5+unit2AttUps)*2;
@@ -3150,6 +3738,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 5;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Marine")) {
                 unit2AttVsGround = 6 + unit2AttUps;
@@ -3162,6 +3751,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Medivac")) {
                 unit2AttVsGround = 0;
@@ -3171,6 +3761,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 150;
                 unit2Attributes = "AM";
                 unit2IsGround = false;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Missile Turret")) {
                 unit2AttVsGround = 0;
@@ -3186,6 +3777,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMS";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("MULE")) {
                 unit2AttVsGround = 0;
@@ -3196,6 +3788,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2LifeSpan = 64.0;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Planetary Fortress")) {
                 unit2AttVsGround = 40;
@@ -3209,6 +3802,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "AMS";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Raven")) {
                 unit2AttVsGround = 0;
@@ -3218,6 +3812,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HP = 140;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Reaper")) {
                 unit2AttVsGround = (4+unit2AttUps)*2;
@@ -3228,6 +3823,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LB";
                 unit2IsGround = true;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("SCV")) {
                 unit2AttVsGround = 5;
@@ -3238,6 +3834,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LBM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Siege Tank (sieged)")) {
                 unit2AttVsGround = 40 + 3*unit2AttUps;
@@ -3249,6 +3846,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 30 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Siege Tank (tank mode)")) {
                 unit2AttVsGround = 15 + 2*unit2AttUps;
@@ -3260,6 +3858,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsA = 10 + unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Thor (explosive)")) {
                 unit2AttVsGround = (30 + 3*unit2AttUps)*2;
@@ -3272,6 +3871,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AirBonusVsL = 6 + unit2AttUps;
                 unit2AttackCount = 4;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Thor (high impact)")) {
                 unit2AttVsGround = (30 + 3*unit2AttUps)*2;
@@ -3284,6 +3884,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2AirBonusVsA = 15 + 2 * unit2AttUps;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Viking (assault mode)")) {
                 unit2AttVsGround = 12 + unit2AttUps;
@@ -3295,6 +3896,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = true;
                 unit2GBonusVsM = 8;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Viking (fighter mode)")) {
                 unit2AttVsGround = 0;
@@ -3307,6 +3909,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = false;
                 unit2AirBonusVsA = 4;
                 unit2AttackCount = 2;
+                unit2RaceTag = "t";
             }
             if (unit2.equals("Widow Mine")) {
                 unit2AttVsGround = 125;
@@ -3318,6 +3921,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Attributes = "LM";
                 unit2IsGround = true;
                 unit2AttackCount = 1;
+                unit2RaceTag = "t";
             }
         }
     }
@@ -3382,8 +3986,6 @@ public class UnitVUnit extends MainActivity{
         String hpRemaining = "";
         Integer unit1ShieldAttack = 0;
         Integer unit2ShieldAttack = 0;
-        Integer unit1ExtraHPDmg = 0;
-        Integer unit2ExtraHPDmg = 0;
         Integer unit1TempHP = unit1HP;
         Integer unit2TempHP = unit2HP;
         Integer unit1HitsTillShields = 0;
@@ -3391,6 +3993,11 @@ public class UnitVUnit extends MainActivity{
         Integer unit1HitsOnShields = 0;
         Integer unit2HitsOnShields = 0;
         Integer allOtherAttacks = 0;
+        Double unit1RegenBonus = 0.0;
+        Double unit2RegenBonus = 0.0;
+        Integer unit1TempShields = 0;
+        Integer unit2TempShields = 0;
+        Integer dmgToHP = 0;
         unit1TotalHP = unit1HP;
         unit2TotalHP = unit2HP;
 
@@ -3550,13 +4157,29 @@ public class UnitVUnit extends MainActivity{
             unit2FinalDmg += unit2AirBonusVsX;
             unit2ShieldAttack += unit2AirBonusVsX;
         }
+        if (unit1.equals("Widow Mine") && unit2Attributes.contains("S")) {
+            unit1FinalDmg = 0;
+            unit1AttVsGround = null;
+            unit1AttVsAir = null;
+        }
+        if (unit2.equals("Widow Mine") && unit1Attributes.contains("S")) {
+            unit2FinalDmg = 0;
+            unit2AttVsGround = null;
+            unit2AttVsAir = null;
+        }
 
         //  If the units cannot target the other unit, they are "peaceful"
-        if (((unit2IsGround && !unit2.equals("Colossus")) && (unit1AttVsGround <= 0 || unit1AttVsGround == null)) || (!unit2IsGround && (unit1AttVsAir <= 0 || unit1AttVsAir == null))) {
+        if ((unit2IsGround && (unit1AttVsGround == null || unit1AttVsGround <= 0)) || (!unit2IsGround && (unit1AttVsAir == null || unit1AttVsAir <= 0))) {
             unit1Peaceful = true;
         }
-        if (((unit1IsGround && !unit1.equals("Colossus")) && (unit2AttVsGround <= 0 || unit2AttVsGround == null)) || (!unit1IsGround && (unit2AttVsAir <= 0 || unit1AttVsAir == null))) {
+        if ((unit1IsGround && (unit2AttVsGround == null || unit2AttVsGround <= 0)) || (!unit1IsGround && (unit2AttVsAir == null || unit2AttVsAir <= 0))) {
             unit2Peaceful = true;
+        }
+        if (unit2.equals("Colossus") && unit1AttVsAir != null && unit1AttVsAir != 0) {
+            unit1Peaceful = false;
+        }
+        if (unit1.equals("Colossus") && unit2AttVsAir != null && unit2AttVsAir != 0) {
+            unit2Peaceful = false;
         }
 
         //Attack Speed.  Exceptions made for some units and unit interactions here.
@@ -3580,10 +4203,10 @@ public class UnitVUnit extends MainActivity{
             unit2FinalDmg = unit2AttVsGround - unit1Arm * unit2AttackCount + unit2GBonusVsA;
             unit2ShieldAttack = unit2AttVsGround + unit2GBonusVsA;
         }
-        if (unit1.equals("Widow Mine")) {
+        if (unit1.equals("Widow Mine") && !unit2Attributes.contains("S")) {
             unit1ShieldAttack += 35;
         }
-        if (unit2.equals("Widow Mine")) {
+        if (unit2.equals("Widow Mine") && !unit2Attributes.contains("S")) {
             unit2ShieldAttack += 35;
         }
 
@@ -3593,7 +4216,7 @@ public class UnitVUnit extends MainActivity{
         //Calculate hits till shields are gone before hits till dead
         if (!unit2Peaceful) {
             unit1HitsTillShields = unit1Shields / unit2ShieldAttack;
-            if (unit1HitsTillShields != null & unit1HitsTillShields != 0 && (unit1HitsTillShields * unit2ShieldAttack < unit1Shields)) {
+            if (unit1HitsTillShields != null && unit1HitsTillShields != 0 && (unit1HitsTillShields * unit2ShieldAttack < unit1Shields)) {
                 unit1HitsTillShields += 1;
             }
             if (unit1Shields < unit2ShieldAttack && unit1Shields != null && unit1Shields != 0) {
@@ -3602,7 +4225,7 @@ public class UnitVUnit extends MainActivity{
         }
         if (!unit1Peaceful) {
             unit2HitsTillShields = unit2Shields / unit1ShieldAttack;
-            if (unit2HitsTillShields != null & unit2HitsTillShields != 0 && (unit2HitsTillShields * unit1ShieldAttack < unit2Shields)) {
+            if (unit2HitsTillShields != null && unit2HitsTillShields != 0 && (unit2HitsTillShields * unit1ShieldAttack < unit2Shields)) {
                 unit2HitsTillShields += 1;
             }
             if (unit2Shields < unit1ShieldAttack && unit2Shields != null && unit2Shields != 0) {
@@ -3610,37 +4233,148 @@ public class UnitVUnit extends MainActivity{
             }
         }
 
+        //  Define tempHP as the HP left after the shields are gone.
         unit1TempHP = unit1TotalHP - (unit1HitsTillShields * unit2ShieldAttack);
+
+        //  If unit 2 is a Widow Mine, and unit 1's shields survives the first hit, unit 1's shields should regenerate before every shot until the shields are gone
+        if (unit2.equals("Widow Mine") && unit1Shields != null && unit1Shields > unit2ShieldAttack) {
+            unit1TempShields = unit1Shields;
+            unit1HitsTillShields = 0;
+            while (unit1TempShields >= 0) {
+                unit1HitsTillShields += 1;
+                if ((unit1TempShields - unit2ShieldAttack) <= 0) {
+                    dmgToHP = unit2ShieldAttack - unit1TempShields;
+                }
+                unit1TempShields -= unit2ShieldAttack;
+                if (unit1TempShields >= 0) {
+                    unit1TempShields += 38;
+                }
+            }
+            unit1TempHP = unit2HP - dmgToHP;
+        }
+
         unit2TempHP = unit2TotalHP - (unit2HitsTillShields * unit1ShieldAttack);
 
-        // Now calculate hits till dead
+        //  If unit 1 is a Widow Mine, and unit 2's shields survives the first hit, unit 2's shields should regenerate before every shot until the shields are gone
+        if (unit1.equals("Widow Mine") && unit2Shields != null && unit2Shields > unit1ShieldAttack) {
+            unit2TempShields = unit2Shields;
+            unit2HitsTillShields = 0;
+            while (unit2TempShields >= 0) {
+                unit2HitsTillShields += 1;
+                if ((unit2TempShields - unit1ShieldAttack) <= 0) {
+                    dmgToHP = unit1ShieldAttack - unit2TempShields;
+                }
+                unit2TempShields -= unit1ShieldAttack;
+                if (unit2TempShields >= 0) {
+                    unit2TempShields += 38;
+                }
+            }
+            unit2TempHP = unit2HP - dmgToHP;
+        }
+
+        // Now calculate the unit1RegenBonus for zerg units
+
+        if (unit1RaceTag.equals("z") && !unit2Peaceful) {
+            //  If unit1TimeTillDead > unit2TimeTillDead
+            if (!unit1Peaceful && (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed) > (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed)) {
+                //  Regen bonus = Regen rate * unit 1 attack speed * unit2 hits till dead (because unit 2 is alive for less time)
+                unit1RegenBonus = (0.38 * unit1FinalAttackSpeed) * (unit2HP / unit1FinalDmg);
+            }
+            //  If unit 2 is the winner
+            else if (unit1Peaceful || (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed) <= (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed)) {
+                unit1RegenBonus = (0.38 * unit2FinalAttackSpeed) * (unit1HP / unit2FinalDmg);
+                if (unit2FinalDmg < unit1RegenBonus) {
+                    unit1RegenBonus += (0.38 * unit2FinalAttackSpeed) * (unit1RegenBonus / unit2FinalDmg);
+                }
+            }
+
+            // Regen due to regen added
+            //unit1RegenBonus += (0.38 * unit2FinalAttackSpeed) * (unit1RegenBonus/ unit2FinalDmg);
+        }
+
+        // Now calculate hits till dead for unit 1
+
         if (unit2FinalDmg > 0) {
-            unit1HitsTillDead = (unit1TempHP / unit2FinalDmg) + unit1HitsTillShields;
+            unit1HitsTillDead = ((int)(unit1TempHP + unit1RegenBonus) / unit2FinalDmg) + unit1HitsTillShields;
         } else if (unit2FinalDmg <= 0) {
             unit2Peaceful = true;
             unit2FinalDmg = 0;
         }
 
+        // While loop that can potentially do everything but for now handles zergs:
+//        if (unit1RaceTag.equals("z")) {
+//            unit1TempHPR = unit1TotalHP * 1.0;
+//            movingTime = 0.0;
+//            unit1HitsTillDead = 0;
+//            unit1TimeTillDead = 0.0;
+//            if (!unit2Peaceful) {
+//                while (unit1TempHPR > 0) {
+//                    unit1TempHPR -= unit2FinalDmg;
+//                    unit1HitsTillDead += 1;
+//                    movingTime += unit2FinalAttackSpeed;
+//                    if (unit1RaceTag.equals("z")) {
+//                        unit1TempHPR += 0.38 * unit2FinalAttackSpeed;
+//                    }
+//                }
+//                unit1TimeTillDead = movingTime;
+//            }
+//            unit2TempHPR = unit2TotalHP * 1.0;
+//            movingTime = 0.0;
+//            unit2HitsTillDead = 0;
+//            unit2TimeTillDead = 0.0;
+//            if (!unit1Peaceful) {
+//                while (unit2TempHPR > 0) {
+//                    unit2HitsTillDead += 1;
+//                    unit2TempHPR -= unit1FinalDmg;
+//                    movingTime += unit1FinalAttackSpeed;
+//                    if (unit2RaceTag.equals("z")) {
+//                        unit2TempHPR += 0.38 * unit1FinalAttackSpeed;
+//                    }
+//                }
+//                unit2TimeTillDead = movingTime;
+//            }
+//        }
+
         //  If the unit has a finite amount of hits until death and the product of that number and unit 2 final attack is still less than the HP of the unit, add 1.
         //  It could be less, because of how hits till dead is calculated.
 
-        if (unit1HitsTillDead != null && (((unit1HitsTillDead - unit1HitsTillShields) * unit2FinalDmg)) < unit1TempHP) {
+        if (unit1HitsTillDead != null && (((unit1HitsTillDead - unit1HitsTillShields) * unit2FinalDmg)) < (unit1TempHP + unit1RegenBonus)) {
             unit1HitsTillDead += 1;
         }
         if (unit1TempHP <= 0 && unit1HitsTillShields == 1) {
             unit1HitsTillDead = 1;
         }
 
+        // Now calculate the unit1RegenBonus for zerg units
+
+        if (unit2RaceTag.equals("z") && !unit1Peaceful) {
+            //  If unit2TimeTillDead > unit1TimeTillDead
+            if (!unit2Peaceful && (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed) > (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed)) {
+                //  RegenBonus = Regen rate * unit 2 attack speed * unit1 hits till dead (because unit 1 is alive for less time)
+                unit2RegenBonus = (0.38 * unit2FinalAttackSpeed) * (unit1HP / unit2FinalDmg);
+            }
+            //  If unit 1 is the winner
+            else if (unit2Peaceful || (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed) <= (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed)) {
+                unit2RegenBonus = (0.38 * unit1FinalAttackSpeed) * (unit2HP / unit1FinalDmg);
+                if (unit1FinalDmg < unit2RegenBonus) {
+                    unit2RegenBonus += (0.38 * unit1FinalAttackSpeed) * (unit2RegenBonus / unit1FinalDmg);
+                }
+            }
+
+            // Regen due to regen added
+            //unit1RegenBonus += (0.38 * unit2FinalAttackSpeed) * (unit1RegenBonus/ unit2FinalDmg);
+        }
+
         //  Same thing for unit 1, calculating unit 2 hits until it dies
         if (unit1FinalDmg > 0) {
-            unit2HitsTillDead = (unit2TempHP / unit1FinalDmg) + unit2HitsTillShields;
+            unit2HitsTillDead = ((int)(unit2TempHP + unit2RegenBonus) / unit1FinalDmg) + unit2HitsTillShields;
         } else if (unit1FinalDmg <= 0) {
             unit1Peaceful = true;
             unit1FinalDmg = 0;
         }
 
         //  Same thing as we did for unit 1 hits until dead, we do now for unit 2 hits until dead
-        if (unit2HitsTillDead != null && (((unit2HitsTillDead - unit2HitsTillShields) * unit1FinalDmg)) < unit2TempHP) {
+        if (unit2HitsTillDead != null && (((unit2HitsTillDead - unit2HitsTillShields) * unit1FinalDmg)) < (unit2TempHP + unit2RegenBonus)) {
             unit2HitsTillDead += 1;
         }
         if (unit2TempHP <= 0 && unit2HitsTillShields == 1) {
@@ -3655,6 +4389,9 @@ public class UnitVUnit extends MainActivity{
                 // make more exact with shieldattack final dmg average??
                 if ((unit2TotalHP) > unit1FinalDmg) {
                     unit2TimeTillDead = null;
+                    if (unit2LifeSpan != null) {
+                        unit2TimeTillDead = unit2LifeSpan;
+                    }
                 } else {
                     unit2TimeTillDead = 0.0;
                 }
@@ -3664,8 +4401,11 @@ public class UnitVUnit extends MainActivity{
             unit2TimeTillDead = (unit2HitsTillDead - 1) * unit1FinalAttackSpeed;
             if (unit2.equals("Baneling")) {
                 unit2TimeTillDead = 0.0;
-                if ((unit2TotalHP) > unit2FinalDmg) {
+                if ((unit1TotalHP) > unit2FinalDmg) {
                     unit1TimeTillDead = null;
+                    if (unit1LifeSpan != null) {
+                        unit1TimeTillDead = unit1LifeSpan;
+                    }
                 } else {
                     unit1TimeTillDead = 0.0;
                 }
@@ -3710,7 +4450,7 @@ public class UnitVUnit extends MainActivity{
                     unit1HitsOnShields = unit1HitsTillShields;
                     allOtherAttacks = loserAttacksDealt - unit1HitsTillShields;
                 }
-                hpRemaining = Integer.toString((unit1HP + unit1Shields) - (unit1HitsOnShields * unit2ShieldAttack) - (allOtherAttacks * unit2FinalDmg));
+                hpRemaining = Integer.toString((int)(unit1HP + unit1Shields + unit1RegenBonus) - (unit1HitsOnShields * unit2ShieldAttack) - (allOtherAttacks * unit2FinalDmg));
             }
             else if (unit2TimeTillDead > unit1TimeTillDead  || (unit1LifeSpan != null && unit2TimeTillDead > unit1LifeSpan)) {
                 winner = unit2;
@@ -3736,7 +4476,7 @@ public class UnitVUnit extends MainActivity{
                     unit2HitsOnShields = unit2HitsTillShields;
                     allOtherAttacks = loserAttacksDealt - unit2HitsTillShields;
                 }
-                hpRemaining = Integer.toString((unit2HP + unit2Shields) - (unit2HitsOnShields * unit1ShieldAttack) - (allOtherAttacks * unit1FinalDmg));
+                hpRemaining = Integer.toString((int)(unit2HP + unit2Shields + unit2RegenBonus) - (unit2HitsOnShields * unit1ShieldAttack) - (allOtherAttacks * unit1FinalDmg));
             }
             else if ((Double.compare(unit1TimeTillDead, unit2TimeTillDead) == 0) || winner.equals("")) {
                 bothTie = true;
@@ -3754,8 +4494,11 @@ public class UnitVUnit extends MainActivity{
 
         //  Special cases
         if (unit1.equals("Baneling") && !unit2.equals("Baneling")){
-            if (unit2TimeTillDead == null) {
+            if (unit2TimeTillDead == null || unit2LifeSpan != null) {
                 result = "The Baneling blows up and the " + unit2 + " lives on forever!";
+                if (unit2LifeSpan != null) {
+                    result = "The Baneling blows up and " + unit2 + " lives!";
+                }
                 time = 0.0;
                 winner = unit2;
                 loser = unit1;
@@ -3768,8 +4511,11 @@ public class UnitVUnit extends MainActivity{
             }
         }
         if (unit2.equals("Baneling") && !unit1.equals("Baneling")){
-            if (unit1TimeTillDead == null) {
+            if (unit1TimeTillDead == null || unit1LifeSpan != null) {
                 result = "The Baneling blows up and the " + unit1 + " lives on forever!";
+                if (unit1LifeSpan != null) {
+                    result = "The Baneling blows up and " + unit1 + " lives!";
+                }
                 time = 0.0;
                 winner = unit1;
                 loser = unit2;
@@ -3789,6 +4535,7 @@ public class UnitVUnit extends MainActivity{
             winnerAttacksDealt = unit1HitsTillDead;
             loserAttacksDealt = unit2HitsTillDead;
             time = unit1TimeTillDead;
+            winnerUnit = "both";
             if (unit1.equals("Baneling") && unit2.equals("Baneling")) {
                 loserAttacksDealt = 1;
                 winnerAttacksDealt = 1;
@@ -3807,6 +4554,21 @@ public class UnitVUnit extends MainActivity{
             loser = unit2;
             winnerAttacksDealt = 0;
             loserAttacksDealt = 0;
+            if ((unit1LifeSpan != null && unit2LifeSpan == null) || (unit1LifeSpan != null && unit2LifeSpan != null && unit2LifeSpan > unit1LifeSpan)) {
+                result = "Both units deal zero damage, but the " + unit1 + " eventually expires " + df.format(unit1LifeSpan) + " seconds after they meet.";
+                time = unit1LifeSpan;
+                hpRemaining = Double.toString(unit2TotalHP);
+            }
+            if ((unit2LifeSpan != null && unit1LifeSpan == null) || (unit2LifeSpan != null && unit1LifeSpan != null && unit1LifeSpan > unit2LifeSpan)) {
+                result = "Both units deal zero damage, but the " + unit2 + " eventually expires " + df.format(unit2LifeSpan) + " seconds after they meet.";
+                time = unit2LifeSpan;
+                hpRemaining = Double.toString(unit1TotalHP);
+            }
+            if (unit2LifeSpan != null && unit1LifeSpan != null && (Double.compare(unit1LifeSpan, unit2LifeSpan) == 0)) {
+                result = "Both units deal zero damage, and both units expire " + df.format(unit2LifeSpan) + " seconds after they meet.";
+                time = unit2LifeSpan;
+                hpRemaining = Integer.toString(0);
+            }
         }
         if (unit2Peaceful && !unit1Peaceful) {
             result = "The " + unit1 + " wins, as the " + unit2 + " can't deal damage!";
@@ -3827,6 +4589,29 @@ public class UnitVUnit extends MainActivity{
             time = unit2TimeTillDead;
             if (unit2HitsTillDead == 1) {
                 time = 0.0;
+            }
+            if (unit1LifeSpan != null && unit1LifeSpan < unit2TimeTillDead) {
+                result = "Even though the " + unit2 + " can't attack, it wins because the " + unit1 + " expires before the dealing lethal damage";
+                winner = unit2;
+                loser = unit1;
+                winnerUnit = "unit 2";
+                loserUnit = "unit 1";
+                time = unit1LifeSpan;
+                winnerAttacksDealt = 0;
+                loserAttacksDealt = (int) (unit1LifeSpan/unit1FinalAttackSpeed);
+                hpRemaining = Integer.toString((int)(unit2TotalHP + unit2RegenBonus) - (loserAttacksDealt * unit1FinalDmg));
+            }
+            if (unit2TotalHP > unit1FinalDmg && unit1.equals("Baneling")) {
+                result = "The Baneling blows up and the " + unit2 + " lives on forever!";
+                if (unit2LifeSpan != null) {
+                    result = "The Baneling blows up and " + unit2 + " lives!";
+                }
+                winner = unit2;
+                loser = unit1;
+                time = 0.0;
+                hpRemaining = Integer.toString(unit2TotalHP - unit1FinalDmg);
+                winnerAttacksDealt = 0;
+                loserAttacksDealt = 1;
             }
         }
         if (unit1Peaceful && !unit2Peaceful) {
@@ -3849,12 +4634,36 @@ public class UnitVUnit extends MainActivity{
             if (unit1HitsTillDead == 1) {
                 time = 0.0;
             }
+            if (unit2LifeSpan != null && unit2LifeSpan < unit1TimeTillDead) {
+                result = "Even though the " + unit1 + " can't attack, it wins because the " + unit2 + " expires before the dealing lethal damage";
+                winner = unit1;
+                loser = unit2;
+                winnerUnit = "unit 1";
+                loserUnit = "unit 2";
+                time = unit2LifeSpan;
+                winnerAttacksDealt = 0;
+                loserAttacksDealt = (int) (unit2LifeSpan/unit2FinalAttackSpeed);
+                hpRemaining = Integer.toString((int)(unit1TotalHP + unit1RegenBonus) - (loserAttacksDealt * unit2FinalDmg));
+            }
+            if (unit1TotalHP > unit2FinalDmg && unit2.equals("Baneling")) {
+                result = "The Baneling blows up and the " + unit2 + " lives on forever!";
+                if (unit1LifeSpan != null) {
+                    result = "The Baneling blows up and " + unit1 + " lives!";
+                }
+                winner = unit1;
+                loser = unit2;
+                time = 0.0;
+                hpRemaining = Integer.toString(unit1TotalHP - unit2FinalDmg);
+                winnerAttacksDealt = 0;
+                loserAttacksDealt = 1;
+            }
         }
-        if (unit1LifeSpan != null && winner.equals(unit1)) {
-            result += "  The " + winner + " eventually expires " + (unit1LifeSpan - time) + " seconds after the battle.";
+
+        if (unit1LifeSpan != null && winner.equals(unit1) && !(unit1Peaceful && unit2Peaceful) && !winnerUnit.equals("both") && !winnerUnit.equals("unit 2")) {
+            result += "  The " + winner + " eventually expires " + df.format(unit1LifeSpan - time) + " seconds after the battle.";
         }
-        if (unit2LifeSpan != null && winner.equals(unit2)) {
-            result += "  The " + winner + " eventually expires " + (unit2LifeSpan - time) + " seconds after the battle.";
+        if (unit2LifeSpan != null && winner.equals(unit2)  && !(unit1Peaceful && unit2Peaceful) && !winnerUnit.equals("both") && !winnerUnit.equals("unit 1")) {
+            result += "  The " + winner + " eventually expires " + df.format(unit2LifeSpan - time) + " seconds after the battle.";
         }
         result += "\n" + "HP Remaining: " + hpRemaining;
         result += "\n" + "Attacks dealt by the " + winner + ": " + winnerAttacksDealt;
@@ -3866,8 +4675,101 @@ public class UnitVUnit extends MainActivity{
             result += "\n" + "Time of battle: " + df.format(time) + " seconds";
         }
         result += "\n" + "Unit 1 starting HP: " + unit1TotalHP + "   Unit 2 starting HP: " + unit2TotalHP;
+        //result += "\n" + unit1FinalDmg + " " + unit2FinalDmg + " " + unit1TotalHP + " " + bothTie + " " + unit1RegenBonus + " " + unit2RegenBonus;
 
         // Testing tags:   + " " + unit1FinalDmg + " " + unit2FinalDmg + " "+ unit1FinalAttackSpeed + " " + unit2FinalAttackSpeed + " " + unit1HitsTillDead+ " " + unit2HitsTillDead
+        //  + " " + unit1RegenBonus + " " + unit2RegenBonus
+    }
+
+//    public Integer zergRegenHP(String unit) {
+//        return 8;
+//    }
+
+    public void theModifiers() {
+
+        if (unitOne.getCheckedRadioButtonId() == -1) {
+            specialModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+        }
+        if (unitTwo.getCheckedRadioButtonId() == -1) {
+            specialModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+        }
+        if (unit1Zerg.isChecked()) {
+            if (unit1Name.getSelectedItem().toString().equals("Zergling")) {
+                zerglingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+            if (unit1Name.getSelectedItem().toString().equals("Baneling")) {
+                banelingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+            if (unit1Name.getSelectedItem().toString().equals("Ultralisk")) {
+                ultraliskModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+        }
+        if (unit1Protoss.isChecked()) {
+            if (unit1Name.getSelectedItem().toString().equals("Adept")) {
+                adeptModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+        }
+        if (unit1Terran.isChecked()) {
+            if (unit1Name.getSelectedItem().toString().equals("Marine")) {
+                marineModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+            if (unit1Name.getSelectedItem().toString().equals("Marauder")) {
+                marauderModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+            if (unit1Name.getSelectedItem().toString().equals("Hellion") || unit1Name.getSelectedItem().toString().equals("Hellbat")) {
+                hellionHellbatModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+            if (unit1Name.getSelectedItem().toString().equals("Auto-turret") || unit1Name.getSelectedItem().toString().equals("Missile Turret") || unit1Name.getSelectedItem().toString().equals("Planetary Fortress")) {
+                terranBuildingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
+            }
+        }
+        if (unit2Zerg.isChecked()) {
+            if (unit2Name.getSelectedItem().toString().equals("Zergling")) {
+                zerglingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+            if (unit2Name.getSelectedItem().toString().equals("Baneling")) {
+                banelingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+            if (unit2Name.getSelectedItem().toString().equals("Ultralisk")) {
+                ultraliskModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+        }
+        if (unit2Protoss.isChecked()) {
+            if (unit2Name.getSelectedItem().toString().equals("Adept")) {
+                adeptModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+        }
+        if (unit2Terran.isChecked()) {
+            if (unit2Name.getSelectedItem().toString().equals("Marine")) {
+                marineModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+            if (unit2Name.getSelectedItem().toString().equals("Marauder")) {
+                marauderModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+            if (unit2Name.getSelectedItem().toString().equals("Hellion") || unit2Name.getSelectedItem().toString().equals("Hellbat")) {
+                hellionHellbatModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+            if (unit2Name.getSelectedItem().toString().equals("Auto-turret") || unit2Name.getSelectedItem().toString().equals("Missile Turret") || unit2Name.getSelectedItem().toString().equals("Planetary Fortress")) {
+                terranBuildingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
+            }
+        }
+    }
+
+    public void unitTitleUpdater(Integer unitNum) {
+        if (unitNum == 1) {
+            String Unit1String = "(" + unit1AttackUps.getSelectedItem().toString() + " - " + unit1ArmorUps.getSelectedItem().toString() + ") " + unit1Name.getSelectedItem().toString();
+            if (!unit1SpecialMod.getSelectedItem().toString().equals("None") && !unit1SpecialMod.getSelectedItem().toString().equals("Random")) {
+                Unit1String += " with " + unit1SpecialMod.getSelectedItem().toString();
+            }
+            instructions.setText(Unit1String);
+        }
+        if (unitNum == 2) {
+            String Unit2String = "(" + unit2AttackUps.getSelectedItem().toString() + " - " + unit2ArmorUps.getSelectedItem().toString() + ") " + unit2Name.getSelectedItem().toString();
+            if (!unit2SpecialMod.getSelectedItem().toString().equals("None") && !unit2SpecialMod.getSelectedItem().toString().equals("Random")) {
+                Unit2String += " with " + unit2SpecialMod.getSelectedItem().toString();
+            }
+            instructions2.setText(Unit2String);
+        }
     }
 
     @Override
@@ -3877,6 +4779,7 @@ public class UnitVUnit extends MainActivity{
 
         clear = findViewById(R.id.clear);
         calculate = findViewById(R.id.calculate);
+        home = findViewById(R.id.home);
         results = findViewById(R.id.resultsView);
         instructions = findViewById(R.id.instructions);
         instructions2 = findViewById(R.id.instructions2);
@@ -3896,15 +4799,17 @@ public class UnitVUnit extends MainActivity{
         unit1Name = findViewById(R.id.unit1Name);
         unit1AttackUps = findViewById(R.id.unit1AttackUps);
         unit1ArmorUps = findViewById(R.id.unit1ArmorUps);
+        unit1SpecialMod = findViewById(R.id.unit1SpecialMod);
 
         unit2Name = findViewById(R.id.unit2Name);
         unit2AttackUps = findViewById(R.id.unit2AttackUps);
         unit2ArmorUps = findViewById(R.id.unit2ArmorUps);
         unit2Quantity = findViewById(R.id.unit2Quantity);
+        unit2SpecialMod = findViewById(R.id.unit2SpecialMod);
 
-        unitNameArray = new String[]{"Unit Name","Adept","Archon","Auto-Turret","Baneling", "Banshee", "Battlecruiser","Brood Lord","Carrier","Changeling","Colossus","Corruptor", "Cyclone",
+        unitNameArray = new String[]{"Unit Name","Adept","Archon","Auto-Turret","Baneling", "Banshee", "Battlecruiser","Brood Lord","Broodling","Carrier","Changeling","Colossus","Corruptor", "Cyclone",
                 "Dark Templar","Disruptor","Drone","Ghost", "Hellbat", "Hellion","High Templar","Hydralisk","Immortal","Infested Terran","Infestor","Interceptor","Larva", "Liberator (defender mode)",
-                "Liberator (fighter mode)","Locust", "Lurker", "Marauder", "Marine", "Medivac", "Missile Turret","Mothership", "MULE","Mutalisk","Nydus Worm","Observer","Oracle","Overseer","Phoenix",
+                "Liberator (fighter mode)","Locust", "Lurker", "Marauder", "Marine", "Medivac", "Missile Turret","Mothership", "MULE","Mutalisk","Nydus Worm","Observer","Oracle","Overseer","Overlord","Phoenix",
                 "Photon Cannon","Planetary Fortress","Probe","Queen","Ravager", "Raven", "Reaper","Roach", "SCV","Sentry", "Siege Tank (sieged)", "Siege Tank (tank mode)","Spine Crawler","Stalker",
                 "Swarm Host","Tempest","Thor (explosive)", "Thor (high impact)","Ultralisk", "Viking (fighter mode)", "Viking (assault mode)","Viper","Void Ray","Warp Prism", "Widow Mine","Zealot","Zergling"};
 
@@ -3921,12 +4826,32 @@ public class UnitVUnit extends MainActivity{
         protossUnitArrray = new String[]{"Adept","Archon", "Carrier", "Colossus", "Dark Templar", "Disruptor", "High Templar", "Immortal", "Interceptor", "Mothership", "Observer",
                 "Oracle", "Phoenix", "Photon Cannon", "Probe", "Sentry", "Stalker", "Tempest", "Void Ray", "Warp Prism", "Zealot"};
 
-        zergUnitArrray = new String[]{"Baneling","Brood Lord", "Changeling", "Corruptor", "Drone", "Hydralisk", "Infested Terran", "Infestor", "Larva", "Locust", "Lurker",
-                "Mutalisk", "Nydus Worm", "Overseer", "Queen", "Ravager", "Roach", "Spine Crawler", "Swarm Host", "Ultralisk", "Viper", "Zergling"};
+        zergUnitArrray = new String[]{"Baneling","Brood Lord","Broodling", "Changeling", "Corruptor", "Drone", "Hydralisk", "Infested Terran", "Infestor", "Larva", "Locust", "Lurker",
+                "Mutalisk", "Nydus Worm", "Overseer", "Overlord", "Queen", "Ravager", "Roach", "Spine Crawler", "Swarm Host", "Ultralisk", "Viper", "Zergling"};
 
         unitUpgrades = new String[]{"0", "1", "2", "3"};
 
         unitQuantity = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+
+        specialMod = new String[]{"None","Random","Stimpack & Combat Shield","Stimpack","Combat Shield","Infernal Pre-igniter","Building Armor","Centrifugal Hooks","Adrenal Glands","Chitinous Plating","Resonating Glaves"};
+
+        adeptArray = new String[]{"None","Resonating Glaves"};
+
+        marineArray = new String[]{"None","Stimpack","Stimpack -10 HP", "Combat Shield", "Stimpack & Combat Shield"};
+
+        marauderArray = new String[]{"None", "Stimpack", "Stimpack -20 HP"};
+
+        hellionHellbatArray = new String[]{"None","Infernal Pre-igniter"};
+
+        terranBuildingArray = new String[]{"None","Building Armor"};
+
+        banelingArray = new String[]{"None","Centrifugal Hooks"};
+
+        zerglingArray = new String[]{"None","Adrenal Glands"};
+
+        ultraliskArray = new String[]{"None","Chitinous Plating"};
+
+        noneArray = new String [] {"None"};
 
         result = "";
         unit1 = "";
@@ -3955,6 +4880,7 @@ public class UnitVUnit extends MainActivity{
         unit1GBonusVsS = null;
         unit1IsGround = null;
         unit1LifeSpan = null;
+        unit1RaceTag = null;
 
         unit2 = "";
         unit2AttVsGround = 0;
@@ -3983,6 +4909,7 @@ public class UnitVUnit extends MainActivity{
         unit2GBonusVsS = null;
         unit2IsGround = null;
         unit2LifeSpan = null;
+        unit2RaceTag = null;
 
         final ArrayAdapter<String> adapterUnitName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitNameArray);
         //final ArrayAdapter<String> adapterUnitName2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unit2NameArray);
@@ -3993,6 +4920,18 @@ public class UnitVUnit extends MainActivity{
 
         ArrayAdapter<String> adapterUpgrades = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitUpgrades);
         ArrayAdapter<String> adapterQuantity = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitQuantity);
+        final ArrayAdapter<String> adapterSpecialMod = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, specialMod);
+
+        final ArrayAdapter<String> adapterAdept = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,adeptArray);
+        final ArrayAdapter<String> adapterMarine = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,marineArray);
+        final ArrayAdapter<String> adapterMarauder = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,marauderArray);
+        final ArrayAdapter<String> adapterUltralisk = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,ultraliskArray);
+        final ArrayAdapter<String> adapterBaneling = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,banelingArray);
+        final ArrayAdapter<String> adapterZergling = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,zerglingArray);
+        final ArrayAdapter<String> adapterTerranBuilding = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,terranBuildingArray);
+        final ArrayAdapter<String> adapterHellionHellbat = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,hellionHellbatArray);
+
+        final ArrayAdapter<String> adapterNone = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,noneArray);
 
         unit1Name.setAdapter(adapterUnitName);
         unit1Name.setSelection(0);
@@ -4053,6 +4992,286 @@ public class UnitVUnit extends MainActivity{
             }
         });
 
+        unit1SpecialMod.setAdapter(adapterSpecialMod);
+        unit2SpecialMod.setAdapter(adapterSpecialMod);
+
+        final Integer modPosition1 = 0;
+        unit1Name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit1Terran.isChecked() && !unit1Zerg.isChecked() && !unit1Protoss.isChecked()) {
+                    if (position != 0) {
+                        unitTitleUpdater(1);
+                    }
+                    if (position == 1) {
+                        unit1SpecialMod.setSelection(10);
+                    }
+                    if (position == 32) {
+                        unit1SpecialMod.setSelection(2);
+                    }
+                    if (position == 31) {
+                        unit1SpecialMod.setSelection(3);
+                    }
+                    if (position == 18 || position == 19) {
+                        unit1SpecialMod.setSelection(5);
+                    }
+                    if (position == 3 || position == 34 || position == 45) {
+                        unit1SpecialMod.setSelection(6);
+                    }
+                    if (position == 4) {
+                        unit1SpecialMod.setSelection(7);
+                    }
+                    if (position == 70) {
+                        unit1SpecialMod.setSelection(8);
+                    }
+                    if (position == 62) {
+                        unit1SpecialMod.setSelection(9);
+                    }
+                }
+                if (unit1Name.getAdapter() == adapterTerranUnit) {
+                    unitTitleUpdater(1);
+                    instructions.setTextColor(0xff000000);
+                    if (position == 10) {
+                        unit1SpecialMod.setAdapter(adapterMarine);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    if (position == 9) {
+                        unit1SpecialMod.setAdapter(adapterMarauder);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    if (position == 5 || position == 6) {
+                        unit1SpecialMod.setAdapter(adapterHellionHellbat);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    if (position == 0 || position == 12 || position == 14) {
+                        unit1SpecialMod.setAdapter(adapterTerranBuilding);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    else if (position != 9 && position != 10 && position != 5 && position !=6 && position != 12 && position !=14 && position != 0){
+                        unit1SpecialMod.setAdapter(adapterNone);
+                        unit1SpecialMod.setSelection(0);
+                    }
+                }
+                if (unit1Name.getAdapter() == adapterZergUnit) {
+                    unitTitleUpdater(1);
+                    instructions.setTextColor(0xff000000);
+                    if (position == 0) {
+                        unit1SpecialMod.setAdapter(adapterBaneling);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    if (position == 23) {
+                        unit1SpecialMod.setAdapter(adapterZergling);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    if (position == 21) {
+                        unit1SpecialMod.setAdapter(adapterUltralisk);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    else if (position != 0 && position != 23 && position != 21) {
+                        unit1SpecialMod.setAdapter(adapterNone);
+                        unit1SpecialMod.setSelection(0);
+                    }
+                }
+                if (unit1Name.getAdapter() == adapterProtossUnit) {
+                    unitTitleUpdater(1);
+                    instructions.setTextColor(0xff000000);
+                    if (position == 0) {
+                        unit1SpecialMod.setAdapter(adapterAdept);
+                        unit1SpecialMod.setSelection(1);
+                    }
+                    else if (position !=0 ) {
+                        unit1SpecialMod.setAdapter(adapterNone);
+                        unit1SpecialMod.setSelection(0);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                    unit1SpecialMod.setSelection(0);
+            }
+        });
+
+        unit2Name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position2, long id) {
+                if (!unit2Terran.isChecked() && !unit2Zerg.isChecked() && !unit2Protoss.isChecked()) {
+                    if (position2 != 0) {
+                        unitTitleUpdater(2);
+                    }
+                    if (position2 == 1) {
+                        unit2SpecialMod.setSelection(10);
+                    }
+                    if (position2 == 32) {
+                        unit2SpecialMod.setSelection(2);
+                    }
+                    if (position2 == 31) {
+                        unit2SpecialMod.setSelection(3);
+                    }
+                    if (position2 == 18 || position2 == 19) {
+                        unit2SpecialMod.setSelection(5);
+                    }
+                    if (position2 == 3 || position2 == 34 || position2 == 45) {
+                        unit2SpecialMod.setSelection(6);
+                    }
+                    if (position2 == 4) {
+                        unit2SpecialMod.setSelection(7);
+                    }
+                    if (position2 == 70) {
+                        unit2SpecialMod.setSelection(8);
+                    }
+                    if (position2 == 62) {
+                        unit2SpecialMod.setSelection(9);
+                    }
+                }
+                if (unit2Name.getAdapter() == adapterTerranUnit) {
+                    unitTitleUpdater(2);
+                    instructions2.setTextColor(0xff000000);
+                    if (position2 == 10) {
+                        unit2SpecialMod.setAdapter(adapterMarine);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    if (position2 == 9) {
+                        unit2SpecialMod.setAdapter(adapterMarauder);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    if (position2 == 5 || position2 == 6) {
+                        unit2SpecialMod.setAdapter(adapterHellionHellbat);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    if (position2 == 0 || position2 == 12 || position2 == 14) {
+                        unit2SpecialMod.setAdapter(adapterTerranBuilding);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    else if (position2 != 9 && position2 != 10 && position2 != 5 && position2 !=6 && position2 != 12 && position2 !=14 && position2 != 0) {
+                        unit2SpecialMod.setAdapter(adapterNone);
+                        unit2SpecialMod.setSelection(0);
+                    }
+                }
+                if (unit2Name.getAdapter() == adapterZergUnit) {
+                    unitTitleUpdater(2);
+                    instructions2.setTextColor(0xff000000);
+                    if (position2 == 0) {
+                        unit2SpecialMod.setAdapter(adapterBaneling);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    if (position2 == 23) {
+                        unit2SpecialMod.setAdapter(adapterZergling);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    if (position2 == 21) {
+                        unit2SpecialMod.setAdapter(adapterUltralisk);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    else if (position2 != 0 && position2 != 23 && position2 != 21) {
+                        unit2SpecialMod.setAdapter(adapterNone);
+                        unit2SpecialMod.setSelection(0);
+                    }
+                }
+                if (unit2Name.getAdapter() == adapterProtossUnit) {
+                    unitTitleUpdater(2);
+                    instructions2.setTextColor(0xff000000);
+                    if (position2 == 0) {
+                        unit2SpecialMod.setAdapter(adapterAdept);
+                        unit2SpecialMod.setSelection(1);
+                    }
+                    else if (position2 != 0) {
+                        unit2SpecialMod.setAdapter(adapterNone);
+                        unit2SpecialMod.setSelection(0);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                unit2SpecialMod.setSelection(0);
+            }
+        });
+
+        unit1ArmorUps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit1Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(1);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        unit1AttackUps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit1Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(1);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        unit1SpecialMod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit1Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(1);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        unit2ArmorUps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit2Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(2);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        unit2AttackUps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit2Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(2);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        unit2SpecialMod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!unit2Name.getSelectedItem().toString().equals("Unit Name")) {
+                    unitTitleUpdater(2);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -4068,6 +5287,14 @@ public class UnitVUnit extends MainActivity{
                 results.setText("");
                 instructions.setBackgroundResource(R.drawable.text_view_corners);
                 instructions2.setBackgroundResource(R.drawable.text_view_corners);
+                instructions.setTextColor(0xffffffff);
+                instructions2.setTextColor(0xffffffff);
+                instructions.setText("Unit 1");
+                instructions2.setText("Unit 2");
+                unit1SpecialMod.setAdapter(adapterSpecialMod);
+                unit2SpecialMod.setAdapter(adapterSpecialMod);
+                unit1SpecialMod.setSelection(0);
+                unit2SpecialMod.setSelection(0);
             }
         });
 
@@ -4085,6 +5312,13 @@ public class UnitVUnit extends MainActivity{
 
         unit2Quantity.setAdapter(adapterQuantity);
         unit2Quantity.setSelection(0);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
+        });
 
 
         calculate.setOnClickListener(new View.OnClickListener() {
@@ -4118,6 +5352,7 @@ public class UnitVUnit extends MainActivity{
                 unit1IsGround = null;
                 unit1TotalHP = 0;
                 unit1LifeSpan = null;
+                unit1RaceTag = null;
 
                 unit2 = "";
                 unit2AttVsGround = 0;
@@ -4147,6 +5382,7 @@ public class UnitVUnit extends MainActivity{
                 unit2IsGround = null;
                 unit2TotalHP = 0;
                 unit2LifeSpan = null;
+                unit2RaceTag = null;
                 infoSetter();
                 if (unit1Name.getSelectedItem().toString().equals("Unit Name") || unit1Name.getSelectedItem().toString().equals("") || unit2Name.getSelectedItem().toString().equals("Unit Name") || unit2Name.getSelectedItem().toString().equals("")) {
                     selectionError = 1;
@@ -4155,6 +5391,7 @@ public class UnitVUnit extends MainActivity{
                     selectionError = 0;
                 }
                 if (selectionError == 0) {
+                    theModifiers();
                     resultMaker();
                     results.setText(result);
                 }
@@ -4168,5 +5405,6 @@ public class UnitVUnit extends MainActivity{
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(0).setChecked(true);
     }
 }

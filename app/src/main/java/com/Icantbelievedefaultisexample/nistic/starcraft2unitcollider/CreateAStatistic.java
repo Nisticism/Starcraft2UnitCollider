@@ -11,5 +11,6 @@ public class CreateAStatistic extends MainActivity{
         setContentView(R.layout.create_a_statistic);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
     }
 }

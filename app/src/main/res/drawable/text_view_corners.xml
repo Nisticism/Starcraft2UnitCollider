@@ -4,7 +4,7 @@
         android:width="1dp"
         android:color="@color/black" />
 
-    <solid android:color="#ffffff" />
+    <solid android:color="@color/grayGreen" />
 
     <padding
         android:left="1dp"

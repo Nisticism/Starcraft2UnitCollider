@@ -4,6 +4,9 @@
     <string name="unitInfoDatabase">Unit Database</string>
     <string name="createAStatistic">Create A Statistic</string>
     <string name="allInteractions">All Interactions</string>
+    <string name="unitInfoDatabaseShort">Unit DB</string>
+    <string name="createAStatisticShort">Create Stat</string>
+    <string name="allInteractionsShort">All Matchups</string>
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->

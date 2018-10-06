@@ -11,5 +11,6 @@ public class AllInteractions extends MainActivity {
         setContentView(R.layout.all_interactions);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(3).setChecked(true);
     }
 }
