@@ -1,23 +1,34 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.BottomNavigationView;
+import android.text.method.ScrollingMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UnitVUnit extends MainActivity{
 
@@ -50,6 +61,9 @@ public class UnitVUnit extends MainActivity{
     Spinner unit2ArmorUps;
     Spinner unit2Quantity;
     Spinner unit2SpecialMod;
+
+    ImageButton imageIcon1;
+    ImageButton imageIcon2;
 
     String[] unitNameArray;
 
@@ -84,6 +98,14 @@ public class UnitVUnit extends MainActivity{
     String[] terranBuildingArray;
 
     String [] noneArray;
+
+    ArrayList<unitItem> zUnitArray;
+
+    ArrayList<unitItem> tUnitArray;
+
+    ArrayList<unitItem> pUnitArray;
+
+    ArrayList<unitItem> genUnitArray;
 
     String result;
 
@@ -399,7 +421,7 @@ public class UnitVUnit extends MainActivity{
             if (mod == 0) {
             }
             if (mod == 1) {
-                unit1AttSpeed -= 0.143;
+                unit2AttSpeed -= 0.143;
             }
         }
     }
@@ -415,7 +437,7 @@ public class UnitVUnit extends MainActivity{
             if (mod == 0) {
             }
             if (mod == 1) {
-                unit1Arm += 2;
+                unit2Arm += 2;
             }
         }
     }
@@ -1068,11 +1090,11 @@ public class UnitVUnit extends MainActivity{
     public void protossSetter(Integer unitNum) {
         if (unitNum == 1) {
             if (unit1.equals("Adept")) {
-                unit1AttVsGround = 10 + unit2AttUps;
+                unit1AttVsGround = 10 + unit1AttUps;
                 unit1AttVsAir = 0;
                 unit1AttSpeed = 1.61;
                 //unit1AttSpeed2 = 1.11;
-                unit1Arm = 1 + unit2ArmUps;
+                unit1Arm = 1 + unit1ArmUps;
                 unit1HP = 70;
                 unit1Shields = 70;
                 unit1Attributes = "LB";
@@ -1376,7 +1398,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsAir = (5 + unit2AttUps) * 2;
                 unit2AttSpeed = 0.2675;
                 unit2AttSpeedVsAir = 0.2675;
-                unit2Arm = 2 + unit1ArmUps;
+                unit2Arm = 2 + unit2ArmUps;
                 unit2HP = 250;
                 unit2Shields = 150;
                 unit2Attributes = "AMX";
@@ -1437,7 +1459,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsGround = 20 + 2*unit2AttUps;
                 unit2AttVsAir = 0;
                 unit2AttSpeed = 1.04;
-                unit2Arm = 1 + unit1ArmUps;
+                unit2Arm = 1 + unit2ArmUps;
                 unit2HP = 200;
                 unit2Shields = 100;
                 unit2Attributes = "AM";
@@ -1451,7 +1473,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsAir = (5+unit2AttUps)*2;
                 unit2AttSpeed = 2.14;
                 unit2AttSpeedVsAir = 2.14;
-                unit2Arm = unit1ArmUps;
+                unit2Arm = unit2ArmUps;
                 unit2HP = 40;
                 unit2Shields = 40;
                 unit2Attributes = "LM";
@@ -1506,7 +1528,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 60;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
-                unit1AirBonusVsL = 5;
+                unit2AirBonusVsL = 5;
                 unit2AttackCount = 2;
                 unit2RaceTag = "p";
             }
@@ -1849,15 +1871,15 @@ public class UnitVUnit extends MainActivity{
                 unit1RaceTag = "z";
             }
             if (unit1.equals("Spore Crawler")) {
-                unit1AttVsGround = 15;
-                unit1AttVsAir = 0;
+                unit1AttVsGround = 0;
+                unit1AttVsAir = 15;
                 unit1AttSpeed = 0.0;
                 unit1AttSpeedVsAir = 0.61;
                 unit1Arm = 1;
                 unit1HP = 400;
                 unit1Attributes = "ABS";
                 unit1IsGround = true;
-                unit1GBonusVsB = 15;
+                unit1AirBonusVsB = 15;
                 unit1AttackCount = 1;
                 unit1RaceTag = "z";
             }
@@ -2135,15 +2157,15 @@ public class UnitVUnit extends MainActivity{
                 unit2RaceTag = "z";
             }
             if (unit2.equals("Spore Crawler")) {
-                unit2AttVsGround = 15;
-                unit2AttVsAir = 0;
+                unit2AttVsGround = 0;
+                unit2AttVsAir = 15;
                 unit2AttSpeed = 0.0;
                 unit2AttSpeedVsAir = 0.61;
                 unit2Arm = 1;
                 unit2HP = 400;
                 unit2Attributes = "ABS";
                 unit2IsGround = true;
-                unit2GBonusVsB = 15;
+                unit2AirBonusVsB = 15;
                 unit2AttackCount = 1;
                 unit2RaceTag = "z";
             }
@@ -2424,15 +2446,15 @@ public class UnitVUnit extends MainActivity{
                 unit1RaceTag = "z";
             }
             if (unit1.equals("Spore Crawler")) {
-                unit1AttVsGround = 15;
-                unit1AttVsAir = 0;
+                unit1AttVsGround = 0;
+                unit1AttVsAir = 15;
                 unit1AttSpeed = 0.0;
                 unit1AttSpeedVsAir = 0.61;
                 unit1Arm = 1;
                 unit1HP = 400;
                 unit1Attributes = "ABS";
                 unit1IsGround = true;
-                unit1GBonusVsB = 15;
+                unit1AirBonusVsB = 15;
                 unit1AttackCount = 1;
                 unit1RaceTag = "z";
             }
@@ -2480,11 +2502,11 @@ public class UnitVUnit extends MainActivity{
                 unit1RaceTag = "z";
             }
             if (unit1.equals("Adept")) {
-                unit1AttVsGround = 10 + unit2AttUps;
+                unit1AttVsGround = 10 + unit1AttUps;
                 unit1AttVsAir = 0;
                 unit1AttSpeed = 1.61;
                 //unit1AttSpeed2 = 1.11;
-                unit1Arm = 1 + unit2ArmUps;
+                unit1Arm = 1 + unit1ArmUps;
                 unit1HP = 70;
                 unit1Shields = 70;
                 unit1Attributes = "LB";
@@ -3290,15 +3312,15 @@ public class UnitVUnit extends MainActivity{
                 unit2RaceTag = "z";
             }
             if (unit2.equals("Spore Crawler")) {
-                unit2AttVsGround = 15;
-                unit2AttVsAir = 0;
+                unit2AttVsGround = 0;
+                unit2AttVsAir = 15;
                 unit2AttSpeed = 0.0;
                 unit2AttSpeedVsAir = 0.61;
                 unit2Arm = 1;
                 unit2HP = 400;
                 unit2Attributes = "ABS";
                 unit2IsGround = true;
-                unit2GBonusVsB = 15;
+                unit2AirBonusVsB = 15;
                 unit2AttackCount = 1;
                 unit2RaceTag = "z";
             }
@@ -3379,7 +3401,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsAir = (5 + unit2AttUps) * 2;
                 unit2AttSpeed = 0.2675;
                 unit2AttSpeedVsAir = 0.2675;
-                unit2Arm = 2 + unit1ArmUps;
+                unit2Arm = 2 + unit2ArmUps;
                 unit2HP = 250;
                 unit2Shields = 150;
                 unit2Attributes = "AMX";
@@ -3440,7 +3462,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsGround = 20 + 2*unit2AttUps;
                 unit2AttVsAir = 0;
                 unit2AttSpeed = 1.04;
-                unit2Arm = 1 + unit1ArmUps;
+                unit2Arm = 1 + unit2ArmUps;
                 unit2HP = 200;
                 unit2Shields = 100;
                 unit2Attributes = "AM";
@@ -3454,7 +3476,7 @@ public class UnitVUnit extends MainActivity{
                 unit2AttVsAir = (5+unit2AttUps)*2;
                 unit2AttSpeed = 2.14;
                 unit2AttSpeedVsAir = 2.14;
-                unit2Arm = unit1ArmUps;
+                unit2Arm = unit2ArmUps;
                 unit2HP = 40;
                 unit2Shields = 40;
                 unit2Attributes = "LM";
@@ -3509,7 +3531,7 @@ public class UnitVUnit extends MainActivity{
                 unit2Shields = 60;
                 unit2Attributes = "LM";
                 unit2IsGround = false;
-                unit1AirBonusVsL = 5;
+                unit2AirBonusVsL = 5;
                 unit2AttackCount = 2;
                 unit2RaceTag = "p";
             }
@@ -3927,31 +3949,48 @@ public class UnitVUnit extends MainActivity{
     }
 
     public void infoSetter() {
-        unit1 = unit1Name.getSelectedItem().toString();
+
+        int unitOnePosition = unit1Name.getSelectedItemPosition();
+        unitItem unitOneX = genUnitArray.get(unitOnePosition);
+        unit1 = unitOneX.getUnitName();
         unit1AttUps = Integer.parseInt(unit1AttackUps.getSelectedItem().toString());
         unit1ArmUps = Integer.parseInt(unit1ArmorUps.getSelectedItem().toString());
 
-        unit2 = unit2Name.getSelectedItem().toString();
+        int unitTwoPosition = unit2Name.getSelectedItemPosition();
+        unitItem unitTwoX = genUnitArray.get(unitTwoPosition);
+        unit2 = unitTwoX.getUnitName();
         unit2AttUps = Integer.parseInt(unit2AttackUps.getSelectedItem().toString());
         unit2ArmUps = Integer.parseInt(unit2ArmorUps.getSelectedItem().toString());
         unit2Qua = Integer.parseInt(unit2Quantity.getSelectedItem().toString());
 
         if (unit1Terran.isChecked()) {
+            unitOneX = tUnitArray.get(unitOnePosition);
+            unit1 = unitOneX.getUnitName();
             terranSetter(1);
         }
         if (unit1Zerg.isChecked()) {
+            unitOneX = zUnitArray.get(unitOnePosition);
+            unit1 = unitOneX.getUnitName();
             zergSetter(1);
         }
         if (unit1Protoss.isChecked()) {
+            unitOneX = pUnitArray.get(unitOnePosition);
+            unit1 = unitOneX.getUnitName();
             protossSetter(1);
         }
         if (unit2Terran.isChecked()) {
+            unitTwoX = tUnitArray.get(unitTwoPosition);
+            unit2 = unitTwoX.getUnitName();
             terranSetter(2);
         }
         if (unit2Zerg.isChecked()) {
+            unitTwoX = zUnitArray.get(unitTwoPosition);
+            unit2 = unitTwoX.getUnitName();
             zergSetter(2);
         }
         if (unit2Protoss.isChecked()) {
+            unitTwoX = pUnitArray.get(unitTwoPosition);
+            unit2 = unitTwoX.getUnitName();
             protossSetter(2);
         }
         if (!unit1Terran.isChecked() && !unit1Protoss.isChecked() && !unit1Zerg.isChecked()) {
@@ -4039,123 +4078,128 @@ public class UnitVUnit extends MainActivity{
         }
         // Add all the attribute bonuses, ground first
         if (unit2Attributes.contains("B") && unit1GBonusVsB != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsB;
-            unit1ShieldAttack += unit1GBonusVsB;
+            unit1FinalDmg += unit1GBonusVsB * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsB * unit1AttackCount;
         }
         if (unit2Attributes.contains("L") && unit1GBonusVsL != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsL;
-            unit1ShieldAttack += unit1GBonusVsL;
+            unit1FinalDmg += unit1GBonusVsL * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsL * unit1AttackCount;
         }
         if (unit2Attributes.contains("A") && unit1GBonusVsA != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsA;
-            unit1ShieldAttack += unit1GBonusVsA;
+            unit1FinalDmg += unit1GBonusVsA * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsA * unit1AttackCount;
         }
         if (unit2Attributes.contains("M") && unit1GBonusVsM != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsM;
-            unit1ShieldAttack += unit1GBonusVsM;
+            unit1FinalDmg += unit1GBonusVsM * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsM * unit1AttackCount;
         }
         if (unit2Attributes.contains("P") && unit1GBonusVsP != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsP;
-            unit1ShieldAttack += unit1GBonusVsP;
+            unit1FinalDmg += unit1GBonusVsP * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsP * unit1AttackCount;
         }
         if (unit2Attributes.contains("S") && unit1GBonusVsS != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsS;
-            unit1ShieldAttack += unit1GBonusVsS;
+            unit1FinalDmg += unit1GBonusVsS * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsS * unit1AttackCount;
         }
         if (unit2Attributes.contains("X") && unit1GBonusVsX != null && unit2IsGround) {
-            unit1FinalDmg += unit1GBonusVsX;
-            unit1ShieldAttack += unit1GBonusVsX;
+            unit1FinalDmg += unit1GBonusVsX * unit1AttackCount;
+            unit1ShieldAttack += unit1GBonusVsX * unit1AttackCount;
         }
 
         // Unit 2
         if (unit1Attributes.contains("B") && unit2GBonusVsB != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsB;
-            unit2ShieldAttack += unit2GBonusVsB;
+            unit2FinalDmg += unit2GBonusVsB * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsB * unit2AttackCount;
         }
         if (unit1Attributes.contains("L") && unit2GBonusVsL != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsL;
-            unit2ShieldAttack += unit2GBonusVsL;
+            unit2FinalDmg += unit2GBonusVsL * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsL * unit2AttackCount;
         }
         if (unit1Attributes.contains("A") && unit2GBonusVsA != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsA;
-            unit2ShieldAttack += unit2GBonusVsA;
+            unit2FinalDmg += unit2GBonusVsA * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsA * unit2AttackCount;
         }
         if (unit1Attributes.contains("M") && unit2GBonusVsM != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsM;
-            unit2ShieldAttack += unit2GBonusVsM;
+            unit2FinalDmg += unit2GBonusVsM * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsM * unit2AttackCount;
         }
         if (unit1Attributes.contains("P") && unit2GBonusVsP != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsP;
-            unit2ShieldAttack += unit2GBonusVsP;
+            unit2FinalDmg += unit2GBonusVsP * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsP * unit2AttackCount;
         }
         if (unit1Attributes.contains("S") && unit2GBonusVsS != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsS;
-            unit2ShieldAttack += unit2GBonusVsS;
+            unit2FinalDmg += unit2GBonusVsS * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsS * unit2AttackCount;
         }
         if (unit1Attributes.contains("X") && unit2GBonusVsX != null && unit1IsGround) {
-            unit2FinalDmg += unit2GBonusVsX;
-            unit2ShieldAttack += unit2GBonusVsX;
+            unit2FinalDmg += unit2GBonusVsX * unit2AttackCount;
+            unit2ShieldAttack += unit2GBonusVsX * unit2AttackCount;
         }
 
         //All the air attribute bonuses
         if (unit2Attributes.contains("B") && unit1AirBonusVsB != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsB;
-            unit1ShieldAttack += unit1AirBonusVsB;
+            unit1FinalDmg += unit1AirBonusVsB * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsB * unit1AttackCount;
         }
         if (unit2Attributes.contains("L") && unit1AirBonusVsL != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsL;
-            unit1ShieldAttack += unit1AirBonusVsL;
+            if (unit1.equals("Thor (explosive)")){
+                unit1AttackCount = 4;
+            }
+            unit1FinalDmg += unit1AirBonusVsL * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsL * unit1AttackCount;
         }
         if (unit2Attributes.contains("A") && unit1AirBonusVsA != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsA;
-            unit1ShieldAttack += unit1AirBonusVsA;
+            unit1FinalDmg += unit1AirBonusVsA * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsA * unit1AttackCount;
         }
         if (unit2Attributes.contains("M") && unit1AirBonusVsM != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsM;
-            unit1ShieldAttack += unit1AirBonusVsM;
+            unit1FinalDmg += unit1AirBonusVsM * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsM * unit1AttackCount;
         }
         if (unit2Attributes.contains("P") && unit1AirBonusVsP != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsP;
-            unit1ShieldAttack += unit1AirBonusVsP;
+            unit1FinalDmg += unit1AirBonusVsP * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsP * unit1AttackCount;
         }
         if (unit2Attributes.contains("S") && unit1AirBonusVsS != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsS;
-            unit1ShieldAttack += unit1AirBonusVsS;
+            unit1FinalDmg += unit1AirBonusVsS * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsS * unit1AttackCount;
         }
         if (unit2Attributes.contains("X") && unit1AirBonusVsX != null && !unit2IsGround) {
-            unit1FinalDmg += unit1AirBonusVsX;
-            unit1ShieldAttack += unit1AirBonusVsX;
+            unit1FinalDmg += unit1AirBonusVsX * unit1AttackCount;
+            unit1ShieldAttack += unit1AirBonusVsX * unit1AttackCount;
         }
 
         //Unit 2
         if (unit1Attributes.contains("B") && unit2AirBonusVsB != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsB;
-            unit2ShieldAttack += unit2AirBonusVsB;
-
+            unit2FinalDmg += unit2AirBonusVsB * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsB * unit2AttackCount;
         }
         if (unit1Attributes.contains("L") && unit2AirBonusVsL != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsL;
-            unit2ShieldAttack += unit2AirBonusVsL;
+            if (unit2.equals("Thor (explosive)")){
+                unit2AttackCount = 4;
+            }
+            unit2FinalDmg += unit2AirBonusVsL * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsL * unit2AttackCount;
         }
         if (unit1Attributes.contains("A") && unit2AirBonusVsA != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsA;
-            unit2ShieldAttack += unit2AirBonusVsA;
+            unit2FinalDmg += unit2AirBonusVsA * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsA * unit2AttackCount;
         }
         if (unit1Attributes.contains("M") && unit2AirBonusVsM != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsM;
-            unit2ShieldAttack += unit2AirBonusVsM;
+            unit2FinalDmg += unit2AirBonusVsM * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsM * unit2AttackCount;
         }
         if (unit1Attributes.contains("P") && unit2AirBonusVsP != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsP;
-            unit2ShieldAttack += unit2AirBonusVsP;
+            unit2FinalDmg += unit2AirBonusVsP * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsP * unit2AttackCount;
         }
         if (unit1Attributes.contains("S") && unit2AirBonusVsS != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsS;
-            unit2ShieldAttack += unit2AirBonusVsS;
+            unit2FinalDmg += unit2AirBonusVsS * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsS * unit2AttackCount;
         }
         if (unit1Attributes.contains("X") && unit2AirBonusVsX != null && !unit1IsGround) {
-            unit2FinalDmg += unit2AirBonusVsX;
-            unit2ShieldAttack += unit2AirBonusVsX;
+            unit2FinalDmg += unit2AirBonusVsX * unit2AttackCount;
+            unit2ShieldAttack += unit2AirBonusVsX * unit2AttackCount;
         }
         if (unit1.equals("Widow Mine") && unit2Attributes.contains("S")) {
             unit1FinalDmg = 0;
@@ -4166,6 +4210,28 @@ public class UnitVUnit extends MainActivity{
             unit2FinalDmg = 0;
             unit2AttVsGround = null;
             unit2AttVsAir = null;
+        }
+        if (unit1.equals("Liberator (defender mode)") && unit2Attributes.contains("S")) {
+            unit1FinalDmg = 0;
+            unit1AttVsGround = null;
+        }
+        if (unit2.equals("Liberator (defender mode)") && unit1Attributes.contains("S")) {
+            unit2FinalDmg = 0;
+            unit2AttVsGround = null;
+        }
+
+        // Make sure all units do at least 1 damage if they can do any damage, even if the armor exceeds the attack
+        if (unit2IsGround && unit1AttVsGround != null && unit1AttVsGround != 0 && unit1FinalDmg <= 0) {
+            unit1FinalDmg = 1;
+        }
+        if (unit1IsGround && unit2AttVsGround != null && unit2AttVsGround != 0 && unit2FinalDmg <= 0) {
+            unit2FinalDmg = 1;
+        }
+        if (!unit2IsGround && unit1AttVsAir != null && unit1AttVsAir != 0 && unit1FinalDmg <= 0) {
+            unit1FinalDmg = 1;
+        }
+        if (!unit1IsGround && unit2AttVsAir != null && unit2AttVsAir != 0 && unit2FinalDmg <= 0) {
+            unit2FinalDmg = 1;
         }
 
         //  If the units cannot target the other unit, they are "peaceful"
@@ -4193,15 +4259,27 @@ public class UnitVUnit extends MainActivity{
             unit2FinalAttackSpeed = unit2AttSpeedVsAir;
         }
 
-        if (unit1.equals("Cyclone") && unit2.equals("Colossus")) {
+        if ((unit1.equals("Cyclone") || unit1.equals("Thor (explosive)") || unit1.equals("Thor (high impact)")) && unit2.equals("Colossus")) {
             unit1FinalAttackSpeed = unit1AttSpeed;
-            unit1FinalDmg = unit1AttVsGround - unit2Arm * unit1AttackCount + unit1GBonusVsA;
-            unit1ShieldAttack = unit1AttVsGround + unit1GBonusVsA;
+            unit1FinalDmg = unit1AttVsGround - unit2Arm * unit1AttackCount;
+            if (unit1GBonusVsA != null) {
+                unit1FinalDmg += unit1GBonusVsA;
+            }
+            unit1ShieldAttack = unit1AttVsGround;
+            if (unit1GBonusVsA != null) {
+                unit1ShieldAttack += unit1GBonusVsA;
+            }
         }
-        if (unit2.equals("Cyclone") && unit1.equals("Colossus")) {
+        if ((unit2.equals("Cyclone") || unit2.equals("Thor (explosive)") || unit2.equals("Thor (high impact)")) && unit1.equals("Colossus")) {
             unit2FinalAttackSpeed = unit2AttSpeed;
-            unit2FinalDmg = unit2AttVsGround - unit1Arm * unit2AttackCount + unit2GBonusVsA;
-            unit2ShieldAttack = unit2AttVsGround + unit2GBonusVsA;
+            unit2FinalDmg = unit2AttVsGround - unit1Arm * unit2AttackCount;
+            if (unit2GBonusVsA != null) {
+                unit2FinalDmg += unit2GBonusVsA;
+            }
+            unit2ShieldAttack = unit2AttVsGround;
+            if (unit2GBonusVsA != null) {
+                unit2ShieldAttack += unit2GBonusVsA;
+            }
         }
         if (unit1.equals("Widow Mine") && !unit2Attributes.contains("S")) {
             unit1ShieldAttack += 35;
@@ -4210,8 +4288,6 @@ public class UnitVUnit extends MainActivity{
             unit2ShieldAttack += 35;
         }
 
-        //  If unit 2 has a final attack more than 0, calculate how many attacks to kill unit 1 (hits till dead)
-        //  If unit 2 has a final attack that = 0 or less, it's peaceful, and it's attack is 0
 
         //Calculate hits till shields are gone before hits till dead
         if (!unit2Peaceful) {
@@ -4232,6 +4308,7 @@ public class UnitVUnit extends MainActivity{
                 unit2HitsTillShields = 1;
             }
         }
+
 
         //  Define tempHP as the HP left after the shields are gone.
         unit1TempHP = unit1TotalHP - (unit1HitsTillShields * unit2ShieldAttack);
@@ -4272,6 +4349,26 @@ public class UnitVUnit extends MainActivity{
             unit2TempHP = unit2HP - dmgToHP;
         }
 
+        //  If unit 2 has a final attack more than 0, calculate how many attacks to kill unit 1 (hits till dead)
+        //  If unit 2 has a final attack that = 0 or less, it's peaceful, and it's attack is 0
+
+        // Now calculate hits till dead for unit 1
+
+        if (unit2FinalDmg > 0) {
+            unit1HitsTillDead = ((int)(unit1TempHP + unit1RegenBonus) / unit2FinalDmg) + unit1HitsTillShields;
+        } else if (unit2FinalDmg <= 0) {
+            unit2Peaceful = true;
+            unit2FinalDmg = 0;
+        }
+
+        //  Same thing for unit 1, calculating unit 2 hits until it dies
+        if (unit1FinalDmg > 0) {
+            unit2HitsTillDead = ((int)(unit2TempHP + unit2RegenBonus) / unit1FinalDmg) + unit2HitsTillShields;
+        } else if (unit1FinalDmg <= 0) {
+            unit1Peaceful = true;
+            unit1FinalDmg = 0;
+        }
+
         // Now calculate the unit1RegenBonus for zerg units
 
         if (unit1RaceTag.equals("z") && !unit2Peaceful) {
@@ -4292,14 +4389,22 @@ public class UnitVUnit extends MainActivity{
             //unit1RegenBonus += (0.38 * unit2FinalAttackSpeed) * (unit1RegenBonus/ unit2FinalDmg);
         }
 
-        // Now calculate hits till dead for unit 1
-
-        if (unit2FinalDmg > 0) {
-            unit1HitsTillDead = ((int)(unit1TempHP + unit1RegenBonus) / unit2FinalDmg) + unit1HitsTillShields;
-        } else if (unit2FinalDmg <= 0) {
-            unit2Peaceful = true;
-            unit2FinalDmg = 0;
+        //  Regen bonus for unit1 Mutalisks:
+        if (unit1.equals("Mutalisk") && !unit2Peaceful) {
+            //  If unit1TimeTillDead > unit2TimeTillDead
+            if ((((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed) > (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed)) {
+                //  Regen bonus = Regen rate * unit 1 attack speed * unit2 hits till dead (because unit 2 is alive for less time)
+                unit1RegenBonus = (1.4 * unit1FinalAttackSpeed) * (unit2HP / unit1FinalDmg);
+            }
+            //  If unit 2 is the winner
+            else if (unit1Peaceful || (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed) <= (((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed)) {
+                unit1RegenBonus = (1.4 * unit2FinalAttackSpeed) * (unit1HP / unit2FinalDmg);
+                if (unit2FinalDmg < unit1RegenBonus) {
+                    unit1RegenBonus += (1.4 * unit2FinalAttackSpeed) * (unit1RegenBonus / unit2FinalDmg);
+                }
+            }
         }
+
 
         // While loop that can potentially do everything but for now handles zergs:
 //        if (unit1RaceTag.equals("z")) {
@@ -4345,7 +4450,7 @@ public class UnitVUnit extends MainActivity{
             unit1HitsTillDead = 1;
         }
 
-        // Now calculate the unit1RegenBonus for zerg units
+        // Now calculate the unit2RegenBonus for zerg units
 
         if (unit2RaceTag.equals("z") && !unit1Peaceful) {
             //  If unit2TimeTillDead > unit1TimeTillDead
@@ -4365,13 +4470,23 @@ public class UnitVUnit extends MainActivity{
             //unit1RegenBonus += (0.38 * unit2FinalAttackSpeed) * (unit1RegenBonus/ unit2FinalDmg);
         }
 
-        //  Same thing for unit 1, calculating unit 2 hits until it dies
-        if (unit1FinalDmg > 0) {
-            unit2HitsTillDead = ((int)(unit2TempHP + unit2RegenBonus) / unit1FinalDmg) + unit2HitsTillShields;
-        } else if (unit1FinalDmg <= 0) {
-            unit1Peaceful = true;
-            unit1FinalDmg = 0;
+        //  Regen bonus for unit 2 Mutalisks
+
+        if (unit2.equals("Mutalisk") && !unit1Peaceful) {
+            //  If unit2TimeTillDead > unit1TimeTillDead
+            if ((((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed) > (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed)) {
+                //  RegenBonus = Regen rate * unit 2 attack speed * unit1 hits till dead (because unit 1 is alive for less time)
+                unit2RegenBonus = (1.4 * unit2FinalAttackSpeed) * (unit1HP / unit2FinalDmg);
+            }
+            //  If unit 1 is the winner
+            else if ((((unit2HP / unit1FinalDmg) - 1) * unit1FinalAttackSpeed) <= (((unit1HP / unit2FinalDmg) - 1) * unit2FinalAttackSpeed)) {
+                unit2RegenBonus = (1.4 * unit1FinalAttackSpeed) * (unit2HP / unit1FinalDmg);
+                if (unit1FinalDmg < unit2RegenBonus) {
+                    unit2RegenBonus += (1.4 * unit1FinalAttackSpeed) * (unit2RegenBonus / unit1FinalDmg);
+                }
+            }
         }
+
 
         //  Same thing as we did for unit 1 hits until dead, we do now for unit 2 hits until dead
         if (unit2HitsTillDead != null && (((unit2HitsTillDead - unit2HitsTillShields) * unit1FinalDmg)) < (unit2TempHP + unit2RegenBonus)) {
@@ -4381,6 +4496,7 @@ public class UnitVUnit extends MainActivity{
             unit2HitsTillDead = 1;
         }
 
+        // ---------------------------------------------
         // Calculate the time it takes for the unit to die.  Whichever dies first is the loser, which means the *higher* time of death would be the winner.
         if (unit1HitsTillDead != null && unit2FinalAttackSpeed != 0 && unit2FinalAttackSpeed != null && !unit2.equals("Baneling")) {
             unit1TimeTillDead = (unit1HitsTillDead - 1) * unit2FinalAttackSpeed;
@@ -4668,6 +4784,26 @@ public class UnitVUnit extends MainActivity{
         result += "\n" + "HP Remaining: " + hpRemaining;
         result += "\n" + "Attacks dealt by the " + winner + ": " + winnerAttacksDealt;
         result += "\n" + "Attacks dealt by the " + loser + ": " + loserAttacksDealt;
+        if (!unit2Peaceful) {
+            if (winner.equals(unit1)) {
+                result += "\n" + "Attacks needed to defeat the " + winner + ": " + unit1HitsTillDead;
+            }
+        }
+        if (!unit1Peaceful) {
+            if (winner.equals(unit2)) {
+                result += "\n" + "Attacks needed to defeat the " + winner + ": " + unit2HitsTillDead;
+            }
+        }
+//        if (unit2Peaceful) {
+//            if (winner.equals(unit1)) {
+//                result += "\n" + "Attacks needed to defeat the " + winner + ": None - the " + winner + " would never be defeated";
+//            }
+//        }
+//        if (unit1Peaceful) {
+//            if (winner.equals(unit2)) {
+//                result += "\n" + "Attacks needed to defeat the " + winner + ": None - the " + winner + " would never be defeated";
+//            }
+//        }
         if (time == 999999.7) {
             result += "\n" + "Time of battle: it continues infinitely";
         }
@@ -4675,7 +4811,7 @@ public class UnitVUnit extends MainActivity{
             result += "\n" + "Time of battle: " + df.format(time) + " seconds";
         }
         result += "\n" + "Unit 1 starting HP: " + unit1TotalHP + "   Unit 2 starting HP: " + unit2TotalHP;
-        //result += "\n" + unit1FinalDmg + " " + unit2FinalDmg + " " + unit1TotalHP + " " + bothTie + " " + unit1RegenBonus + " " + unit2RegenBonus;
+        //result += "\n" + unit1FinalDmg + " " + unit2FinalDmg + " " + bothTie + " " + unit1RegenBonus + " " + unit2RegenBonus;
 
         // Testing tags:   + " " + unit1FinalDmg + " " + unit2FinalDmg + " "+ unit1FinalAttackSpeed + " " + unit2FinalAttackSpeed + " " + unit1HitsTillDead+ " " + unit2HitsTillDead
         //  + " " + unit1RegenBonus + " " + unit2RegenBonus
@@ -4687,6 +4823,12 @@ public class UnitVUnit extends MainActivity{
 
     public void theModifiers() {
 
+        int unitOnePosition = unit1Name.getSelectedItemPosition();
+        unitItem unitOneX = genUnitArray.get(unitOnePosition);
+
+        int unitTwoPosition = unit2Name.getSelectedItemPosition();
+        unitItem unitTwoX = genUnitArray.get(unitTwoPosition);
+
         if (unitOne.getCheckedRadioButtonId() == -1) {
             specialModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
         }
@@ -4694,62 +4836,68 @@ public class UnitVUnit extends MainActivity{
             specialModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
         }
         if (unit1Zerg.isChecked()) {
-            if (unit1Name.getSelectedItem().toString().equals("Zergling")) {
+            unitOneX = zUnitArray.get(unitOnePosition);
+            if (unitOneX.getUnitName().equals("Zergling")) {
                 zerglingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
-            if (unit1Name.getSelectedItem().toString().equals("Baneling")) {
+            if (unitOneX.getUnitName().equals("Baneling")) {
                 banelingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
-            if (unit1Name.getSelectedItem().toString().equals("Ultralisk")) {
+            if (unitOneX.getUnitName().equals("Ultralisk")) {
                 ultraliskModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
         }
         if (unit1Protoss.isChecked()) {
-            if (unit1Name.getSelectedItem().toString().equals("Adept")) {
+            unitOneX = pUnitArray.get(unitOnePosition);
+            if (unitOneX.getUnitName().equals("Adept")) {
                 adeptModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
         }
         if (unit1Terran.isChecked()) {
-            if (unit1Name.getSelectedItem().toString().equals("Marine")) {
+            unitOneX = tUnitArray.get(unitOnePosition);
+            if (unitOneX.getUnitName().equals("Marine")) {
                 marineModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
-            if (unit1Name.getSelectedItem().toString().equals("Marauder")) {
+            if (unitOneX.getUnitName().equals("Marauder")) {
                 marauderModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
-            if (unit1Name.getSelectedItem().toString().equals("Hellion") || unit1Name.getSelectedItem().toString().equals("Hellbat")) {
+            if (unitOneX.getUnitName().equals("Hellion") || unitOneX.getUnitName().equals("Hellbat")) {
                 hellionHellbatModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
-            if (unit1Name.getSelectedItem().toString().equals("Auto-turret") || unit1Name.getSelectedItem().toString().equals("Missile Turret") || unit1Name.getSelectedItem().toString().equals("Planetary Fortress")) {
+            if (unitOneX.getUnitName().equals("Auto-Turret") || unitOneX.getUnitName().equals("Missile Turret") || unitOneX.getUnitName().equals("Planetary Fortress")) {
                 terranBuildingModifier(unit1SpecialMod.getSelectedItemPosition(), 1);
             }
         }
         if (unit2Zerg.isChecked()) {
-            if (unit2Name.getSelectedItem().toString().equals("Zergling")) {
+            unitTwoX = zUnitArray.get(unitTwoPosition);
+            if (unitTwoX.getUnitName().equals("Zergling")) {
                 zerglingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
-            if (unit2Name.getSelectedItem().toString().equals("Baneling")) {
+            if (unitTwoX.getUnitName().equals("Baneling")) {
                 banelingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
-            if (unit2Name.getSelectedItem().toString().equals("Ultralisk")) {
+            if (unitTwoX.getUnitName().equals("Ultralisk")) {
                 ultraliskModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
         }
         if (unit2Protoss.isChecked()) {
-            if (unit2Name.getSelectedItem().toString().equals("Adept")) {
+            unitTwoX = pUnitArray.get(unitTwoPosition);
+            if (unitTwoX.getUnitName().equals("Adept")) {
                 adeptModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
         }
         if (unit2Terran.isChecked()) {
-            if (unit2Name.getSelectedItem().toString().equals("Marine")) {
+            unitTwoX = tUnitArray.get(unitTwoPosition);
+            if (unitTwoX.getUnitName().equals("Marine")) {
                 marineModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
-            if (unit2Name.getSelectedItem().toString().equals("Marauder")) {
+            if (unitTwoX.getUnitName().equals("Marauder")) {
                 marauderModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
-            if (unit2Name.getSelectedItem().toString().equals("Hellion") || unit2Name.getSelectedItem().toString().equals("Hellbat")) {
+            if (unitTwoX.getUnitName().equals("Hellion") || unitTwoX.getUnitName().equals("Hellbat")) {
                 hellionHellbatModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
-            if (unit2Name.getSelectedItem().toString().equals("Auto-turret") || unit2Name.getSelectedItem().toString().equals("Missile Turret") || unit2Name.getSelectedItem().toString().equals("Planetary Fortress")) {
+            if (unitTwoX.getUnitName().equals("Auto-Turret") || unitTwoX.getUnitName().equals("Missile Turret") || unitTwoX.getUnitName().equals("Planetary Fortress")) {
                 terranBuildingModifier(unit2SpecialMod.getSelectedItemPosition(), 2);
             }
         }
@@ -4757,14 +4905,38 @@ public class UnitVUnit extends MainActivity{
 
     public void unitTitleUpdater(Integer unitNum) {
         if (unitNum == 1) {
-            String Unit1String = "(" + unit1AttackUps.getSelectedItem().toString() + " - " + unit1ArmorUps.getSelectedItem().toString() + ") " + unit1Name.getSelectedItem().toString();
+            int unitOnePosition = unit1Name.getSelectedItemPosition();
+            unitItem unitOneX = genUnitArray.get(unitOnePosition);
+            if (unit1Zerg.isChecked()) {
+                unitOneX = zUnitArray.get(unitOnePosition);
+            }
+            if (unit1Protoss.isChecked()) {
+                unitOneX = pUnitArray.get(unitOnePosition);
+            }
+            if (unit1Terran.isChecked()) {
+                unitOneX = tUnitArray.get(unitOnePosition);
+            }
+            String unitOneXUnitName = unitOneX.getUnitName();
+            String Unit1String = "(" + unit1AttackUps.getSelectedItem().toString() + " - " + unit1ArmorUps.getSelectedItem().toString() + ") " + unitOneXUnitName;
             if (!unit1SpecialMod.getSelectedItem().toString().equals("None") && !unit1SpecialMod.getSelectedItem().toString().equals("Random")) {
                 Unit1String += " with " + unit1SpecialMod.getSelectedItem().toString();
             }
             instructions.setText(Unit1String);
         }
         if (unitNum == 2) {
-            String Unit2String = "(" + unit2AttackUps.getSelectedItem().toString() + " - " + unit2ArmorUps.getSelectedItem().toString() + ") " + unit2Name.getSelectedItem().toString();
+            int unitTwoPosition = unit2Name.getSelectedItemPosition();
+            unitItem unitTwoX = genUnitArray.get(unitTwoPosition);
+            if (unit2Zerg.isChecked()) {
+                unitTwoX = zUnitArray.get(unitTwoPosition);
+            }
+            if (unit2Protoss.isChecked()) {
+                unitTwoX = pUnitArray.get(unitTwoPosition);
+            }
+            if (unit2Terran.isChecked()) {
+                unitTwoX = tUnitArray.get(unitTwoPosition);
+            }
+            String unitTwoXUnitName = unitTwoX.getUnitName();
+            String Unit2String = "(" + unit2AttackUps.getSelectedItem().toString() + " - " + unit2ArmorUps.getSelectedItem().toString() + ") " + unitTwoXUnitName;
             if (!unit2SpecialMod.getSelectedItem().toString().equals("None") && !unit2SpecialMod.getSelectedItem().toString().equals("Random")) {
                 Unit2String += " with " + unit2SpecialMod.getSelectedItem().toString();
             }
@@ -4807,27 +4979,136 @@ public class UnitVUnit extends MainActivity{
         unit2Quantity = findViewById(R.id.unit2Quantity);
         unit2SpecialMod = findViewById(R.id.unit2SpecialMod);
 
-        unitNameArray = new String[]{"Unit Name","Adept","Archon","Auto-Turret","Baneling", "Banshee", "Battlecruiser","Brood Lord","Broodling","Carrier","Changeling","Colossus","Corruptor", "Cyclone",
-                "Dark Templar","Disruptor","Drone","Ghost", "Hellbat", "Hellion","High Templar","Hydralisk","Immortal","Infested Terran","Infestor","Interceptor","Larva", "Liberator (defender mode)",
-                "Liberator (fighter mode)","Locust", "Lurker", "Marauder", "Marine", "Medivac", "Missile Turret","Mothership", "MULE","Mutalisk","Nydus Worm","Observer","Oracle","Overseer","Overlord","Phoenix",
-                "Photon Cannon","Planetary Fortress","Probe","Queen","Ravager", "Raven", "Reaper","Roach", "SCV","Sentry", "Siege Tank (sieged)", "Siege Tank (tank mode)","Spine Crawler","Stalker",
-                "Swarm Host","Tempest","Thor (explosive)", "Thor (high impact)","Ultralisk", "Viking (fighter mode)", "Viking (assault mode)","Viper","Void Ray","Warp Prism", "Widow Mine","Zealot","Zergling"};
+        imageIcon1 = findViewById(R.id.iconButton1);
+        imageIcon2 = findViewById(R.id.iconButton2);
 
-//        unit2NameArray = new String[]{"Unit 2 Name","Adept","Archon","Auto-Turret","Baneling", "Banshee", "Battlecruiser","Brood Lord","Carrier","Changeling","Colossus","Corruptor", "Cyclone",
-//                "Dark Templar","Disruptor","Drone","Ghost", "Hellbat", "Hellion","High Templar","Hydralisk","Immortal","Infested Terran","Infestor","Interceptor","Larva", "Liberator (defender mode)",
-//                "Liberator (fighter mode)","Locust", "Lurker", "Marauder", "Marine", "Medivac", "Missile Turret","Mothership", "MULE","Mutalisk","Nydus Worm","Observer","Oracle","Overseer","Phoenix",
-//                "Photon Cannon","Planetary Fortress","Probe","Queen","Ravager", "Raven", "Reaper","Roach", "SCV","Sentry", "Siege Tank (sieged)", "Siege Tank (tank mode)","Spine Crawler","Stalker",
-//                "Swarm Host","Tempest","Thor (explosive)", "Thor (high impact)","Ultralisk", "Viking (fighter mode)", "Viking (assault mode)","Viper","Void Ray","Warp Prism", "Widow Mine","Zealot","Zergling"};
+        // Protoss
+        final unitItem adept = new unitItem("Adept", "Light, Biological", R.drawable.adeptj);
+        final unitItem archon = new unitItem("Archon", "Psionic, Massive", R.drawable.archonj);
+        final unitItem carrier = new unitItem("Carrier", "Armored, Mechanical, Massive", R.drawable.carrierj);
+        final unitItem colossus = new unitItem("Colossus", "Armored, Mechanical, Massive", R.drawable.colossusj);
+        final unitItem darktemplar = new unitItem("Dark Templar", "Light, Biological, Psionic", R.drawable.darktemplarj);
+        final unitItem disruptor = new unitItem("Disruptor", "Armored, Mechanical", R.drawable.disruptorj);
+        final unitItem hightemplar = new unitItem("High Templar", "Light, Biological, Psionic", R.drawable.hightemplarj);
+        final unitItem immortal = new unitItem("Immortal", "Armored, Mechanical", R.drawable.immortalj);
+        final unitItem interceptor = new unitItem("Interceptor", "Light, Mechanical", R.drawable.interceptorj);
+        final unitItem mothership = new unitItem("Mothership", "Armored, Mechanical, Psionic, Massive", R.drawable.mothershipj);
+        final unitItem observer = new unitItem("Observer", "Light, Mechanical", R.drawable.observerj);
+        final unitItem oracle = new unitItem("Oracle", "Light, Mechanical, Psionic", R.drawable.oraclej);
+        final unitItem phoenix = new unitItem("Phoenix", "Light, Mechanical", R.drawable.phoenixj);
+        final unitItem photoncannon = new unitItem("Photon Cannon", "Armored, Structure", R.drawable.photoncannonj);
+        final unitItem probe = new unitItem("Probe", "Light, Mechanical", R.drawable.probej);
+        final unitItem sentry = new unitItem("Sentry", "Armored, Structure", R.drawable.sentryj);
+        final unitItem stalker = new unitItem("Stalker", "Armored, Mechanical", R.drawable.stalkerj);
+        final unitItem tempest = new unitItem("Tempest", "Armored, Mechanical, Massive", R.drawable.tempestj);
+        final unitItem voidray = new unitItem("Void Ray", "Armored, Mechanical", R.drawable.voidrayj);
+        final unitItem warpprism = new unitItem("Warp Prism", "Armored, Mechanical, Psionic", R.drawable.warpprismj);
+        final unitItem zealot = new unitItem("Zealot", "Light, Biological", R.drawable.zealotj);
 
-        terranUnitArrray = new String[]{"Auto-Turret", "Banshee", "Battlecruiser", "Cyclone", "Ghost", "Hellbat", "Hellion", "Liberator (defender mode)", "Liberator (fighter mode)", "Marauder",
-                "Marine", "Medivac", "Missile Turret", "MULE", "Planetary Fortress", "Raven", "Reaper", "SCV", "Siege Tank (sieged)", "Siege Tank (tank mode)", "Thor (explosive)", "Thor (high impact)",
-                "Viking (fighter mode)", "Viking (assault mode)", "Widow Mine"};
+        // Terran
+        final unitItem autoturret = new unitItem("Auto-Turret", "Armored, Mechanical, Structure", R.drawable.autoturretj);
+        final unitItem banshee = new unitItem("Banshee", "Light, Mechanical", R.drawable.bansheej);
+        final unitItem battlecruiser = new unitItem("Battlecruiser", "Armored, Mechanical, Massive", R.drawable.battlecruiserj);
+        final unitItem cyclone = new unitItem("Cyclone", "Armored, Mechanical", R.drawable.cyclonej);
+        final unitItem ghost = new unitItem("Ghost", "Biological, Psionic", R.drawable.ghostj);
+        final unitItem hellbat = new unitItem("Hellbat", "Light, Biological, Mechanical", R.drawable.hellbatj);
+        final unitItem hellion = new unitItem("Hellion", "Light, Mechanical", R.drawable.hellionj);
+        final unitItem liberatordefender = new unitItem("Liberator (defender mode)", "Armored, Mechanical", R.drawable.liberatordefenderj);
+        final unitItem liberatorfighter = new unitItem("Liberator (fighter mode)", "Armored, Mechanical", R.drawable.liberatorfighterj);
+        final unitItem marauder = new unitItem("Marauder", "Armored, Biological", R.drawable.marauderj);
+        final unitItem marine = new unitItem("Marine", "Light, Biological", R.drawable.marinej);
+        final unitItem medivac = new unitItem("Medivac", "Armored, Mechanical", R.drawable.medivacj);
+        final unitItem missileturret = new unitItem("Missile Turret", "Armored, Mechanical, Structure", R.drawable.missileturretj);
+        final unitItem mule = new unitItem("MULE", "Light, Mechanical", R.drawable.mulej);
+        final unitItem planetaryfortress = new unitItem("Planetary Fortress", "Armored, Mechanical, Structure", R.drawable.planetaryfortressj);
+        final unitItem raven = new unitItem("Raven", "Light, Mechanical", R.drawable.ravenj);
+        final unitItem reaper = new unitItem("Reaper", "Light, Biological", R.drawable.reaperj);
+        final unitItem scv = new unitItem("SCV", "Light, Biological, Mechanical", R.drawable.scvj);
+        final unitItem siegetanksieged = new unitItem("Siege Tank (sieged)", "Armored, Mechanical", R.drawable.siegetanksiegedj);
+        final unitItem siegetanktank = new unitItem("Siege Tank (tank mode)", "Armored, Mechanical", R.drawable.siegetankj);
+        final unitItem thorexplosive = new unitItem("Thor (explosive)", "Armored, Mechanical, Massive", R.drawable.thorexplosivej);
+        final unitItem thorimpact = new unitItem("Thor (high impact)", "Armored, Mechanical, Massive", R.drawable.thorimpactj);
+        final unitItem vikingfighter = new unitItem("Viking (assault mode)", "Armored, Mechanical", R.drawable.vikingassaultj);
+        final unitItem vikingassault = new unitItem("Viking (fighter mode)", "Armored, Mechanical", R.drawable.vikingfighterj);
+        final unitItem widowmine = new unitItem("Widow Mine", "Light, Mechanical", R.drawable.widowminej);
 
-        protossUnitArrray = new String[]{"Adept","Archon", "Carrier", "Colossus", "Dark Templar", "Disruptor", "High Templar", "Immortal", "Interceptor", "Mothership", "Observer",
-                "Oracle", "Phoenix", "Photon Cannon", "Probe", "Sentry", "Stalker", "Tempest", "Void Ray", "Warp Prism", "Zealot"};
+        // Zerg
+        final unitItem baneling = new unitItem("Baneling", "Biological", R.drawable.banelingj);
+        final unitItem broodlord = new unitItem("Brood Lord", "Armor, Biological, Massive", R.drawable.broodlordj);
+        final unitItem broodling = new unitItem("Broodling", "Light, Biological", R.drawable.broodlingj);
+        final unitItem changeling = new unitItem("Changeling", "Light, Biological", R.drawable.changelingj);
+        final unitItem corruptor = new unitItem("Corruptor", "Armored, Biological", R.drawable.corruptorj);
+        final unitItem drone = new unitItem("Drone", "Light Biological", R.drawable.dronej);
+        final unitItem hydralisk = new unitItem("Hydralisk", "Light, Biological", R.drawable.hydraliskj);
+        final unitItem infestedterran = new unitItem("Infested Terran", "Light, Biological", R.drawable.infestedterranj);
+        final unitItem infestor = new unitItem("Infestor", "Armored, Biological, Psionic", R.drawable.infestorj);
+        final unitItem larva = new unitItem("Larva", "Light, Biological", R.drawable.larvaj);
+        final unitItem locust = new unitItem("Locust", "Light, Biological", R.drawable.locustj);
+        final unitItem lurker = new unitItem("Lurker", "Armored, Biological", R.drawable.lurkerj);
+        final unitItem mutalisk = new unitItem("Mutalisk", "Light, Biological", R.drawable.mutaliskj);
+        final unitItem nydusworm = new unitItem("Nydus Worm", "Armored, Biological, Structure", R.drawable.nyduswormj);
+        final unitItem overlord = new unitItem("Overlord", "Armored, Biological", R.drawable.overlordj);
+        final unitItem overseer = new unitItem("Overseer", "Armored, Biological", R.drawable.overseerj);
+        final unitItem queen = new unitItem("Queen", "Biological, Psionic", R.drawable.queenj);
+        final unitItem ravager = new unitItem("Ravager", "Biological", R.drawable.ravagerj);
+        final unitItem roach = new unitItem("Roach", "Armored, Biological", R.drawable.roachj);
+        final unitItem spinecrawler = new unitItem("Spine Crawler", "Armored, Biological, Structure", R.drawable.spinecrawlerj);
+        final unitItem sporecrawler = new unitItem("Spore Crawler", "Armored, Biological, Structure", R.drawable.sporecrawlerj);
+        final unitItem swarmhost = new unitItem("Swarm Host", "Armored, Biological", R.drawable.swarmhostj);
+        final unitItem ultralisk = new unitItem("Ultralisk", "Armored, Biological, Massive", R.drawable.ultraliskj);
+        final unitItem viper = new unitItem("Viper", "Armored, Biological, Psionic", R.drawable.viperj);
+        final unitItem zergling = new unitItem("Zergling", "Light, Biological", R.drawable.zerglingj);
 
-        zergUnitArrray = new String[]{"Baneling","Brood Lord","Broodling", "Changeling", "Corruptor", "Drone", "Hydralisk", "Infested Terran", "Infestor", "Larva", "Locust", "Lurker",
-                "Mutalisk", "Nydus Worm", "Overseer", "Overlord", "Queen", "Ravager", "Roach", "Spine Crawler", "Swarm Host", "Ultralisk", "Viper", "Zergling"};
+        //  General
+        final unitItem unitname = new unitItem("Unit Name", "Pick a unit, any unit                              ", R.drawable.sc2unit);
+
+        genUnitArray = new ArrayList<unitItem>(Arrays.asList(unitname,adept,archon,autoturret,baneling, banshee, battlecruiser,broodlord,broodling,carrier,changeling,colossus,corruptor, cyclone,
+                darktemplar,disruptor,drone,ghost, hellbat, hellion,hightemplar,hydralisk,immortal,infestedterran,infestor,interceptor,larva, liberatordefender,
+                liberatorfighter,locust, lurker, marauder, marine, medivac, missileturret, mothership, mule,mutalisk,nydusworm, observer, oracle,overlord,overseer,phoenix,
+                photoncannon,planetaryfortress,probe,queen,ravager, raven, reaper,roach, scv,sentry, siegetanksieged, siegetanktank,spinecrawler,sporecrawler,stalker,
+                swarmhost,tempest,thorexplosive, thorimpact,ultralisk, vikingassault, vikingfighter,viper,voidray,warpprism, widowmine,zealot,zergling));
+
+//        ArrayList<unitItem> genUnitArray = new ArrayList<unitItem>();
+//        genUnitArray.add(unitname);
+//        genUnitArray.add(ravager);
+//        genUnitArray.add(roach);
+
+        tUnitArray = new ArrayList<unitItem>(Arrays.asList(autoturret, banshee, battlecruiser, cyclone, ghost, hellbat, hellion, liberatordefender, liberatorfighter, marauder,
+                marine, medivac, missileturret, mule, planetaryfortress, raven, reaper, scv, siegetanksieged, siegetanktank, thorexplosive, thorimpact,
+                vikingassault, vikingfighter, widowmine));
+
+        pUnitArray = new ArrayList<unitItem>(Arrays.asList(adept, archon, carrier, colossus, darktemplar, disruptor, hightemplar, immortal, interceptor, mothership, observer,
+                oracle, phoenix, photoncannon, probe, sentry, stalker, tempest, voidray, warpprism, zealot));
+
+        zUnitArray = new ArrayList<unitItem>(Arrays.asList(baneling,broodlord, broodling, changeling, corruptor, drone, hydralisk, infestedterran, infestor, larva, locust, lurker,
+                mutalisk, nydusworm, overlord, overseer, queen, ravager, roach, spinecrawler, sporecrawler, swarmhost, ultralisk, viper, zergling));
+
+//        zUnitArray = new ArrayList<unitItem>();
+//        zUnitArray.add(baneling);
+//        zUnitArray.add(broodlord);
+//        zUnitArray.add(broodling);
+//        zUnitArray.add(changeling);
+//        zUnitArray.add(corruptor);
+//        zUnitArray.add(drone);
+//        zUnitArray.add(hydralisk);
+//        zUnitArray.add(infestedterran);
+//        zUnitArray.add(infestor);
+//        zUnitArray.add(larva);
+//        zUnitArray.add(locust);
+//        zUnitArray.add(lurker);
+//        zUnitArray.add(mutalisk);
+//        zUnitArray.add(nydusworm);
+//        zUnitArray.add(overlord);
+//        zUnitArray.add(queen);
+//        zUnitArray.add(ravager);
+//        zUnitArray.add(roach);
+//        zUnitArray.add(spinecrawler);
+//        zUnitArray.add(sporecrawler);
+//        zUnitArray.add(swarmhost);
+//        zUnitArray.add(ultralisk);
+//        zUnitArray.add(viper);
+//        zUnitArray.add(zergling);
+
 
         unitUpgrades = new String[]{"0", "1", "2", "3"};
 
@@ -4911,12 +5192,12 @@ public class UnitVUnit extends MainActivity{
         unit2LifeSpan = null;
         unit2RaceTag = null;
 
-        final ArrayAdapter<String> adapterUnitName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitNameArray);
+        final unitAdapter adapterUnitName = new unitAdapter(this, genUnitArray);
         //final ArrayAdapter<String> adapterUnitName2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unit2NameArray);
 
-        final ArrayAdapter<String> adapterTerranUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, terranUnitArrray);
-        final ArrayAdapter<String> adapterProtossUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, protossUnitArrray);
-        final ArrayAdapter<String> adapterZergUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, zergUnitArrray);
+        final unitAdapter adapterTerranUnit = new unitAdapter(this, tUnitArray);
+        final unitAdapter adapterProtossUnit = new unitAdapter(this, pUnitArray);
+        final unitAdapter adapterZergUnit = new unitAdapter(this, zUnitArray);
 
         ArrayAdapter<String> adapterUpgrades = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitUpgrades);
         ArrayAdapter<String> adapterQuantity = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitQuantity);
@@ -4948,6 +5229,35 @@ public class UnitVUnit extends MainActivity{
         gd2.setCornerRadius(8);
         gd2.setStroke(2, Color.parseColor("#000000"));
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int screenHeight = displayMetrics.heightPixels;
+
+        Bitmap tIcon = BitmapFactory.decodeResource(getResources(),R.drawable.vector_terran_logo);
+        int th = (int)(screenHeight * 0.052);
+        int tw = (int)(th * 1.01972);
+        final Bitmap Tscaled = Bitmap.createScaledBitmap(tIcon,tw,th, true);
+        final BitmapDrawable tIconDraw = new BitmapDrawable(getResources(), Tscaled);
+
+        Bitmap zIcon = BitmapFactory.decodeResource(getResources(),R.drawable.vector_zerg_logo);
+        int zh = (int)(screenHeight * 0.052);
+        int zw = (int)(zh / 1.11158);
+        final Bitmap Zscaled = Bitmap.createScaledBitmap(zIcon,zw,zh, true);
+        final BitmapDrawable zIconDraw = new BitmapDrawable(getResources(), Zscaled);
+
+        Bitmap pIcon = BitmapFactory.decodeResource(getResources(),R.drawable.vector_protoss_logo);
+        int ph = (int)(screenHeight * 0.052);
+        int pw = (int)(ph / 1.98476);
+        final Bitmap Pscaled = Bitmap.createScaledBitmap(pIcon,pw,ph, true);
+        final BitmapDrawable pIconDraw = new BitmapDrawable(getResources(), Pscaled);
+
+//        Bitmap baneling6 = BitmapFactory.decodeResource(getResources(),R.drawable.banelingj);
+//        int baneh = (int)(screenHeight * 0.055);
+//        int banew = (int)(ph / 1.98476);
+//        final Bitmap banelingScaled = Bitmap.createScaledBitmap(baneling6,banew,baneh, true);
+//        final BitmapDrawable banelingDraw = new BitmapDrawable(getResources(), banelingScaled);
+
+
         unitOne = findViewById(R.id.unit1Group);
         unitOne.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -4956,16 +5266,19 @@ public class UnitVUnit extends MainActivity{
                     unit1Name.setAdapter(adapterTerranUnit);
                     gd.setColor(Color.parseColor("#fa8072"));
                     instructions.setBackground(gd);
+                    instructions.setCompoundDrawablesWithIntrinsicBounds(tIconDraw,null,null,null);
                 }
                 if (unit1Zerg.isChecked()) {
                     unit1Name.setAdapter(adapterZergUnit);
                     gd.setColor(Color.parseColor("#90ee90"));
                     instructions.setBackground(gd);
+                    instructions.setCompoundDrawablesWithIntrinsicBounds(zIconDraw,null,null,null);
                 }
                 if (unit1Protoss.isChecked()) {
                     unit1Name.setAdapter(adapterProtossUnit);
                     gd.setColor(Color.parseColor("#a9d6e5"));
                     instructions.setBackground(gd);
+                    instructions.setCompoundDrawablesWithIntrinsicBounds(pIconDraw,null,null,null);
                 }
             }
         });
@@ -4978,16 +5291,19 @@ public class UnitVUnit extends MainActivity{
                     unit2Name.setAdapter(adapterTerranUnit);
                     gd2.setColor(Color.parseColor("#fa8072"));
                     instructions2.setBackground(gd2);
+                    instructions2.setCompoundDrawablesWithIntrinsicBounds(tIconDraw,null,null,null);
                 }
                 if (unit2Zerg.isChecked()) {
                     unit2Name.setAdapter(adapterZergUnit);
                     gd2.setColor(Color.parseColor("#90ee90"));
                     instructions2.setBackground(gd2);
+                    instructions2.setCompoundDrawablesWithIntrinsicBounds(zIconDraw,null,null,null);
                 }
                 if (unit2Protoss.isChecked()) {
                     unit2Name.setAdapter(adapterProtossUnit);
                     gd2.setColor(Color.parseColor("#a9d6e5"));
                     instructions2.setBackground(gd2);
+                    instructions2.setCompoundDrawablesWithIntrinsicBounds(pIconDraw,null,null,null);
                 }
             }
         });
@@ -5021,11 +5337,14 @@ public class UnitVUnit extends MainActivity{
                     if (position == 4) {
                         unit1SpecialMod.setSelection(7);
                     }
-                    if (position == 70) {
+                    if (position == 71) {
                         unit1SpecialMod.setSelection(8);
                     }
-                    if (position == 62) {
+                    if (position == 63) {
                         unit1SpecialMod.setSelection(9);
+                    }
+                    else if (position != 1 && position != 3 && position != 4 && position != 18 && position != 19 && position != 31 && position != 32 && position != 34 && position != 45 && position != 63 && position != 71) {
+                        unit1SpecialMod.setSelection(0);
                     }
                 }
                 if (unit1Name.getAdapter() == adapterTerranUnit) {
@@ -5043,11 +5362,11 @@ public class UnitVUnit extends MainActivity{
                         unit1SpecialMod.setAdapter(adapterHellionHellbat);
                         unit1SpecialMod.setSelection(1);
                     }
-                    if (position == 0 || position == 12 || position == 14) {
+                    if (position == 0 || position == 12 || position ==14) {
                         unit1SpecialMod.setAdapter(adapterTerranBuilding);
                         unit1SpecialMod.setSelection(1);
                     }
-                    else if (position != 9 && position != 10 && position != 5 && position !=6 && position != 12 && position !=14 && position != 0){
+                    else if (position != 0 && position != 5 && position != 6 && position != 9 && position !=10 && position != 12 && position !=14){
                         unit1SpecialMod.setAdapter(adapterNone);
                         unit1SpecialMod.setSelection(0);
                     }
@@ -5058,16 +5377,17 @@ public class UnitVUnit extends MainActivity{
                     if (position == 0) {
                         unit1SpecialMod.setAdapter(adapterBaneling);
                         unit1SpecialMod.setSelection(1);
+                        //unit1Name.setPopupBackgroundDrawable(banelingDraw);
                     }
-                    if (position == 23) {
+                    if (position == 24) {
                         unit1SpecialMod.setAdapter(adapterZergling);
                         unit1SpecialMod.setSelection(1);
                     }
-                    if (position == 21) {
+                    if (position == 22) {
                         unit1SpecialMod.setAdapter(adapterUltralisk);
                         unit1SpecialMod.setSelection(1);
                     }
-                    else if (position != 0 && position != 23 && position != 21) {
+                    else if (position != 0 && position != 24 && position != 22) {
                         unit1SpecialMod.setAdapter(adapterNone);
                         unit1SpecialMod.setSelection(0);
                     }
@@ -5117,11 +5437,14 @@ public class UnitVUnit extends MainActivity{
                     if (position2 == 4) {
                         unit2SpecialMod.setSelection(7);
                     }
-                    if (position2 == 70) {
+                    if (position2 == 71) {
                         unit2SpecialMod.setSelection(8);
                     }
-                    if (position2 == 62) {
+                    if (position2 == 63) {
                         unit2SpecialMod.setSelection(9);
+                    }
+                    else if (position2 != 1 && position2 != 3 && position2 != 4 && position2 != 18 && position2 != 19 && position2 != 31 && position2 != 32 && position2 != 34 && position2 != 45 && position2 != 63 && position2 != 71) {
+                        unit2SpecialMod.setSelection(0);
                     }
                 }
                 if (unit2Name.getAdapter() == adapterTerranUnit) {
@@ -5143,7 +5466,7 @@ public class UnitVUnit extends MainActivity{
                         unit2SpecialMod.setAdapter(adapterTerranBuilding);
                         unit2SpecialMod.setSelection(1);
                     }
-                    else if (position2 != 9 && position2 != 10 && position2 != 5 && position2 !=6 && position2 != 12 && position2 !=14 && position2 != 0) {
+                    else if (position2 != 0 && position2 != 5 && position2 != 6 && position2 != 9 && position2 != 10 && position2 != 12 && position2 != 14) {
                         unit2SpecialMod.setAdapter(adapterNone);
                         unit2SpecialMod.setSelection(0);
                     }
@@ -5155,15 +5478,15 @@ public class UnitVUnit extends MainActivity{
                         unit2SpecialMod.setAdapter(adapterBaneling);
                         unit2SpecialMod.setSelection(1);
                     }
-                    if (position2 == 23) {
+                    if (position2 == 24) {
                         unit2SpecialMod.setAdapter(adapterZergling);
                         unit2SpecialMod.setSelection(1);
                     }
-                    if (position2 == 21) {
+                    if (position2 == 22) {
                         unit2SpecialMod.setAdapter(adapterUltralisk);
                         unit2SpecialMod.setSelection(1);
                     }
-                    else if (position2 != 0 && position2 != 23 && position2 != 21) {
+                    else if (position2 != 0 && position2 != 24 && position2 != 22) {
                         unit2SpecialMod.setAdapter(adapterNone);
                         unit2SpecialMod.setSelection(0);
                     }
@@ -5284,17 +5607,20 @@ public class UnitVUnit extends MainActivity{
                 unit2AttackUps.setSelection(0);
                 unit2ArmorUps.setSelection(0);
                 unit2Quantity.setSelection(0);
-                results.setText("");
+                results.setText("-------------------- R E S U L T S --------------------");
                 instructions.setBackgroundResource(R.drawable.text_view_corners);
                 instructions2.setBackgroundResource(R.drawable.text_view_corners);
                 instructions.setTextColor(0xffffffff);
                 instructions2.setTextColor(0xffffffff);
                 instructions.setText("Unit 1");
+                instructions.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
                 instructions2.setText("Unit 2");
+                instructions2.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
                 unit1SpecialMod.setAdapter(adapterSpecialMod);
                 unit2SpecialMod.setAdapter(adapterSpecialMod);
                 unit1SpecialMod.setSelection(0);
                 unit2SpecialMod.setSelection(0);
+                //results.setBackgroundColor(0xffd4ebf7);
             }
         });
 
@@ -5316,14 +5642,30 @@ public class UnitVUnit extends MainActivity{
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 
+        imageIcon1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageZoomer(1);
+            }
+        });
 
+        imageIcon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageZoomer(2);
+            }
+        });
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                results.scrollTo(0,0);
+                results.setBackgroundColor(0xffbcbaff);
                 result = "";
                 unit1 = "";
                 unit1AttVsGround = 0;
@@ -5384,7 +5726,9 @@ public class UnitVUnit extends MainActivity{
                 unit2LifeSpan = null;
                 unit2RaceTag = null;
                 infoSetter();
-                if (unit1Name.getSelectedItem().toString().equals("Unit Name") || unit1Name.getSelectedItem().toString().equals("") || unit2Name.getSelectedItem().toString().equals("Unit Name") || unit2Name.getSelectedItem().toString().equals("")) {
+                int nameIndex = unit1Name.getSelectedItemPosition();
+                int nameIndex2 = unit2Name.getSelectedItemPosition();
+                if ((nameIndex == 0 && unit1Name.getAdapter() == adapterUnitName)|| (nameIndex2 == 0 && unit2Name.getAdapter()== adapterUnitName)) {
                     selectionError = 1;
                 }
                 else {
@@ -5394,6 +5738,7 @@ public class UnitVUnit extends MainActivity{
                     theModifiers();
                     resultMaker();
                     results.setText(result);
+                    results.setMovementMethod(new ScrollingMovementMethod());
                 }
                 else if (selectionError == 1 ) {
                     Toast toast= Toast.makeText(getApplicationContext(), "Must choose both units before colliding!", Toast.LENGTH_SHORT);
@@ -5406,5 +5751,36 @@ public class UnitVUnit extends MainActivity{
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(0).setChecked(true);
+    }
+
+    public void imageZoomer(Integer unitNum) {
+        unitItem newUnit = genUnitArray.get(unit1Name.getSelectedItemPosition());
+        if (unitNum == 1) {
+            if (unit1Zerg.isChecked()) {
+                newUnit = zUnitArray.get(unit1Name.getSelectedItemPosition());
+            }
+            if (unit1Terran.isChecked()) {
+                newUnit = tUnitArray.get(unit1Name.getSelectedItemPosition());
+            }
+            if (unit1Protoss.isChecked()) {
+                newUnit = pUnitArray.get(unit1Name.getSelectedItemPosition());
+            }
+        }
+        if (unitNum == 2) {
+            newUnit = genUnitArray.get(unit2Name.getSelectedItemPosition());
+            if (unit2Zerg.isChecked()) {
+                newUnit = zUnitArray.get(unit2Name.getSelectedItemPosition());
+            }
+            if (unit2Terran.isChecked()) {
+                newUnit = tUnitArray.get(unit2Name.getSelectedItemPosition());
+            }
+            if (unit2Protoss.isChecked()) {
+                newUnit = pUnitArray.get(unit2Name.getSelectedItemPosition());
+            }
+        }
+
+        Intent intent = new Intent(this, popUpImage.class);
+        intent.putExtra("picture", newUnit.getUnitImage());
+        startActivity(intent);
     }
 }

@@ -7,7 +7,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
         <activity android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +36,16 @@
             android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.appDescrip"
             android:theme="@style/AppTheme.AppDescripTheme">
         </activity>
+        <activity
+            android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.popUpImage"
+            android:theme="@style/AppTheme.AppDescripTheme">
+        </activity>
+        <activity android:name=".unitProfileMaker" />
+        <activity
+            android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.AllUnitsDB"
+            android:label="All Units Information Database">
+        </activity>
+
     </application>
 
 </manifest>

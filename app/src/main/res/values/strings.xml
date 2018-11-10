@@ -10,13 +10,31 @@
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->
-    <string name="descriptionText">The Starcraft 2 Unit Collider is an independent application developed for Android OS 8.0 and up, by Hans Foster in 2018.  Each mode offers different ways to compare units.
-    \n \n Because the app is in development, Unit vs Unit is the only mode currently working.  This mode allows the user to \"collide\" units which mimics an actual battle within Starcraft 2, with some amount
-    of accuracy.  \n \n  There are many features still left to add to this mode, including but not limited to abilites and upgrades such as adrenal glands, stim, combat shield, caustic spray, prismatic alignment, infernal pre-igniter,
-        resonating glaves, building armor, baneling HP, and chitinous plating to be selectable mods to the units eventually.  Also in the works are > 1 unit quantity and auto-casted abilites. \n\n
+    <string name="descriptionText">The Starcraft 2 Unit Collider is an independent application developed for Android OS 4.0 and up, by Hans Foster in 2018.  Each mode offers different ways to compare units.
+    \n \n
+
+        The Unit v Unit mode allows the user to \"collide\" units which mimics an actual battle within Starcraft 2, with some amount of accuracy.  The Unit Database mode will show unit profiles of every single unit
+        if you click on them.  Other modes are still works in progress.
+
+        \n \n  While the Unit Vs Unit mode is mostly complete, there are a few features still to add, such as autocasted abilities. The Database is mostly complete as well but still has a long way to go in unit profiles.\n\n
+
         Currently each battle functions as if the two units would be standing next to one another save for the siege tank in sieged mode, which wouldn\'t be able to attack if that were the case,
         so range is not a factor here in these mock battles.  \n\n
 
         The other modes will offer different features, and will hopefully be available soon(™).  Enjoy!</string>
+
+    <string name="banelingStatistics">\n HP: 40</string>
+
+    <!--// ALL THE UNIT STUFF-->
+
+    <!--<string name="AdeptDescription">The Adept is a light, ranged protoss unit produced from a gateway or warpgate.  It has a relatively small frame, and moves quickly with the ability to shade.</string>-->
+    <!--<String name="AdeptUses">Adepts are mainly used for harassment as they're fantastic and killing workers and escaping through strategic timings of their psionic shades.  The psionic transfer ability allows-->
+    <!--them to project an invulnerable, fast-moving image (called a shade) of themselves that can pass through any unit, but not buildings or other adept shades.  Adepts can be used as part of a main army composition, sometimes replacing-->
+    <!--the likes of stalkers or zealots.  They're more agile and damaging than zealots, but less sturdy than either zealots or stalkers in most cases.  They do particularly well against armies composed-->
+    <!--of light units, and may offer a relatively cheap buffer in front of more damaging units as well. </String>-->
+    <!--<String name="AdeptLore">An officer class of infantry, adepts are highly-trained battlefield commanders who serve as ranged specialists.  Adepts were originally intended by Hierarch Artanis to replace former Judicator Caste leaders with Templar. By 2505, they were a recent addition to the Daelaam's arsenal, and Dominion Intelligence had recently gained knowledge of their existence, with the Dominion Marine Corps possessing little battlefield experience against them. They were designated as primary targets in the event of any hostile encounter.-->
+        <!--Adepts were deployed during the End War, when groups of Templar volunteered to adopt Purifier ordinance refined by Phase-smith Karax. This ordnance allowed the Templar to amplify their psionic potential and project their minds for teleportation while weakening their enemies. Adept ordinance would continue to be used by the Daelaam, but never could reach the optimal performance of Karax's original prototypes.-->
+        <!--In a short amount of time, the psionic amplification techniques of the adept were reverse engineered by the Tal'darim, and incorporated into their arsenal, equipped on their most promising warriors.-->
+        <!--After the End War, cultural trends harkening back to the Golden Age of Expansion within the Templar Caste led some adepts to wear ceremonial armor from the era.</String>-->
 
 </resources>

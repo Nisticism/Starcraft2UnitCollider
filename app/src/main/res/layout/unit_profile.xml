@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/lightTealGray">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="400dp">
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/adeptj"
+        android:minHeight="500dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="14dp"/>
+
+    <TextView
+        android:id="@+id/unitName_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit Name"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="@color/grayGreen"
+        android:layout_gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="16dp"/>
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            android:id="@+id/unitStats_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="42dp"
+            android:text="Unit Stats"
+            android:textSize="22sp"
+            android:textColor="@color/deepPurple"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="4dp"/>
+
+        <TextView
+            android:id="@+id/unitStats_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Unit Stats"
+            android:textSize="16sp"
+            android:textColor="@color/deepPurple"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:paddingBottom="2dp"
+            android:paddingStart="25dp"
+            android:paddingLeft="25dp"
+            android:paddingEnd="25dp"
+            android:paddingRight="25dp"
+            android:lineSpacingExtra="5dp"/>
+
+        <View style="@style/Divider" />
+
+    <TextView
+        android:id="@+id/unitDescript_"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxHeight="42dp"
+        android:text="Unit Description"
+        android:textSize="22sp"
+        android:textColor="@color/deepPurple"
+        android:paddingTop="4dp"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/unitDescript_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Unit Description"
+            android:textSize="16sp"
+            android:textColor="@color/deepPurple"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:paddingBottom="8dp"
+            android:paddingStart="25dp"
+            android:paddingLeft="25dp"
+            android:paddingEnd="25dp"
+            android:paddingRight="25dp"
+            android:lineSpacingExtra="5dp"/>
+
+        <View style="@style/Divider" />
+
+        <TextView
+            android:id="@+id/unitUses_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="42dp"
+            android:text="Uses"
+            android:textSize="22sp"
+            android:textColor="@color/deepPurple"
+            android:paddingTop="4dp"
+            android:textStyle="italic"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/unitUses_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Uses"
+            android:textSize="16sp"
+            android:textColor="@color/deepPurple"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:paddingBottom="8dp"
+            android:paddingStart="25dp"
+            android:paddingLeft="25dp"
+            android:paddingEnd="25dp"
+            android:paddingRight="25dp"
+            android:lineSpacingExtra="5dp"/>
+
+        <View style="@style/Divider" />
+
+        <TextView
+            android:id="@+id/unitLore_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="42dp"
+            android:text="Lore"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            android:textColor="@color/deepPurple"
+            android:paddingTop="4dp"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/unitLore_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Lore"
+            android:textSize="16sp"
+            android:textColor="@color/deepPurple"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:paddingBottom="8dp"
+            android:paddingStart="25dp"
+            android:paddingLeft="25dp"
+            android:paddingEnd="25dp"
+            android:paddingRight="25dp"
+            android:lineSpacingExtra="5dp"/>
+
+        <include android:id="@+id/activity_main_include"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/activity_main" />
+
+    </LinearLayout>
+
+</ScrollView>

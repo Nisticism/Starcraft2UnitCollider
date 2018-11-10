@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="2dp" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="?android:attr/listPreferredItemHeightLarge"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/banelingj"
+        android:contentDescription="Dropdown Item"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/colorDarkGreen"
-        android:background="@color/lilac"/>
+        android:id="@+id/secondLine"
+        android:layout_width="220dp"
+        android:layout_height="16dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
+        android:text=""
+        android:textSize="12sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="220dp"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/secondLine"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toEndOf="@+id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:paddingTop="10dp"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/deepPurple"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textSize="16sp" />
+
+</RelativeLayout>
