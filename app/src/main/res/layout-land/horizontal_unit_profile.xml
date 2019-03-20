@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/unitName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/unitImage"
+            android:layout_centerHorizontal="true"
+            android:text="Unit Name"
+            android:textColor="@color/deepPurple"
+            android:textSize="14dp"
+            android:textAlignment="center" />
+    <ImageView
+        android:id="@+id/unitImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="2dp"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/banelingj"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="Dropdown Item"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

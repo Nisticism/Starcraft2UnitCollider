@@ -18,6 +18,8 @@ import static android.app.PendingIntent.getActivity;
 
 public class unitAdapter extends ArrayAdapter<unitItem> {
 
+    private Float pixelDensity = 0.0f;
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -39,10 +41,39 @@ public class unitAdapter extends ArrayAdapter<unitItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(
                         R.layout.custom_spinner, parent, false);
             }
-
             ImageView unitImage = convertView.findViewById(R.id.icon);
             TextView unitName = convertView.findViewById(R.id.firstLine);
             TextView unitDescrip = convertView.findViewById(R.id.secondLine);
+
+            unitItem currentItem = getItem(position);
+
+            if (currentItem != null) {
+                unitImage.setImageResource(currentItem.getUnitImage());
+                unitName.setText(currentItem.getUnitName());
+                unitDescrip.setText(currentItem.getUnitDescrip());
+            }
+            return convertView;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            String toastMessage = "Not enough memory to load list";
+            Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+        }
+        return convertView;
+    }
+
+    private View initView2(int position, View convertView, ViewGroup parent) throws OutOfMemoryError {
+        try {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(
+                        R.layout.custom_spinner, parent, false);
+            }
+
+            ImageView unitImage = convertView.findViewById(R.id.icon);
+            TextView unitName = convertView.findViewById(R.id.firstLine);
+            unitName.setTextSize(12);
+            TextView unitDescrip = convertView.findViewById(R.id.secondLine);
+            unitDescrip.setTextSize(10);
 
             unitItem currentItem = getItem(position);
 

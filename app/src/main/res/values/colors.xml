@@ -19,5 +19,10 @@
     <color name ="lightBlue3">#a9d6e5</color>
     <color name ="grayGreen">#255630</color>
     <color name ="deepPurple">#240371</color>
+    <color name = "grayTealgray">#4b8772</color>
+    <color name = "darkerTealgray">#b6dcf1</color>
+    <color name = "superDarkGreen">#091e0c</color>
+    <color name = "weirdTeal">#237759</color>
+    <color name = "lightTeal">#baffdc</color>
 
 </resources>

@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:colorBackground">@color/white</item>
+        <!--<item name = "android:windowIsTranslucent">true</item>-->
+        <item name = "android:windowCloseOnTouchOutside">true</item>
     </style>
 
     <style name = "AppTheme.AppDescripTheme">
@@ -17,6 +21,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
 </resources>

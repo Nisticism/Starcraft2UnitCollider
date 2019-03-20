@@ -1,17 +1,10 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +15,7 @@ import android.widget.GridLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
 import static com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.unitsMade.*;
-import static com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.UnitDatabase.unitDB;
 
 public class AllUnitsDB extends MainActivity{
 
@@ -48,6 +35,8 @@ public class AllUnitsDB extends MainActivity{
     SearchView s2;
     GridLayout allUnits2;
     String queryString2 = "";
+
+    private Float pixelDensity = 0.0f;
 
     String dataArr[] = {adept.getUnitName(),archon.getUnitName(),autoturret.getUnitName(),baneling.getUnitName(),banshee.getUnitName(),battlecruiser.getUnitName(),broodlord.getUnitName(),
             broodling.getUnitName(), carrier.getUnitName(),changeling.getUnitName(),colossus.getUnitName(), corruptor.getUnitName(),cyclone.getUnitName(),darktemplar.getUnitName(),
@@ -69,13 +58,12 @@ public class AllUnitsDB extends MainActivity{
     private android.support.v7.widget.RecyclerView recyclerViewZ;
 
     public unitItem[] allUnitArray;
-    public static DatabaseHelper unitDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_units_db);
-        unitDB = new DatabaseHelper(this);
+        pixelDensity = getResources().getDisplayMetrics().density;
 
         allUnitArray = new unitItem[]{baneling,broodlord, broodling, changeling, corruptor, drone, hydralisk, infestedterran, infestor, larva, locust, lurker,
                 mutalisk, nydusworm, overlord, overseer, queen, ravager, roach, spinecrawler, sporecrawler, swarmhost, ultralisk, viper, zergling, autoturret,banshee,battlecruiser,cyclone,ghost,hellbat,hellion,liberatordefender,liberatorfighter,marauder,marine,
@@ -85,17 +73,42 @@ public class AllUnitsDB extends MainActivity{
 
         allUnits = findViewById(R.id.allUnits);
         home = findViewById(R.id.home);
+        if (pixelDensity < 2.1) {
+            home.setTextSize(12);
+        }
         search = findViewById(R.id.search);
+        if (pixelDensity < 2.1) {
+            search.setTextSize(12);
+        }
         s = findViewById(R.id.searchBar);
         backToDB = findViewById(R.id.backToDB);
+        if (pixelDensity < 2.1) {
+            backToDB.setTextSize(12);
+        }
         toggleMixed = findViewById(R.id.toggleOrder);
+        if (pixelDensity < 2.1) {
+            toggleMixed.setTextSize(12);
+        }
 
         toggleMixed2 = findViewById(R.id.toggleOrder2);
+        if (pixelDensity < 2.1) {
+            toggleMixed2.setTextSize(12);
+        }
+
         allUnits2 = findViewById(R.id.allUnits2);
         home2 = findViewById(R.id.home2);
+        if (pixelDensity < 2.1) {
+            home2.setTextSize(12);
+        }
         search2 = findViewById(R.id.search2);
+        if (pixelDensity < 2.1) {
+            home2.setTextSize(12);
+        }
         s2 = findViewById(R.id.searchBar2);
         backToDB2 = findViewById(R.id.backToDB2);
+        if (pixelDensity < 2.1) {
+            backToDB2.setTextSize(12);
+        }
 
 
         final SearchView.SearchAutoComplete sAutoComplete = (SearchView.SearchAutoComplete)s.findViewById(android.support.v7.appcompat.R.id.search_src_text);
@@ -170,8 +183,11 @@ public class AllUnitsDB extends MainActivity{
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer count = 0;
                 for (int i = 0; i < 71; i++) {
+                    queryString = s.getQuery().toString();
                     if (allUnitArray[i].getUnitName().equals(queryString)) {
+                        count += 1;
                         Intent intent = new Intent(getApplicationContext(), unitProfileMaker.class);
                         intent.putExtra("image_value", allUnitArray[i].getUnitImage());
                         intent.putExtra("name_value", allUnitArray[i].getUnitName());
@@ -180,14 +196,22 @@ public class AllUnitsDB extends MainActivity{
                         startActivity(intent);
                     }
                 }
+                if (count == 0) {
+                    Toast toast1 = Toast.makeText(getBaseContext(), "No results found for \'" + queryString + "\'", Toast.LENGTH_SHORT);
+                    toast1.setGravity(Gravity.CENTER, 0, -130);
+                    toast1.show();
+                }
             }
         });
 
         search2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer count2 = 0;
                 for (int i = 0; i < 71; i++) {
-                    if (allUnitArray[i].getUnitName().equals(queryString)) {
+                    queryString2 = s2.getQuery().toString();
+                    if (allUnitArray[i].getUnitName().equals(queryString2)) {
+                        count2 += 1;
                         Intent intent = new Intent(getApplicationContext(), unitProfileMaker.class);
                         intent.putExtra("image_value", allUnitArray[i].getUnitImage());
                         intent.putExtra("name_value", allUnitArray[i].getUnitName());
@@ -195,6 +219,11 @@ public class AllUnitsDB extends MainActivity{
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
+                }
+                if (count2 == 0) {
+                    Toast toast2 = Toast.makeText(getBaseContext(), "No results found for \'" + queryString + "\'", Toast.LENGTH_SHORT);
+                    toast2.setGravity(Gravity.CENTER, 0, -130);
+                    toast2.show();
                 }
             }
         });
@@ -294,7 +323,7 @@ public class AllUnitsDB extends MainActivity{
                     break;
                 case R.id.navigation_create_a_stat:
                     finish();
-                    startActivity(new Intent(getBaseContext(), CreateAStatistic.class));
+                    startActivity(new Intent(getBaseContext(), TakeQuiz.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     break;
                 case R.id.navigation_all_interactions:
@@ -306,10 +335,4 @@ public class AllUnitsDB extends MainActivity{
             return false;
         }
     };
-
-    public void mixedNameSetter() {
-        for (int i = 0; i < allUnitMixedArray.length; i++) {
-
-        }
-    }
 }

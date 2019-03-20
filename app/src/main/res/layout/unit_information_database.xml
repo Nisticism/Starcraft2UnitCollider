@@ -79,6 +79,7 @@
         android:text="Home"
         android:textAllCaps="false"
         android:textSize="16sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="80dp"
@@ -122,6 +123,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="80dp"
@@ -142,6 +144,7 @@
         android:text="All Units"
         android:textAllCaps="false"
         android:textSize="16sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="80dp"
@@ -152,24 +155,5 @@
         app:layout_constraintVertical_bias=".78"
         app:layout_constraintWidth_percent=".30"
         app:layout_constraintWidth_max="180dp"/>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="(May take some time to load)"
-        app:layout_constraintVertical_bias="0"
-        android:textSize="12dp"
-        android:textColor="@color/grayGreen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allUnits" />
 
 </android.support.constraint.ConstraintLayout>

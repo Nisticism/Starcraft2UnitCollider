@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,8 @@ import java.util.Arrays;
 import static com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.unitsMade.*;
 
 public class UnitDatabase extends MainActivity{
+
+    private Float pixelDensity = 0.0f;
 
     Button home;
     Button search;
@@ -48,6 +51,7 @@ public class UnitDatabase extends MainActivity{
     public unitItem[] zUnitArray;
     public unitItem[] tUnitArray;
     public unitItem[] pUnitArray;
+    public unitItem[] allUnitArray;
 
     private Parcelable state;
     public static DatabaseHelper unitDB;
@@ -57,14 +61,23 @@ public class UnitDatabase extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.unit_information_database);
         unitDB = new DatabaseHelper(this);
+        pixelDensity = getResources().getDisplayMetrics().density;
 
         zUnitArray = new unitItem[]{baneling,broodlord, broodling, changeling, corruptor, drone, hydralisk, infestedterran, infestor, larva, locust, lurker,
                 mutalisk, nydusworm, overlord, overseer, queen, ravager, roach, spinecrawler, sporecrawler, swarmhost, ultralisk, viper, zergling};
+
         tUnitArray = new unitItem[]{autoturret,banshee,battlecruiser,cyclone,ghost,hellbat,hellion,liberatordefender,liberatorfighter,marauder,marine,
         medivac,missileturret,mule,planetaryfortress,raven,reaper,scv,siegetanksieged,siegetanktank,thorexplosive,thorimpact,vikingassault,vikingfighter,
         widowmine};
+
         pUnitArray = new unitItem[]{adept, archon, carrier, colossus, darktemplar, disruptor, hightemplar, immortal, interceptor, mothership, observer, oracle,
         phoenix, photoncannon, probe, sentry, stalker, tempest, voidray, warpprism, zealot};
+
+        allUnitArray = new unitItem[]{baneling,broodlord, broodling, changeling, corruptor, drone, hydralisk, infestedterran, infestor, larva, locust, lurker,
+                mutalisk, nydusworm, overlord, overseer, queen, ravager, roach, spinecrawler, sporecrawler, swarmhost, ultralisk, viper, zergling, autoturret,banshee,battlecruiser,cyclone,ghost,hellbat,hellion,liberatordefender,liberatorfighter,marauder,marine,
+                medivac,missileturret,mule,planetaryfortress,raven,reaper,scv,siegetanksieged,siegetanktank,thorexplosive,thorimpact,vikingassault,vikingfighter,
+                widowmine, adept, archon, carrier, colossus, darktemplar, disruptor, hightemplar, immortal, interceptor, mothership, observer, oracle,
+                phoenix, photoncannon, probe, sentry, stalker, tempest, voidray, warpprism, zealot};
 
         recyclerViewZ = findViewById(R.id.zergcycle);
         recyclerViewZ.setHasFixedSize(true);
@@ -94,9 +107,18 @@ public class UnitDatabase extends MainActivity{
 //        state=savedInstanceState.getParcelable("state");
 
         home = findViewById(R.id.home);
+        if (pixelDensity < 2.1) {
+            home.setTextSize(12);
+        }
         search = findViewById(R.id.search);
+        if (pixelDensity < 2.1) {
+            search.setTextSize(12);
+        }
         s = findViewById(R.id.searchBar);
         allUnits = findViewById(R.id.allUnits);
+        if (pixelDensity < 2.1) {
+            allUnits.setTextSize(12);
+        }
 
         final SearchView.SearchAutoComplete sAutoComplete = (SearchView.SearchAutoComplete)s.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         sAutoComplete.setBackgroundColor(getResources().getColor(R.color.lilac));
@@ -149,20 +171,30 @@ public class UnitDatabase extends MainActivity{
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                queryString = s.getQuery().toString();
+                Integer count = 0;
                 for (int i = 0; i < 25; i++) {
                     if (zUnitArray[i].getUnitName().equals(queryString)) {
                         recyclerViewZ.smoothScrollToPosition(i);
+                        count += 1;
                     }
                 }
                 for (int i = 0; i < 25; i++) {
                     if (tUnitArray[i].getUnitName().equals(queryString)) {
                         recyclerViewT.smoothScrollToPosition(i);
+                        count += 1;
                     }
                 }
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 21; i++) {
                     if (pUnitArray[i].getUnitName().equals(queryString)) {
                         recyclerViewP.smoothScrollToPosition(i);
+                        count += 1;
                     }
+                }
+                if (count == 0) {
+                    Toast toast1 = Toast.makeText(getBaseContext(), "No results found for \'" + queryString + "\'", Toast.LENGTH_SHORT);
+                    toast1.setGravity(Gravity.CENTER, 0, -130);
+                    toast1.show();
                 }
             }
         });

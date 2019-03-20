@@ -9,11 +9,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:largeHeap="true">
-        <activity android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.MainActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
@@ -21,7 +28,7 @@
                 android:label="Unit vs Unit">
         </activity>
         <activity
-            android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.CreateAStatistic"
+            android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.TakeQuiz"
             android:label="Create A Statistic">
         </activity>
         <activity

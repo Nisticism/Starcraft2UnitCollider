@@ -1,7 +1,5 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -9,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Float pixelDensity = 0.0f;
 
     Button unitVUnit;
     Button allInteractions;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button unitInfoDatabase;
     Button appDescription;
 
-    EditText braille;
+    TextView textView;
 
     protected BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_create_a_stat:
                     finish();
-                    startActivity(new Intent(getBaseContext(), CreateAStatistic.class));
+                    startActivity(new Intent(getBaseContext(), TakeQuiz.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     break;
                 case R.id.navigation_all_interactions:
@@ -60,15 +60,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.all_units_db);
         setContentView(R.layout.main_menu);
 
         clearApplicationData();
 
+
+        pixelDensity = getResources().getDisplayMetrics().density;
+        textView = findViewById(R.id.textView);
+        if (pixelDensity < 2.1) {
+            textView.setTextSize(20);
+        }
         unitVUnit = findViewById(R.id.unitVUnit);
+        if (pixelDensity < 2.1) {
+            unitVUnit.setTextSize(13);
+        }
         allInteractions = findViewById(R.id.allInteractions);
+        if (pixelDensity < 2.1) {
+            allInteractions.setTextSize(13);
+        }
         createAStatistic = findViewById(R.id.createAStat);
+        if (pixelDensity < 2.1) {
+            createAStatistic.setTextSize(13);
+        }
         unitInfoDatabase = findViewById(R.id.unitDatabase);
+        if (pixelDensity < 2.1) {
+            unitInfoDatabase.setTextSize(13);
+        }
         appDescription = findViewById(R.id.appDescription);
+        if (pixelDensity < 2.1) {
+            appDescription.setTextSize(11);
+        }
 
         unitVUnit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         createAStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), CreateAStatistic.class));
+                startActivity(new Intent(getBaseContext(), TakeQuiz.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });

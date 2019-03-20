@@ -16,6 +16,8 @@
             android:layout_below="@+id/unitImage"
             android:layout_centerHorizontal="true"
             android:text="Unit Name"
+            android:textColor="@color/deepPurple"
+            android:textSize="15dp"
             android:textAlignment="center" />
     <ImageView
         android:id="@+id/unitImage"

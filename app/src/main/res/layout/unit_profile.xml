@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/adeptj"
-        android:minHeight="500dp"
+        android:minHeight="350dp"
         android:paddingLeft="12dp"
         android:paddingRight="14dp"/>
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Unit Name"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/grayGreen"
         android:layout_gravity="center"
@@ -31,13 +31,17 @@
         android:paddingRight="10dp"
         android:paddingBottom="16dp"/>
 
-        <View style="@style/Divider"/>
+        <View style="@style/Divider"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:id="@+id/unitStats_"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxHeight="42dp"
+            android:maxHeight="60dp"
             android:text="Unit Stats"
             android:textSize="22sp"
             android:textColor="@color/deepPurple"
@@ -63,7 +67,11 @@
             android:paddingRight="25dp"
             android:lineSpacingExtra="5dp"/>
 
-        <View style="@style/Divider" />
+        <View style="@style/Divider"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/unitDescript_"
@@ -93,7 +101,11 @@
             android:paddingRight="25dp"
             android:lineSpacingExtra="5dp"/>
 
-        <View style="@style/Divider" />
+        <View style="@style/Divider"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:id="@+id/unitUses_"
@@ -122,7 +134,11 @@
             android:paddingRight="25dp"
             android:lineSpacingExtra="5dp"/>
 
-        <View style="@style/Divider" />
+        <View style="@style/Divider"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:id="@+id/unitLore_"

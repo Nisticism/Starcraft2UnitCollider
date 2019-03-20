@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/activity_main_include"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/activity_main"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coming soon!"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_main_include"
+        app:layout_constraintEnd_toEndOf="@+id/activity_main_include"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/activity_main_include"
+        app:layout_constraintTop_toTopOf="@+id/activity_main_include"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <Button
+        android:id="@+id/home"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:background="@drawable/button_background"
+        android:text="Home"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="40dp"
+        app:layout_constraintHeight_percent="0.055"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintWidth_max="120dp"
+        app:layout_constraintWidth_percent=".20" />
+
+</android.support.constraint.ConstraintLayout>

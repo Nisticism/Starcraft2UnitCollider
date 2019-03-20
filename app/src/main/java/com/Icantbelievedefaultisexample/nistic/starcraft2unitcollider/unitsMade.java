@@ -14,7 +14,7 @@ public class unitsMade {
     final static unitItem interceptor = new unitItem("Interceptor", "Light, Mechanical", R.drawable.interceptorj);
     final static unitItem mothership = new unitItem("Mothership", "Armored, Mechanical, Psionic, Massive", R.drawable.mothershipj);
     final static unitItem observer = new unitItem("Observer", "Light, Mechanical", R.drawable.observerj);
-    final static unitItem oracle = new unitItem("Oracle", "Light, Mechanical, Psionic", R.drawable.oraclej);
+    final static unitItem oracle = new unitItem("Oracle", "Armored, Mechanical, Psionic", R.drawable.oraclej);
     final static unitItem phoenix = new unitItem("Phoenix", "Light, Mechanical", R.drawable.phoenixj);
     final static unitItem photoncannon = new unitItem("Photon Cannon", "Armored, Structure", R.drawable.photoncannonj);
     final static unitItem probe = new unitItem("Probe", "Light, Mechanical", R.drawable.probej);
@@ -48,8 +48,8 @@ public class unitsMade {
     final static unitItem siegetanktank = new unitItem("Siege Tank (tank mode)", "Armored, Mechanical", R.drawable.siegetankj);
     final static unitItem thorexplosive = new unitItem("Thor (explosive)", "Armored, Mechanical, Massive", R.drawable.thorexplosivej);
     final static unitItem thorimpact = new unitItem("Thor (high impact)", "Armored, Mechanical, Massive", R.drawable.thorimpactj);
-    final static unitItem vikingfighter = new unitItem("Viking (assault mode)", "Armored, Mechanical", R.drawable.vikingassaultj);
-    final static unitItem vikingassault = new unitItem("Viking (fighter mode)", "Armored, Mechanical", R.drawable.vikingfighterj);
+    final static unitItem vikingassault = new unitItem("Viking (assault mode)", "Armored, Mechanical", R.drawable.vikingassaultj);
+    final static unitItem vikingfighter = new unitItem("Viking (fighter mode)", "Armored, Mechanical", R.drawable.vikingfighterj);
     final static unitItem widowmine = new unitItem("Widow Mine", "Light, Mechanical", R.drawable.widowminej);
 
     // Zerg

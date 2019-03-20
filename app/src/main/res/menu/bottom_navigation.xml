@@ -17,7 +17,7 @@
     <item
         android:id="@+id/navigation_create_a_stat"
         android:icon="@drawable/create_a_stat"
-        android:title="@string/createAStatisticShort" />
+        android:title="@string/quiz" />
 
     <item
         android:id="@+id/navigation_all_interactions"

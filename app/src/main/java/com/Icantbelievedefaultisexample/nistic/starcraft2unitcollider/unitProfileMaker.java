@@ -125,7 +125,7 @@ public class unitProfileMaker extends MainActivity {
             Bitmap bmp = BitmapFactory.decodeResource(res, imageValue);
             profile.setImageBitmap(bmp);
 
-            unitStats =  "• Type: " + unitStats;
+            unitStats =  "• Attributes/Type: " + unitStats;
             String unitStats2 = "Statistics" + "\n\n";
             ss1 = new SpannableString(unitStats2);
             //StyleSpan italicSpan = new StyleSpan(Typeface.ITALIC);
@@ -158,53 +158,87 @@ public class unitProfileMaker extends MainActivity {
         criticalStats += "•  Unit plane: " + res.getString(34) + "\n";
         if(res.getString(25) == null) {
             criticalStats += "•  Total hit points: " + TotalHP;
+            if (res.getString(44) == null) {
+                criticalStats += "\n";
+            }
         }
         if (res.getString(25) != null) {
             TotalHP = Integer.toString(Integer.parseInt(res.getString(3)) + Integer.parseInt(res.getString(25)));
             criticalStats += "•  Total hit points: " + TotalHP + "  (HP: " + res.getString(3) + "  Shields: " + res.getString(25) + ")";
+            if (res.getString(44) == null) {
+                criticalStats += "\n";
+            }
         }
         if (res.getString(44) != null) {
-            criticalStats += ", " + res.getString(44);
+            criticalStats += ", " + res.getString(44) + "\n";
         }
-        criticalStats += "\n";
-        if (res.getString(23) != null) {
-            criticalStats += "•  Energy: " + res.getString(23) + "\n";
+        Integer unitAttack = 0;
+        if (res.getString(4) != null && res.getString(48) != null) {
+            unitAttack = Integer.parseInt(res.getString(4).toString()) * Integer.parseInt(res.getString(48).toString());
         }
-        criticalStats += "•  Unit damage: " + res.getString(4);
+
+        Integer unitAttack2 = 0;
+        if (res.getString(5) != null && res.getString(49) != null) {
+            unitAttack2 = Integer.parseInt(res.getString(5).toString()) * Integer.parseInt(res.getString(49).toString());
+        }
+        if (res.getString(48).equals("1") || res.getString(48).equals("0")) {
+            criticalStats += "•  Unit attack damage: " + res.getString(4);
+            if (res.getString(40) == null && res.getString(41) == null) {
+                criticalStats += "\n";
+            }
+        }  else if (res.getString(48) != null){
+            criticalStats += "•  Unit attack damage: " + res.getString(4) + " (x" + res.getString(48) + ")";
+            if (res.getString(40) == null && res.getString(41) == null) {
+                criticalStats += "\n";
+            }
+        }
         if (res.getString(40) != null) {
             criticalStats += ", " + res.getString(40);
+            if (res.getString(41) == null) {
+                criticalStats += "\n";
+            }
         }
         if (res.getString(41) != null) {
-            criticalStats += ", " + res.getString(41);
+            criticalStats += ", " + res.getString(41) + "\n";
         }
-        criticalStats += "\n";
         if (res.getString(5) != null && !res.getString(4).equals(res.getString(5))) {
-            criticalStats += "•  Alternate unit damage (to air if ground & to ground if air): " + res.getString(5) + "\n";
+            criticalStats += "•  Alternate unit damage (to air if ground & to ground if air): " + res.getString(5);
+            if (res.getString(49) != null && !res.getString(49).equals("1")) {
+                criticalStats += " (x " + res.getString((49)) + ")";
+            }
+            criticalStats += "\n";
         }
 
         if (res.getString(13) != null) {
-            criticalStats += "•  DPS: " + df.format(Integer.parseInt(res.getString(4)) / Double.parseDouble(res.getString(13)));
+            criticalStats += "•  DPS: " + df.format(unitAttack / Double.parseDouble(res.getString(13)));
+            if (res.getString(42) == null && res.getString(43) == null) {
+                criticalStats += "\n";
+            }
         }
         if (res.getString(42) != null) {
             criticalStats += ", " + res.getString(42);
+            if (res.getString(43) == null) {
+                criticalStats += "\n";
+            }
         }
         if (res.getString(43) != null) {
-            criticalStats += ", " + res.getString(43);
-        }
-        if (res.getString(13) != null) {
-            criticalStats += "\n";
+            criticalStats += ", " + res.getString(43) + "\n";
         }
         if (res.getString(14) != null && res.getString(5) == null && res.getString(46) != null) {
-            criticalStats += "•  DPS with " + res.getString(46) + ": " + df.format(Integer.parseInt(res.getString(4)) / Double.parseDouble(res.getString(14))) + "\n";
+            criticalStats += "•  DPS with " + res.getString(46) + ": " + df.format(unitAttack / Double.parseDouble(res.getString(14))) + "\n";
         }
-        // Either the alternate attack is going to have the same attack speed or its not, so these can't both be true, and alternate dps is only made with column 5 (Dmg2)
+        // Either the alternate attack is going to have the same attack speed or it will use column 14's attack speed.  If 14 is null, it will use the same attack speed (for example, queens).  If it's not null, it will use 14, for example infested terran.
         if (res.getString(5) != null && !res.getString(4).equals(res.getString(5))) {
             if (res.getString(14) == null) {
-                criticalStats += "•  Alternate DPS: " + df.format(Integer.parseInt(res.getString(5)) / Double.parseDouble(res.getString(13))) + "\n";
+                criticalStats += "•  Alternate DPS: " + df.format(unitAttack2 / Double.parseDouble(res.getString(13))) + "\n";
             }
             if (res.getString(14) != null) {
-                criticalStats += "•  Alternate DPS: " + df.format(Integer.parseInt(res.getString(5)) / Double.parseDouble(res.getString(14))) + "\n";
+                criticalStats += "•  Alternate DPS: " + df.format(unitAttack2 / Double.parseDouble(res.getString(14))) + "\n";
             }
+        }
+
+        if (res.getString(23) != null) {
+            criticalStats += "•  Energy: " + res.getString(23) + "\n";
         }
         if (res.getString(45) == null) {
             criticalStats += "•  Armor: " + res.getString(6) + "\n\n";
@@ -240,22 +274,22 @@ public class unitProfileMaker extends MainActivity {
         SpannableString Cost = new SpannableString("Cost & Requirements");
         Cost.setSpan(boldStyle, 0, Cost.length(), 0);
 
-            //  Speed and mobility
+            //  Speed and mobility or Versatility
         speedAndMobility += "•  Unit speed: " + res.getString(12) + "\n";
         if (res.getString(27) != null) {
             speedAndMobility += "•  Secondary unit speed: " + res.getString(27) + "\n";
         }
         if (res.getString(13) != null) {
+            speedAndMobility += "•  Attack cooldown: " + res.getString(13) + " seconds" + "\n";
+        }
+        if (res.getString(14) != null && res.getString(46) != null) {
+            speedAndMobility += "•  Secondary attack cooldown: " + res.getString(14) + " seconds with " + res.getString(46) + "\n";
+        }
+        if (res.getString(13) != null) {
             speedAndMobility += "•  Attack speed: " + df.format(1 / Double.parseDouble(res.getString(13))) + " attacks/second" + "\n";
         }
         if (res.getString(14) != null && res.getString(46) != null) {
-            speedAndMobility += "•  Secondary attack speed: " + df.format(1/Double.parseDouble(res.getString(14))) + " attacks/second with " + res.getString(46) + "\n";
-        }
-        if (res.getString(13) != null) {
-            speedAndMobility += "•  Speed of attack: " + res.getString(13) + " seconds" + "\n";
-        }
-        if (res.getString(14) != null && res.getString(46) != null) {
-            speedAndMobility += "•  Secondary speed of attack: " + res.getString(14) + " seconds with " + res.getString(46) + "\n";
+            speedAndMobility += "•  Secondary attack speed: " + df.format(1/Double.parseDouble(res.getString(14))) + " attacks/second " + res.getString(46) + "\n";
         }
         if (res.getString(16) != null) {
             speedAndMobility += "•  Attack range vs ground: " + res.getString(16) + "\n";
@@ -276,10 +310,14 @@ public class unitProfileMaker extends MainActivity {
         SpeedAndMobility.setSpan(boldStyle, 0, SpeedAndMobility.length(), 0);
 
         //  Misc and abilities
-        miscAndAbilities += "•  ≡ List of Upgrades ≡ : " + res.getString(21) + "\n";
-        miscAndAbilities += "•  Abilities/Passives: " + res.getString(22) + "\n";
+        miscAndAbilities += "•  ≡ List of Upgrades ≡ : " + res.getString(21) + "\n\n";
+        miscAndAbilities += "•  Abilities, Passives, & Characteristics: " + res.getString(22) + "\n\n";
         miscAndAbilities += "•  Attribute significance: " + "\n" + attributeBonusBuilder(res.getString(38));
-        miscAndAbilities += "•  Bonus against other units: " + res.getString(15) + "\n";
+        String bonus = res.getString(15);
+        if (bonus == null) {
+            bonus = "None";
+        }
+        miscAndAbilities += "\n•  Bonus against other units: " + bonus + "\n";
         miscAndAbilities += "•  Natural predators/counters: " + res.getString(28) + "\n";
         miscAndAbilities += "•  Natural prey: " + res.getString(29) + "\n";
         SpannableString MiscAndAbilities = new SpannableString("Abilities, Attributes, & Miscellaneous");
@@ -339,32 +377,32 @@ public class unitProfileMaker extends MainActivity {
     public String attributeBonusBuilder(String unitType) {
         String benefits = "";
         if (unitType.contains("A")) {
-            benefits += dashMaker() + "    Armored    " + dashMaker() + "\n" + "          •  Armored units, while often naturally having more armor than other units, will not necessarily directly benefit from being Armored in any way.  " + "\n" +
+            benefits += "               ARMORED    " + "\n" + "          •  Armored units, while often naturally having more armor than other units, will not necessarily directly benefit from being Armored in any way.  " + "\n" +
                     "          •  Units that deal bonus damage against Armored units include the Immortal, Lurker, Marauder, Siege Tank, Spine Crawler, Stalker, Ultralisk, Viking (fighter mode), and Void Ray" + "\n";
         }
         if (unitType.contains("B")) {
-            benefits += dashMaker() + "    Biological    " + dashMaker() + "\n" + "          •  Biological units are units entirely or mostly composed of organic matter'.  These units benefit from the autocast Medivac ability Heal, as well as the Queen ability Transfuse and are targetted uniquely by the Ghost ability Steady Targetting (170 damage to Biological units, ignores armor)." + "\n"
+            benefits += "               BIOLOGICAL    " + "\n" + "          •  Biological units are units entirely or mostly composed of organic matter, or units that have a living, biological entity at their cores'.  These units benefit from the autocast Medivac ability Heal, as well as the Queen ability Transfuse and are targetted uniquely by the Ghost ability Steady Targetting (170 damage to Biological units, ignores armor)." + "\n"
                     + "          •  Units that deal bonus damage against Biological units include the Archon and Spore Crawler." + "\n";
 
         }
         if (unitType.contains("L")) {
-            benefits += dashMaker() + "    Light    " + dashMaker() + "\n" + "          •  Light units, while often being smaller, quicker, and more difficult to target, will not necessarily directly benefit from being Light in any way.  " + "\n" +
+            benefits += "               LIGHT    " + "\n" + "          •  Light units, while often being smaller, quicker, and more difficult to target, will not necessarily directly benefit from being Light in any way.  " + "\n" +
                     "          •  Units that deal bonus damage against Light units include the Adept, Baneling, Ghost, Hellbat, Hellion, Liberator (fighter mode), Oracle, Phoenix, Thor (explosive)." + "\n";
         }
         if (unitType.contains("X")) {
-            benefits += dashMaker() + "    Massive    " + dashMaker() + "\n" + "          •  Massive units are often larger in size and slower in speed than other units, but are often the heaviest hitters.  These units are immune to the Phoenix ability Graviton Beam, the Sentry ability Force Field (Massive units will shatter forcefields upon direct encounter), and the Marauder ability Concussive Shells." + "\n"
+            benefits += "               MASSIVE    " + "\n" + "          •  Massive units are often larger in size and slower in speed than other units, but are often the heaviest hitters.  These units are immune to the Phoenix ability Graviton Beam, the Sentry ability Force Field (Massive units will shatter forcefields upon direct encounter), and the Marauder ability Concussive Shells." + "\n"
             + "          •  Units that deal bonus damage against Massive units include the Corruptor and Tempest." + "\n";
         }
         if (unitType.contains("M")) {
-            benefits += dashMaker() + "    Mechanical    " + dashMaker() + "\n" + "          •  Mechanical units are either partly or entirely made of machines or other mechanical devices.  These units can be repaired (healed) by Terran workers, SCVs and MULEs, at a speed equal to the unit's build time x (remaining HP/ starting HP), and a cost that is 25% of the unit's cost x (remaining HP/ starting HP), making repair a potentially extremely efficient ability.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
+            benefits += "               MECHANICAL    " + "\n" + "          •  Mechanical units are either partly or entirely made of machines or other mechanical devices.  These units can be repaired (healed) by Terran workers, SCVs and MULEs, at a speed equal to the unit's build time x (remaining HP/ starting HP), and a cost that is 25% of the unit's cost x (remaining HP/ starting HP), making repair a potentially extremely efficient ability.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
                     + "          •  Units that deal bonus damage against Mechanical units include the Viking (assault mode)." + "\n";
         }
         if (unitType.contains("P")) {
-            benefits += dashMaker() + "    Psionic    " + dashMaker() + "\n" + "          •  The Psionic attribute is mostly a flavor attribute but implies some knowledge of Psionic powers. Not all energy units are Psionic, and not all Psionic units have energy.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
+            benefits += "               PSIONIC    " + "\n" + "          •  The Psionic attribute is mostly a flavor attribute but implies some knowledge of Psionic powers. Not all energy units are Psionic, and not all Psionic units have energy.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
                     + "          •  Psionic is the only attribute that does not give direct damage weaknesses to units by any other unit, but because Psionic units often have energy, Ghosts and High Templar can be strong against them." + "\n";
         }
         if (unitType.contains("S")) {
-            benefits += dashMaker() + "    Structure    " + dashMaker() + "\n" + "          •  All structures have the Structure attribute, including those produced with energy and those that do damage.  Zerg structures all come from drones, with the exception Nydus Worms, and just like Zerg units will slowly regenerate health over time.  Terran structures all require an scv to build with the exception of the Auto-Turret, may all be repaired by SCVs and MULEs, and often may be floated and flown to a location without creep.  Protoss structures must be made within a Pylon radius and just like Protoss units, have energy which regenerates." + "\n"
+            benefits += "               STRUCTURE    " + "\n" + "          •  All structures have the Structure attribute, including those produced with energy and those that do damage.  Zerg structures all come from drones, with the exception Nydus Worms, and just like Zerg units will slowly regenerate health over time.  Terran structures all require an scv to build with the exception of the Auto-Turret, may all be repaired by SCVs and MULEs, and often may be floated and flown to a location without creep.  Protoss structures must be made within a Pylon radius and just like Protoss units, have energy which regenerates." + "\n"
                     + "          •  Units that deal bonus damage against structures include the Baneling." + "\n";
         }
         return benefits;

@@ -6,26 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border">
-
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="14dp"
+    android:paddingTop="14dp">
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="277dp"
-        android:layout_height="410dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:text="@string/descriptionText"
         android:textSize="12sp"
         android:textColor="@color/white"
         android:background="@android:drawable/dialog_holo_light_frame"
-        android:backgroundTint="@color/grayGreen"
+        android:backgroundTint="@color/deepPurple"
         android:shadowColor="@color/deepPurple"
-        android:padding="15dp"
+        android:padding="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+</ScrollView>
 </android.support.constraint.ConstraintLayout>
