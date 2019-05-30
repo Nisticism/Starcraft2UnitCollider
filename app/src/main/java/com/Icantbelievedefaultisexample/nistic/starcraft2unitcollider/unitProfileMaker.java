@@ -7,9 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.RelativeSizeSpan;
@@ -18,13 +16,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import static com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.UnitDatabase.unitDB;
 
-import java.io.ByteArrayOutputStream;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.DecimalFormat;
-import java.util.Locale;
 
 public class unitProfileMaker extends MainActivity {
     public static String TAG = "unitProfileActivity";
@@ -106,9 +99,12 @@ public class unitProfileMaker extends MainActivity {
         unitStatsView2.setText(s1);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
+        if (pixelDensity < 2.1) {
+            navigation.setItemTextAppearanceInactive(R.style.BottomNavigationViewLow);
+            navigation.setItemTextAppearanceActive(R.style.BottomNavigationViewActiveLow);
+        }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
-
     }
 
     private void getIncomingIntent() {
@@ -135,12 +131,6 @@ public class unitProfileMaker extends MainActivity {
         }
     }
 
-    //  To remember the columns:
-    //                 unitID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,Pic1 INTEGER,HP INTEGER, Dmg1 INTEGER, Dmg2 INTEGER, Armor INTEGER, " +
-    //                "Cargo DOUBLE, Supply INTEGER, Minerals INTEGER, Vespene INTEGER, BuildTime INTEGER, Speed DOUBLE, AttackSpeed1 DOUBLE, AttackSpeed2 DOUBLE, Bonuses TEXT, " +
-    //                "RangevsGround INTEGER, RangevsAir INTEGER, LOS INTEGER, LOS2 INTEGER, unitSize DOUBLE, Upgrades TEXT, SpecialAbilities TEXT, Energy INTEGER, TechRequired TEXT, " +
-    //                "Shields INTEGER, WarpgateCooldown INTEGER, Speed2 DOUBLE, NaturalEnemies TEXT, NaturalPrey TEXT, Race TEXT)");
-
     private void dBStatsMaker() {
         DecimalFormat df = new DecimalFormat("#.000");
         String criticalStats = "";
@@ -164,7 +154,7 @@ public class unitProfileMaker extends MainActivity {
         }
         if (res.getString(25) != null) {
             TotalHP = Integer.toString(Integer.parseInt(res.getString(3)) + Integer.parseInt(res.getString(25)));
-            criticalStats += "•  Total hit points: " + TotalHP + "  (HP: " + res.getString(3) + "  Shields: " + res.getString(25) + ")";
+            criticalStats += "•  Total hit points: " + TotalHP + "  (Health: " + res.getString(3) + "  Shields: " + res.getString(25) + ")";
             if (res.getString(44) == null) {
                 criticalStats += "\n";
             }
@@ -181,16 +171,20 @@ public class unitProfileMaker extends MainActivity {
         if (res.getString(5) != null && res.getString(49) != null) {
             unitAttack2 = Integer.parseInt(res.getString(5).toString()) * Integer.parseInt(res.getString(49).toString());
         }
-        if (res.getString(48).equals("1") || res.getString(48).equals("0")) {
-            criticalStats += "•  Unit attack damage: " + res.getString(4);
-            if (res.getString(40) == null && res.getString(41) == null) {
-                criticalStats += "\n";
+        if (res.getString(48) != null) {
+            if (res.getString(48).equals("1") || res.getString(48).equals("0")) {
+                criticalStats += "•  Unit attack damage: " + res.getString(4);
+                if (res.getString(40) == null && res.getString(41) == null) {
+                    criticalStats += "\n";
+                }
+            } else {
+                criticalStats += "•  Unit attack damage: " + res.getString(4) + " (×" + res.getString(48) + ")";
+                if (res.getString(40) == null && res.getString(41) == null) {
+                    criticalStats += "\n";
+                }
             }
-        }  else if (res.getString(48) != null){
-            criticalStats += "•  Unit attack damage: " + res.getString(4) + " (x" + res.getString(48) + ")";
-            if (res.getString(40) == null && res.getString(41) == null) {
-                criticalStats += "\n";
-            }
+        }  else if (res.getString(48) == null) {
+            criticalStats += "•  Unit attack damage: 0" + "\n";
         }
         if (res.getString(40) != null) {
             criticalStats += ", " + res.getString(40);
@@ -204,7 +198,7 @@ public class unitProfileMaker extends MainActivity {
         if (res.getString(5) != null && !res.getString(4).equals(res.getString(5))) {
             criticalStats += "•  Alternate unit damage (to air if ground & to ground if air): " + res.getString(5);
             if (res.getString(49) != null && !res.getString(49).equals("1")) {
-                criticalStats += " (x " + res.getString((49)) + ")";
+                criticalStats += " (×" + res.getString((49)) + ")";
             }
             criticalStats += "\n";
         }
@@ -224,7 +218,7 @@ public class unitProfileMaker extends MainActivity {
         if (res.getString(43) != null) {
             criticalStats += ", " + res.getString(43) + "\n";
         }
-        if (res.getString(14) != null && res.getString(5) == null && res.getString(46) != null) {
+        if (res.getString(14) != null && res.getString(5) == null && res.getString(46) != null && !res.getString(1).equals("Siege Tank (sieged)") && !res.getString(1).equals("Siege Tank (tank mode)")) {
             criticalStats += "•  DPS with " + res.getString(46) + ": " + df.format(unitAttack / Double.parseDouble(res.getString(14))) + "\n";
         }
         // Either the alternate attack is going to have the same attack speed or it will use column 14's attack speed.  If 14 is null, it will use the same attack speed (for example, queens).  If it's not null, it will use 14, for example infested terran.
@@ -289,7 +283,7 @@ public class unitProfileMaker extends MainActivity {
             speedAndMobility += "•  Attack speed: " + df.format(1 / Double.parseDouble(res.getString(13))) + " attacks/second" + "\n";
         }
         if (res.getString(14) != null && res.getString(46) != null) {
-            speedAndMobility += "•  Secondary attack speed: " + df.format(1/Double.parseDouble(res.getString(14))) + " attacks/second " + res.getString(46) + "\n";
+            speedAndMobility += "•  Secondary attack speed: " + df.format(1/Double.parseDouble(res.getString(14))) + " attacks/second with " + res.getString(46) + "\n";
         }
         if (res.getString(16) != null) {
             speedAndMobility += "•  Attack range vs ground: " + res.getString(16) + "\n";
@@ -304,13 +298,21 @@ public class unitProfileMaker extends MainActivity {
         if (res.getString(19) != null) {
             speedAndMobility += "•  Secondary line of sight range: " + res.getString(19) + "\n";
         }
-        speedAndMobility += "•  Capacity to attack: " + res.getString(36) + "\n";
+        if (res.getString(36) != null) {
+            speedAndMobility += "•  Capacity to attack: " + res.getString(36) + "\n";
+        } else if (res.getString(21) == null) {
+            speedAndMobility += "•  Capacity to attack: None" + "\n";
+        }
         speedAndMobility += "•  Lifespan: " + res.getString(37) + "\n\n";
         SpannableString SpeedAndMobility = new SpannableString("Versatility");
         SpeedAndMobility.setSpan(boldStyle, 0, SpeedAndMobility.length(), 0);
 
         //  Misc and abilities
-        miscAndAbilities += "•  ≡ List of Upgrades ≡ : " + res.getString(21) + "\n\n";
+        if (res.getString(21) != null) {
+            miscAndAbilities += "•  ≡ List of Upgrades ≡ : " + res.getString(21) + "\n\n";
+        }  else if (res.getString(21) == null) {
+            miscAndAbilities += "•  ≡ List of Upgrades ≡ : None" + "\n\n";
+        }
         miscAndAbilities += "•  Abilities, Passives, & Characteristics: " + res.getString(22) + "\n\n";
         miscAndAbilities += "•  Attribute significance: " + "\n" + attributeBonusBuilder(res.getString(38));
         String bonus = res.getString(15);
@@ -320,7 +322,7 @@ public class unitProfileMaker extends MainActivity {
         miscAndAbilities += "\n•  Bonus against other units: " + bonus + "\n";
         miscAndAbilities += "•  Natural predators/counters: " + res.getString(28) + "\n";
         miscAndAbilities += "•  Natural prey: " + res.getString(29) + "\n";
-        SpannableString MiscAndAbilities = new SpannableString("Abilities, Attributes, & Miscellaneous");
+        SpannableString MiscAndAbilities = new SpannableString("Upgrades, Abilities, Attributes, & Miscellaneous");
         MiscAndAbilities.setSpan(boldStyle, 0, MiscAndAbilities.length(), 0);
 
         //unitStats += '\n' + "Unit HP: " + unitDB.getHP(unitName);
@@ -344,36 +346,6 @@ public class unitProfileMaker extends MainActivity {
 
     }
 
-//    public String descriptionGetter(String unitname) {
-//        String descriptionValue = "";
-//        if (unitname.equals("Adept")) {
-//            descriptionValue = "The Adept is a light, ranged protoss unit produced from a gateway or warpgate.  It has a relatively small frame, and moves quickly with the ability to shade.";
-//        }
-//        return descriptionValue;
-//    }
-//
-//    public String usesGetter(String unitname) {
-//        String usesValue = "";
-//        if (unitname.equals("Adept")) {
-//            usesValue = "Adepts are mainly used for harassment as they're fantastic and killing workers and escaping through strategic timings of their psionic shades.  The psionic transfer ability allows" +
-//                    "    them to project an invulnerable, fast-moving image (called a shade) of themselves that can pass through any unit, but not buildings or other adept shades.  Adepts can be used as part of a main army composition, sometimes replacing" +
-//                    "    the likes of stalkers or zealots.  They're more agile and damaging than zealots, but less sturdy than either zealots or stalkers in most cases.  They do particularly well against armies composed" +
-//                    "    of light units, and may offer a relatively cheap buffer in front of more damaging units as well.";
-//        }
-//        return usesValue;
-//    }
-//
-//    public String loreGetter(String unitname) {
-//        String loreValue = "";
-//        if (unitname.equals("Adept")) {
-//            loreValue = "An officer class of infantry, adepts are highly-trained battlefield commanders who serve as ranged specialists.  Adepts were originally intended by Hierarch Artanis to replace former Judicator Caste leaders with Templar. By 2505, they were a recent addition to the Daelaam's arsenal, and Dominion Intelligence had recently gained knowledge of their existence, with the Dominion Marine Corps possessing little battlefield experience against them. They were designated as primary targets in the event of any hostile encounter." +
-//                    "         Adepts were deployed during the End War, when groups of Templar volunteered to adopt Purifier ordinance refined by Phase-smith Karax. This ordnance allowed the Templar to amplify their psionic potential and project their minds for teleportation while weakening their enemies. Adept ordinance would continue to be used by the Daelaam, but never could reach the optimal performance of Karax's original prototypes." +
-//                    "         In a short amount of time, the psionic amplification techniques of the adept were reverse engineered by the Tal'darim, and incorporated into their arsenal, equipped on their most promising warriors." +
-//                    "         After the End War, cultural trends harkening back to the Golden Age of Expansion within the Templar Caste led some adepts to wear ceremonial armor from the era.";
-//        }
-//        return loreValue;
-//    }
-
     public String attributeBonusBuilder(String unitType) {
         String benefits = "";
         if (unitType.contains("A")) {
@@ -394,7 +366,7 @@ public class unitProfileMaker extends MainActivity {
             + "          •  Units that deal bonus damage against Massive units include the Corruptor and Tempest." + "\n";
         }
         if (unitType.contains("M")) {
-            benefits += "               MECHANICAL    " + "\n" + "          •  Mechanical units are either partly or entirely made of machines or other mechanical devices.  These units can be repaired (healed) by Terran workers, SCVs and MULEs, at a speed equal to the unit's build time x (remaining HP/ starting HP), and a cost that is 25% of the unit's cost x (remaining HP/ starting HP), making repair a potentially extremely efficient ability.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
+            benefits += "               MECHANICAL    " + "\n" + "          •  Mechanical units are either partly or entirely made of machines or other mechanical devices.  These units can be repaired (healed) by Terran workers, SCVs and MULEs, at a speed equal to the unit's build time × ((Starting HP - Remaining HP) / Starting HP), and a cost that is 25% of the unit's cost × ((Starting HP - Remaining HP) / Starting HP), making repair a potentially extremely efficient ability.  Along with Psionic units, Mechanical units are targetted uniquely by the Raven ability Interference Matrix." + "\n"
                     + "          •  Units that deal bonus damage against Mechanical units include the Viking (assault mode)." + "\n";
         }
         if (unitType.contains("P")) {
@@ -407,6 +379,10 @@ public class unitProfileMaker extends MainActivity {
         }
         return benefits;
     }
+
+
+    //  This function just makes dashes, if I need to divide up text based screen width, so that I don't make 2 lines of dashes.  Unfortunately I don't believe
+    //  font size chosen by the system would be accounted for so it's not a very useful function.
 
     public String dashMaker () {
         String dashes = "";

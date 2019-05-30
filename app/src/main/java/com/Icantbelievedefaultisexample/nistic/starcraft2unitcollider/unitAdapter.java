@@ -1,7 +1,9 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
-import android.app.ActivityManager;
+//  The adapter class for the custom spinner
+
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,11 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.app.PendingIntent.getActivity;
-
 public class unitAdapter extends ArrayAdapter<unitItem> {
 
     private Float pixelDensity = 0.0f;
+    private Integer sdkNum = Build.VERSION.SDK_INT;
 
     @NonNull
     @Override
@@ -51,6 +52,12 @@ public class unitAdapter extends ArrayAdapter<unitItem> {
                 unitImage.setImageResource(currentItem.getUnitImage());
                 unitName.setText(currentItem.getUnitName());
                 unitDescrip.setText(currentItem.getUnitDescrip());
+            }
+            if (sdkNum < 26) {
+                unitName.setPadding(2,10,2,0);
+                unitDescrip.setTextSize(9);
+                unitName.setTextSize(14);
+                unitDescrip.setPadding(2,0,2,0);
             }
             return convertView;
         }

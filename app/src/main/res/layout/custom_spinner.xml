@@ -17,22 +17,6 @@
         android:contentDescription="Dropdown Item"/>
 
     <TextView
-        android:id="@+id/secondLine"
-        android:layout_width="220dp"
-        android:layout_height="16dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:paddingEnd="4dp"
-        android:paddingRight="4dp"
-        android:text=""
-        android:textSize="12sp" />
-
-    <TextView
         android:id="@+id/firstLine"
         android:layout_width="220dp"
         android:layout_height="fill_parent"
@@ -49,6 +33,29 @@
         android:textColor="@color/deepPurple"
         android:gravity="center_vertical"
         android:text=""
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="20sp"/>
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="220dp"
+        android:layout_height="16dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
+        android:text=""
+        android:textSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeMaxTextSize="18sp"/>
 
 </RelativeLayout>

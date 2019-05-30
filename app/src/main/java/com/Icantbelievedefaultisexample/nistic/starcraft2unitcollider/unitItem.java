@@ -1,6 +1,6 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
-import android.content.Context;
+//  The simple "Unit Item" class to make instances of what is held in the spinners and also the cards.  The description is the unit type.  No need for setters.
 
 public class unitItem {
     private String aUnitName;

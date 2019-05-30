@@ -21,8 +21,13 @@
     <color name ="deepPurple">#240371</color>
     <color name = "grayTealgray">#4b8772</color>
     <color name = "darkerTealgray">#b6dcf1</color>
-    <color name = "superDarkGreen">#091e0c</color>
     <color name = "weirdTeal">#237759</color>
     <color name = "lightTeal">#baffdc</color>
+    <color name="darkGray">#545454</color>
+    <color name="darkerGreen">#0e330e</color>
+    <color name = "superDarkGreen">#081e08</color>
+    <color name = "deeperPurple">#10124c</color>
+    <color name= "pearlyBlue">#213266</color>
+    <color name = "lighterPearlyBlue">#184b87</color>
 
 </resources>

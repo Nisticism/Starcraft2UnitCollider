@@ -18,6 +18,12 @@
             android:text="Unit Name"
             android:textColor="@color/deepPurple"
             android:textSize="15dp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="6sp"
+            android:autoSizeMaxTextSize="20sp"
+            android:paddingLeft="1sp"
+            android:paddingRight="1sp"
+            android:paddingBottom="2sp"
             android:textAlignment="center" />
     <ImageView
         android:id="@+id/unitImage"

@@ -1,31 +1,22 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
+//  This class handles landscape orientation for the Unit Database class, using the portrait version of unit_information_database.xml
+//  If only I could get the orientation in the adapter itself, I could combine the two classes (RecyclerAdapt and RecyclerAdapt2)
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
-
-
 public class RecyclerAdapt extends RecyclerView.Adapter<RecyclerAdapt.MyViewHolder> {
     private unitItem[] unitArray;
     private Context mContext;
-    private final View.OnClickListener cardClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView unitTitle;
@@ -33,15 +24,15 @@ public class RecyclerAdapt extends RecyclerView.Adapter<RecyclerAdapt.MyViewHold
         public CardView card;
         public MyViewHolder(View v) {
             super(v);
-            unitTitle = (TextView) v.findViewById(R.id.unitName);
-            unitIcon = (ImageView) v.findViewById(R.id.unitImage);
+            unitTitle = v.findViewById(R.id.unitName);
+            unitIcon = v.findViewById(R.id.unitImage);
             card = v.findViewById(R.id.card);
             int screenHeight = getHeight();
             int screenWidth = getWidth();
-            card.getLayoutParams().height = (int)(.19 * screenHeight);
-            card.getLayoutParams().width = (int)(.3 * screenWidth);
-            unitTitle.getLayoutParams().height = (int) (0.03 *screenHeight);
-            unitIcon.getLayoutParams().height = (int) (0.15 * screenHeight);
+            card.getLayoutParams().height = (int)(.22 * screenHeight);
+            card.getLayoutParams().width = (int)(.31 * screenWidth);
+            //unitTitle.getLayoutParams().height = (int) (0.03 *screenHeight);
+            unitIcon.getLayoutParams().height = (int) (0.17 * screenHeight);
         }
     }
 
@@ -52,19 +43,15 @@ public class RecyclerAdapt extends RecyclerView.Adapter<RecyclerAdapt.MyViewHold
 
     @Override
     public RecyclerAdapt.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_unit_profile, parent, false);
-        v.setOnClickListener(cardClickListener);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replace the contents all the new Views (horizontal_unit_profile.xml) made by MyViewHolder (invoked by the layout manager), set each card to be able to be clicked on.
+    // It even passes the type, which isn't visible on the card itself.  The type could also be retrieved by the Database, which the rest of the profile maker uses.
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        //Log.d(TAG, "onBindViewHolder: called");
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.unitTitle.setText(unitArray[position].getUnitName());
         holder.unitIcon.setImageResource(unitArray[position].getUnitImage());
         holder.card.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +67,6 @@ public class RecyclerAdapt extends RecyclerView.Adapter<RecyclerAdapt.MyViewHold
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return (unitArray.length);

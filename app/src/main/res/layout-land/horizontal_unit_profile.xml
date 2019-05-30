@@ -17,7 +17,13 @@
             android:layout_centerHorizontal="true"
             android:text="Unit Name"
             android:textColor="@color/deepPurple"
-            android:textSize="14dp"
+            android:textSize="13dp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="5sp"
+            android:autoSizeMaxTextSize="18sp"
+            android:maxLines="1"
+            android:paddingLeft="1sp"
+            android:paddingRight="1sp"
             android:textAlignment="center" />
     <ImageView
         android:id="@+id/unitImage"

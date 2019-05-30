@@ -20,7 +20,7 @@
         </activity>
         <activity android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
@@ -52,6 +52,7 @@
             android:name="com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider.AllUnitsDB"
             android:label="All Units Information Database">
         </activity>
+        <activity android:name=".QuizQuestionProfile" />
 
     </application>
 

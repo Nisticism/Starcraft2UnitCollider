@@ -3,6 +3,7 @@ package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -96,7 +98,8 @@ public class AllInteractions extends MainActivity {
         //tester = findViewById(R.id.tester);
         final DecimalFormat df = new DecimalFormat("#.###");
 
-        bm = ((BitmapDrawable)allInteractions.getDrawable()).getBitmap();
+        //bm = ((BitmapDrawable)allInteractions.getDrawable()).getBitmap();
+        //bm = ((BitmapDrawable) AppCompatResources.getDrawable(this, R.drawable.all_interactions)).getBitmap();
 
         Log.d(TAG, "drawXLine: " + getResources().getDisplayMetrics().density);
 
@@ -106,10 +109,7 @@ public class AllInteractions extends MainActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            bm.setWidth(allInteractions.getWidth());
 //        }
-        final Bitmap mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
-
-        final Canvas canvas = new Canvas(mutableBitmap);
-
+        //final Bitmap mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +134,7 @@ public class AllInteractions extends MainActivity {
             }
         });
 
+
         //  OnClickListeners for scrolling buttons:
 
         scrollStart.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +145,7 @@ public class AllInteractions extends MainActivity {
 
             }
         });
+
         scrollEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,8 +232,27 @@ public class AllInteractions extends MainActivity {
             }
         });
 
+        if (sdkNum < 26) {
+            home.setPadding(0,0,0,0);
+            clear.setPadding(0,0,0,0);
+            next.setPadding(0,0,0,0);
+            highlightHoriz.setPadding(0,0,0,0);
+            highlight.setPadding(0,0,0,0);
+
+            scrollStart.setPadding(0,0,0,0);
+            scrollTop.setPadding(0,0,0,0);
+            scrollEnd.setPadding(0,0,0,0);
+            scrollBot.setPadding(0,0,0,0);
+            scrollLeft.setPadding(0,0,0,0);
+            scrollRight.setPadding(0,0,0,0);
+        }
+
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
+        if (pixelDensity < 2.1) {
+            navigation.setItemTextAppearanceInactive(R.style.BottomNavigationViewLow);
+            navigation.setItemTextAppearanceActive(R.style.BottomNavigationViewActiveLow);
+        }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(3).setChecked(true);
     }
@@ -262,7 +283,21 @@ public class AllInteractions extends MainActivity {
 
     //  shorter, vertical, fatter
     public void drawXLine() {
-        bm = ((BitmapDrawable)allInteractions.getDrawable()).getBitmap();
+
+        //  Fixes crash if getDrawable is null
+        if (allInteractions.getDrawable() != null) {
+            bm = ((BitmapDrawable) allInteractions.getDrawable()).getBitmap();
+        }
+        else {
+            if (imageCounter == 1) {
+                bm = BitmapFactory.decodeResource(this.getResources(),
+                        R.drawable.sc2_graph1_60_75);
+            }
+            else if (imageCounter == 2) {
+                bm = BitmapFactory.decodeResource(this.getResources(),
+                        R.drawable.sc2_graph2_60_75_22);
+            }
+        }
         final Bitmap mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
         final Canvas canvas = new Canvas(mutableBitmap);
         canvas.drawBitmap(mutableBitmap, 0, 0, null);
@@ -280,7 +315,21 @@ public class AllInteractions extends MainActivity {
 
     //  longer, horizontal, skinnier
     public void drawYLine() {
-        bm = ((BitmapDrawable)allInteractions.getDrawable()).getBitmap();
+
+        //  Fixes crash if getDrawable is null
+        if (allInteractions.getDrawable() != null) {
+            bm = ((BitmapDrawable) allInteractions.getDrawable()).getBitmap();
+        }
+        else {
+            if (imageCounter == 1) {
+                bm = BitmapFactory.decodeResource(this.getResources(),
+                        R.drawable.sc2_graph1_60_75);
+            }
+            else if (imageCounter == 2) {
+                bm = BitmapFactory.decodeResource(this.getResources(),
+                        R.drawable.sc2_graph2_60_75_22);
+            }
+        }
         final Bitmap mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
         final Canvas canvas = new Canvas(mutableBitmap);
         canvas.drawBitmap(mutableBitmap, 0, 0, null);

@@ -36,8 +36,6 @@ public class AllUnitsDB extends MainActivity{
     GridLayout allUnits2;
     String queryString2 = "";
 
-    private Float pixelDensity = 0.0f;
-
     String dataArr[] = {adept.getUnitName(),archon.getUnitName(),autoturret.getUnitName(),baneling.getUnitName(),banshee.getUnitName(),battlecruiser.getUnitName(),broodlord.getUnitName(),
             broodling.getUnitName(), carrier.getUnitName(),changeling.getUnitName(),colossus.getUnitName(), corruptor.getUnitName(),cyclone.getUnitName(),darktemplar.getUnitName(),
             disruptor.getUnitName(), drone.getUnitName(), ghost.getUnitName(),hellbat.getUnitName(),hellion.getUnitName(),hightemplar.getUnitName(),
@@ -63,7 +61,6 @@ public class AllUnitsDB extends MainActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_units_db);
-        pixelDensity = getResources().getDisplayMetrics().density;
 
         allUnitArray = new unitItem[]{baneling,broodlord, broodling, changeling, corruptor, drone, hydralisk, infestedterran, infestor, larva, locust, lurker,
                 mutalisk, nydusworm, overlord, overseer, queen, ravager, roach, spinecrawler, sporecrawler, swarmhost, ultralisk, viper, zergling, autoturret,banshee,battlecruiser,cyclone,ghost,hellbat,hellion,liberatordefender,liberatorfighter,marauder,marine,
@@ -72,44 +69,20 @@ public class AllUnitsDB extends MainActivity{
                 phoenix, photoncannon, probe, sentry, stalker, tempest, voidray, warpprism, zealot};
 
         allUnits = findViewById(R.id.allUnits);
+        allUnits2 = findViewById(R.id.allUnits2);
+
+        toggleMixed = findViewById(R.id.toggleOrder);
+        toggleMixed2 = findViewById(R.id.toggleOrder2);
+
         home = findViewById(R.id.home);
-        if (pixelDensity < 2.1) {
-            home.setTextSize(12);
-        }
         search = findViewById(R.id.search);
-        if (pixelDensity < 2.1) {
-            search.setTextSize(12);
-        }
         s = findViewById(R.id.searchBar);
         backToDB = findViewById(R.id.backToDB);
-        if (pixelDensity < 2.1) {
-            backToDB.setTextSize(12);
-        }
-        toggleMixed = findViewById(R.id.toggleOrder);
-        if (pixelDensity < 2.1) {
-            toggleMixed.setTextSize(12);
-        }
 
-        toggleMixed2 = findViewById(R.id.toggleOrder2);
-        if (pixelDensity < 2.1) {
-            toggleMixed2.setTextSize(12);
-        }
-
-        allUnits2 = findViewById(R.id.allUnits2);
         home2 = findViewById(R.id.home2);
-        if (pixelDensity < 2.1) {
-            home2.setTextSize(12);
-        }
         search2 = findViewById(R.id.search2);
-        if (pixelDensity < 2.1) {
-            home2.setTextSize(12);
-        }
         s2 = findViewById(R.id.searchBar2);
         backToDB2 = findViewById(R.id.backToDB2);
-        if (pixelDensity < 2.1) {
-            backToDB2.setTextSize(12);
-        }
-
 
         final SearchView.SearchAutoComplete sAutoComplete = (SearchView.SearchAutoComplete)s.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         sAutoComplete.setBackgroundColor(getResources().getColor(R.color.lilac));
@@ -204,6 +177,7 @@ public class AllUnitsDB extends MainActivity{
             }
         });
 
+
         search2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,6 +238,36 @@ public class AllUnitsDB extends MainActivity{
         navigation.getMenu().getItem(1).setChecked(true);
 
         BottomNavigationView navigation2 = findViewById(R.id.navigation2);
+
+        //  Adjust for different screen sizes, pixel densities and Android versions.  Any Android after level 26 will use the auto-textsize feature
+
+        if (sdkNum < 26) {
+            home.setPadding(0,0,0,0);
+            home2.setPadding(0,0,0,0);
+            backToDB.setPadding(0,0,0,0);
+            backToDB2.setPadding(0,0,0,0);
+            search.setPadding(0,0,0,0);
+            search2.setPadding(0,0,0,0);
+            toggleMixed.setPadding(0,0,0,0);
+            toggleMixed2.setPadding(0,0,0,0);
+
+            if (pixelDensity < 2.1) {
+                home.setTextSize(12);
+                home2.setTextSize(12);
+                search.setTextSize(12);
+                search2.setTextSize(12);
+                backToDB.setTextSize(12);
+                backToDB2.setTextSize(12);
+                toggleMixed.setTextSize(12);
+                toggleMixed2.setTextSize(12);
+
+                navigation.setItemTextAppearanceInactive(R.style.BottomNavigationViewLow);
+                navigation.setItemTextAppearanceActive(R.style.BottomNavigationViewActiveLow);
+                navigation2.setItemTextAppearanceInactive(R.style.BottomNavigationViewLow);
+                navigation2.setItemTextAppearanceActive(R.style.BottomNavigationViewActiveLow);
+            }
+        }
+
         navigation2.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener2);
         navigation2.getMenu().getItem(1).setChecked(true);
     }

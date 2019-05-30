@@ -1,5 +1,7 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
+//  This class handles the recyclerview smoothscrolling and can be set below with the variable MILLISECONDS_PER_INCH
+
 import android.content.Context;
 import android.graphics.PointF;
 import android.support.v7.widget.LinearLayoutManager;

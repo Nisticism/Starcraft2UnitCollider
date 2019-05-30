@@ -1,9 +1,11 @@
 package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +13,15 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Float pixelDensity = 0.0f;
+    private static final String TAG = "Main Activity: ";
+    public Float pixelDensity = 0.0f;
+    public Integer sdkNum = Build.VERSION.SDK_INT;
+    public static DatabaseHelper unitDB;
 
     Button unitVUnit;
     Button allInteractions;
@@ -25,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
@@ -60,37 +67,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.all_units_db);
         setContentView(R.layout.main_menu);
-
-        clearApplicationData();
-
-
+        int orientation = getResources().getConfiguration().orientation;
         pixelDensity = getResources().getDisplayMetrics().density;
         textView = findViewById(R.id.textView);
-        if (pixelDensity < 2.1) {
-            textView.setTextSize(20);
-        }
+
+        unitDB = new DatabaseHelper(this);
+
+        //  Upgrade the database in case some things have changed
+        unitDB.onUpgrade(unitDB.getReadableDatabase(), 1, 2);
+        Log.d(TAG, "onCreate: Database updated");
+
         unitVUnit = findViewById(R.id.unitVUnit);
-        if (pixelDensity < 2.1) {
-            unitVUnit.setTextSize(13);
-        }
         allInteractions = findViewById(R.id.allInteractions);
-        if (pixelDensity < 2.1) {
-            allInteractions.setTextSize(13);
-        }
         createAStatistic = findViewById(R.id.createAStat);
-        if (pixelDensity < 2.1) {
-            createAStatistic.setTextSize(13);
-        }
         unitInfoDatabase = findViewById(R.id.unitDatabase);
-        if (pixelDensity < 2.1) {
-            unitInfoDatabase.setTextSize(13);
-        }
         appDescription = findViewById(R.id.appDescription);
-        if (pixelDensity < 2.1) {
-            appDescription.setTextSize(11);
-        }
 
         unitVUnit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,22 +118,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), appDescrip.class));
             }
         });
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.getMenu().getItem(0).setCheckable(false);
-    }
 
-    public void clearApplicationData() {
-        File cacheDirectory = getCacheDir();
-        File applicationDirectory = new File(cacheDirectory.getParent());
-        if (applicationDirectory.exists()) {
-            String[] fileNames = applicationDirectory.list();
-            for (String fileName : fileNames) {
-                if (!fileName.equals("lib")) {
-                    deleteFile(new File(applicationDirectory, fileName));
-                }
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+
+        if (sdkNum < 26) {
+            if (orientation == ORIENTATION_PORTRAIT) {
+                textView.setPadding(4, 4, 4, 4);
+                unitVUnit.setPadding(4,4,4,4);
+                allInteractions.setPadding(4,4,4,4);
+                createAStatistic.setPadding(4,4,4,4);
+                unitInfoDatabase.setPadding(4,4,4,4);
+                appDescription.setPadding(2,2,2,2);
+            }
+            if (pixelDensity < 2.1) {
+                textView.setTextSize(20);
+                unitVUnit.setTextSize(13);
+                allInteractions.setTextSize(13);
+                createAStatistic.setTextSize(13);
+                unitInfoDatabase.setTextSize(13);
+                appDescription.setTextSize(9);
+
+                navigation.setItemTextAppearanceInactive(R.style.BottomNavigationViewLow);
+                navigation.setItemTextAppearanceActive(R.style.BottomNavigationViewActiveLow);
             }
         }
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        navigation.getMenu().setGroupCheckable(0, false, true);
     }
 
     public static boolean deleteFile(File file) {
@@ -158,5 +162,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return deletedAll;
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        unitDB.close();
     }
 }

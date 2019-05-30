@@ -2,6 +2,8 @@ package com.Icantbelievedefaultisexample.nistic.starcraft2unitcollider;
 
 public class unitsMade {
 
+    //  Creates an instance of all units for the spinners.
+
     // Protoss
     final static unitItem adept = new unitItem("Adept", "Light, Biological", R.drawable.adeptj);
     final static unitItem archon = new unitItem("Archon", "Psionic, Massive", R.drawable.archonj);

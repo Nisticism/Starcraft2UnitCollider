@@ -3,6 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/lightTealGray">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Unit Name"
+        android:textIsSelectable="true"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/grayGreen"
@@ -56,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Unit Stats"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             android:textColor="@color/deepPurple"
             android:textAlignment="textStart"
@@ -90,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Unit Description"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             android:textColor="@color/deepPurple"
             android:textAlignment="textStart"
@@ -123,6 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Uses"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             android:textColor="@color/deepPurple"
             android:textAlignment="textStart"
@@ -156,6 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Lore"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             android:textColor="@color/deepPurple"
             android:textAlignment="textStart"
@@ -173,5 +179,4 @@
             layout="@layout/activity_main" />
 
     </LinearLayout>
-
 </ScrollView>

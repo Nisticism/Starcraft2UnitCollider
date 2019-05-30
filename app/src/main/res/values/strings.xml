@@ -3,30 +3,35 @@
     <string name="unitVUnitTitle">Unit Vs Unit</string>
     <string name="unitInfoDatabase">Unit Database</string>
     <string name="createAStatistic">Create A Statistic</string>
-    <string name="quiz">Take A Quiz</string>
-    <string name="allInteractions">All Interactions</string>
-    <string name="unitInfoDatabaseShort">Unit DB</string>
+    <string name="quiz">Quiz</string>
+    <string name="allInteractions">Data Tables</string>
+    <string name="unitInfoDatabaseShort">Unit Data</string>
     <string name="createAStatisticShort">Create Stat</string>
-    <string name="allInteractionsShort">All Matchups</string>
+    <string name="allInteractionsShort">Data Tables</string>
+    <string name="spreadsheets">Statistics</string>
+    <string name="takequiz">Take A Quiz</string>
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->
     <!--<string name="unit">Unit</string>-->
-    <string name="descriptionText">The StarCraft 2 Unit Collider is an independent application developed for Android OS 4.0 and up by Hans Foster, aka Nistic or Charmquark.  Each mode offers different ways to compare units.  Its first release was
-        late October of 2018.  Currently updated for patch:  4.8.2.
-    \n \n
-
+    <string name="descriptionText">The StarCraft 2 Unit Collider is your one stop app for all statistics and data associated with Starcraft 2.  It offers several modes and features to help you compare units and view data so you can figure out the game on your own.
+    \n\n
         The Unit v Unit mode allows the user to \"collide\" units which mimics an actual battle within StarCraft 2, with some amount of accuracy.  The Unit Database mode will show unit profiles of every single unit
-        if you click on them.  All interactions shows a spreadsheet with various values, explained on the sheet.  More spreadsheets to come later.  Take A Quiz is still in progress.
+        if you click on them.  The All Interactions mode contains two spreadsheets with various values, explained on the sheet.  This section allows for more spreadsheets in its future.  Take A Quiz is still in progress and currently blank, but will allow the user to quiz him or herself with all the data available in the database.
 
-        \n \n  While the Unit Vs Unit mode is mostly complete, there are a few features still to add, such as autocasted abilities.  Currently each battle functions as if the two units would be standing next to one another save for the siege tank in sieged mode, which wouldn\'t be able to attack if that were the case,
-        so range is not a factor here in these mock battles.  \n\n
+        \n\n
+        The Unit Vs Unit mode is mostly complete, though there are a few features still to add, such as autocasted abilities.  Currently each battle functions as if the two units would be standing next to one another save for the siege tank in sieged mode, which wouldn\'t be able to attack if that were the case,
+        so range is not a factor here in these mock battles.\n\n
 
-        The Database is mostly complete as well but still has a long way to go in unit profiles.  Credit goes to
+        The Unit Database is mostly complete as well, except for the Description, Uses, and Lore sections.  Credit goes to
         the writers of starcraft.fandom.com/wiki for all of the Lore in these unit profiles; I wrote little to none of it - I simply moved their writing to the database pages.\n\n
 
-        Special thanks to the guys at team liquid for keeping all of their pages up to date and inadvertently, but significantly, helping me through all of the unit data, and to Blizzard Entertainment® for making such an awesome game.  \n\n
+        Special thanks to the guys at team liquid for keeping all of their pages up to date and significantly, helping me through all of the unit data, and to Blizzard Entertainment® for making such an awesome game.\n\n
 
-        The other modes will offer different features, and will hopefully be available soon(™).  Enjoy!</string>
+        The other modes will offer different features, and will hopefully be available soon(™).\n\n
+
+        This application was developed for Android OS 4.0.  Date of first release: late October of 2018.  Currently updated for patch:  4.8.2.  Developer: Hans Foster, aka Nistic or Charmquark.\n\n
+
+        Enjoy!</string>
 
     <string name="banelingStatistics">\n HP: 40</string>
 
